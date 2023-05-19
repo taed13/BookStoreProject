@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import './Header.css';
+import { Link } from "react-router-dom";
+import { AppContext } from "../../App";
 
 const Header = () => {
+    const context = useContext(AppContext);
     return (
         <div className="header">
             <header className="p-3 border-bottom" id="top-header">
@@ -34,11 +37,24 @@ const Header = () => {
 
 
                         <ul className="nav nav-pills">
-                            <li className="nav-item"><a href="./sign-in.html"
-                                className="nav-link btn-outline-danger link-danger">Sign in</a>
+
+                            <li className="nav-item">
+                                {
+                                    context?.user ?
+                                        <Link to='/login' className="nav-link btn-outline-danger link-danger">
+                                            Sign Out
+                                        </Link>
+                                        :
+                                        <Link to='/login' className="nav-link btn-outline-danger link-danger">
+                                            Sign in
+                                        </Link>
+                                }
+
                             </li>
-                            <li className="nav-item"><a href="./view-account.html"
-                                className="nav-link btn-outline-danger link-danger">My Account</a>
+                            <li className="nav-item">
+                                <Link to='' className="nav-link btn-outline-danger link-danger">
+                                    My Account
+                                </Link>
                             </li>
                             <li className="nav-item"><a href="./basket.html"
                                 className="nav-link btn-outline-danger link-danger">Basket <svg

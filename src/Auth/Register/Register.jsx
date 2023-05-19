@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Register = () => {
 	return (
@@ -11,7 +12,7 @@ const Register = () => {
 				<div className="col-sm-6 text-black">
 
 					<div className="p-5 ms-xl-4 text-center">
-						<a href="../../index.html" className="text-decoration-none">
+						<Link to='/' className="text-decoration-none">
 							<svg xmlns="http://www.w3.org/2000/svg" width="10vw" height="10vw" fill="currentColor"
 								className="bi bi-book text-danger" viewBox="0 0 16 16">
 								<path
@@ -19,7 +20,7 @@ const Register = () => {
 								</path>
 							</svg>
 							<span className="ml-2 h1 fw-bold display-6 link-dark">AbeBooks</span>
-						</a>
+						</Link >
 					</div>
 
 					<div

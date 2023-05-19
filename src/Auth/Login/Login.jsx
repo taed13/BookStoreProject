@@ -1,13 +1,35 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import './Login.css';
+import { Link, useNavigate } from "react-router-dom";
+import AuthAPI from "../../api/AuthAPI";
+import { AppContext } from "../../App";
 
 const Login = () => {
+	const navigate = useNavigate();
+	const context = useContext(AppContext);
+	const [data, setData] = useState({ email: '', password: '' });
+	const handleChange = (e) => {
+		setData({ ...data, [e.target.name]: e.target.value });
+	};
+	const handleSubmit = async () => {
+		if (data.email && data.password) {
+			await AuthAPI.login(data)
+				.then((response) => {
+					console.log(response.data);
+					context.setUser(response.data.data);
+					localStorage.setItem('token', response.data.token);
+					navigate('/');
+				}).catch((error) => {
+					console.log(error);
+				});
+		}
+	};
 	return (
 		<div className="bg-white border rounded-5">
 			<div className="row">
 				<div className="col-sm-6 text-black">
 					<div className="p-5 ms-xl-4 text-center">
-						<a href="../../index.html" className="text-decoration-none">
+						<Link to='/' className="text-decoration-none">
 							<svg xmlns="http://www.w3.org/2000/svg" width="10vw" height="10vw" fill="currentColor"
 								className="bi bi-book text-danger" viewBox="0 0 16 16">
 								<path
@@ -15,7 +37,7 @@ const Login = () => {
 								</path>
 							</svg>
 							<span className="ml-2 h1 fw-bold display-6 link-dark">AbeBooks</span>
-						</a>
+						</Link>
 					</div>
 
 					<div
@@ -26,7 +48,7 @@ const Login = () => {
 							<h3 className="fw-normal mb-3 pb-3 fw-bolder" style={ { letterSpacing: '1px' } }>Log in</h3>
 
 							<div className="form-outline mb-4">
-								<input type="email" id="email-address" className="form-control form-control-lg" />
+								<input type="email" id="email-address" className="form-control form-control-lg" value={ data.email } onChange={ handleChange } name="email" />
 								<label className="form-label ml-0" for="email-address">Email
 									address</label>
 								<div className="form-notch">
@@ -37,7 +59,7 @@ const Login = () => {
 							</div>
 
 							<div className="form-outline mb-4">
-								<input type="password" id="password" className="form-control form-control-lg" />
+								<input type="password" id="password" className="form-control form-control-lg" value={ data.password } onChange={ handleChange } name="password" />
 								<label className="form-label ml-0" for="password" >Password</label>
 								<div className="form-notch">
 									<div className="form-notch-leading" style={ { width: '9px' } }></div>
@@ -48,11 +70,13 @@ const Login = () => {
 
 							<div className="pt-1 mb-2">
 								<button className="btn btn-info btn-lg btn-block bg-danger btn-danger" type="button"
-									onclick="PostData()">Login</button>
+									onClick={ handleSubmit }>Login</button>
 							</div>
 
-							<p className="small mb-2 pb-lg-2 text-end"><a className="text-muted" href="./forgot-pass.html">Forgot
-								password?</a></p>
+							<p className="small mb-2 pb-lg-2 text-end">
+								<Link to='/forgot-password' className="text-muted">
+									Forgot password?</Link>
+							</p>
 							<p className="small">By signing-in, you agree to the AbeBooks.com <a href="#">Privacy Policy</a> and
 								<a href="#">Terms & Conditions</a>.
 							</p>
@@ -77,7 +101,7 @@ const Login = () => {
 						alt="Login image" className="w-100 vh-100 rounded-4" style={ { objectFit: 'cover', objectPosition: 'left' } } />
 				</div>
 			</div>
-		</div>
+		</div >
 	)
 }
 export default Login;

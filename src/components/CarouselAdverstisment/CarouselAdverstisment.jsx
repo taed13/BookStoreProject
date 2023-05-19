@@ -35,7 +35,7 @@ const CarouselAdverstisment = () => {
                             <div className="carousel-inner">
                                 <div className="carousel-item active">
                                     <div style={ { position: 'relative', height: '100%' } }>
-                                        <img src="./assets/images/template/pagelead.webp" alt="Slide 1"
+                                        <img src="https://book-store-bay.vercel.app/assets/images/template/pagelead.webp" alt="Slide 1"
                                             className="img-fluid h-100 w-100 rounded-3"
                                             style={ { paddingBottom: '17vh', maxHeight: '100%', height: 'auto' } } />
                                     </div>
@@ -63,7 +63,7 @@ const CarouselAdverstisment = () => {
                                 </div>
                                 <div className="carousel-item">
                                     <div style={ { position: 'relative', height: '100%' } }>
-                                        <img src="./assets/images/template/pagelead.webp" alt="Slide 2"
+                                        <img src="https://book-store-bay.vercel.app/assets/images/template/pagelead.webp" alt="Slide 2"
                                             className="img-fluid h-100 w-100 rounded-3"
                                             style={ { paddingBottom: '17vh', maxHeight: '100%', height: 'auto' } } />
                                     </div>
@@ -91,7 +91,7 @@ const CarouselAdverstisment = () => {
                                 </div>
                                 <div className="carousel-item">
                                     <div style={ { position: 'relative', height: '100%' } }>
-                                        <img src="./assets/images/template/pagelead.webp" alt="Slide 3"
+                                        <img src="https://book-store-bay.vercel.app/assets/images/template/pagelead.webp" alt="Slide 3"
                                             className="img-fluid h-100 w-100 rounded-3"
                                             style={ { paddingBottom: '17vh', maxHeight: '100%', height: 'auto' } } />
                                     </div>

@@ -5,6 +5,7 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import HomePage from './HomePage/HomePage';
 import Login from './Auth/Login/Login';
 import Register from './Auth/Register/Register';
+import ForgotPassword from './Auth/ForgotPassword/ForgotPassword';
 
 
 export const AppContext = createContext({});
@@ -20,7 +21,7 @@ function App () {
             <Route path='/' element={<HomePage />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
-
+            <Route path='/forgot-password' element={<ForgotPassword />} />
           </Routes>
         </BrowserRouter>
 
