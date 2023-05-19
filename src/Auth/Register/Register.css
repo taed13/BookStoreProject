@@ -1,0 +1,7 @@
+.img-bg {
+	object-fit: cover;
+	object-position: left;
+}
+.form-register {
+	width: 25rem;
+}

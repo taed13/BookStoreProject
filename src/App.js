@@ -3,11 +3,13 @@ import './App.css';
 import React, { createContext, useEffect, useState, useCallback } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import HomePage from './HomePage/HomePage';
+import Login from './Auth/Login/Login';
+import Register from './Auth/Register/Register';
 
 
 export const AppContext = createContext({});
 
-function App() {
+function App () {
   const [user, setUser] = useState({});
 
   return (
@@ -16,6 +18,8 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<HomePage />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
 
           </Routes>
         </BrowserRouter>
