@@ -10,9 +10,12 @@ const AppLayout = () => {
 		<>
 			<Header />
 			<Nav />
+			<div className="text-left">
 			<Outlet />
+			</div>
 			<Footer />
 		</>
 	)
 }
+
 export default AppLayout;

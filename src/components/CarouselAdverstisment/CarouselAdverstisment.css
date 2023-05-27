@@ -1,0 +1,12 @@
+.feature .img-thumbnail {
+  width: 50%;
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+}
+
+.feature img {
+  max-width: 100%;
+}

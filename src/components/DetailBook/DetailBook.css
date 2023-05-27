@@ -1,0 +1,14 @@
+.form-control {
+  width: 20rem;
+}
+
+.navbar-link .container .nav-scroller > nav > a:hover,
+.navbar-link .container .nav-scroller > nav > a:focus {
+  color: var(--bs-danger);
+  text-decoration: none;
+}
+
+.shipping span svg {
+  width: 1rem;
+  height: 1rem;
+}

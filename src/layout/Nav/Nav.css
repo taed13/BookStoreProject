@@ -1,0 +1,5 @@
+.navbar-link .container .nav-scroller > nav > a:hover,
+.navbar-link .container .nav-scroller > nav > a:focus {
+  color: var(--bs-danger);
+  text-decoration: none;
+}

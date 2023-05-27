@@ -14,7 +14,7 @@ const HomePage = () => {
         <>
             <Header />
             <Nav />
-            <div className="main">
+            <div className="main text-left">
                 <CarouselAdverstisment />
                 <ListBook title={ 'Recommended items for you' } />
                 <NewFeed />
