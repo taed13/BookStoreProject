@@ -9,6 +9,8 @@ import ForgotPassword from './Auth/ForgotPassword/ForgotPassword';
 import AppLayout from './layout/AppLayout/AppLayout';
 import BookDetail from './pages/BookDetail/BookDetail';
 import Basket from './pages/Basket/Basket';
+import MyAccount from './pages/MyAccount/MyAccount';
+import EmailList from './pages/EmailList/EmailList';
 
 
 export const AppContext = createContext({});
@@ -30,6 +32,12 @@ function App() {
             </Route>
             <Route path='book' element={<AppLayout />} >
               <Route path='detail' element={<BookDetail />} />
+            </Route>
+            <Route path='my-account' element={<AppLayout />} >
+              <Route path='detail' element={<MyAccount />} />
+            </Route>
+            <Route path='email-list' element={<AppLayout />} >
+              <Route path='detail' element={<EmailList />} />
             </Route>
           </Routes>
         </BrowserRouter>

@@ -2,6 +2,10 @@ import React from "react";
 import './Basket.css';
 import BookProductPay from "../../components/BookProductPay/BookProductPay";
 import ShippingForm from "../../components/ShippingForm/ShippingForm";
+import CouponCode from "../../components/CouponCode/CouponCode";
+import { Link } from "react-router-dom";
+import SaveForLater from "../../components/SaveForLater/SaveForLater";
+import ListBook from "../../components/ListBook/ListBook";
 
 const Basket = () => {
     const handleSubmit = (event) => {
@@ -44,11 +48,11 @@ const Basket = () => {
                     </div>
                 </div>
 
-                <div className="container p-0 border rounded-3 my-3">
+                <div className="container p-0 custom-border rounded-3 my-3">
                     <div style={{ backgroundColor: 'rgb(221, 221, 221)' }} className="py-2">
                         
                         <div style={{ display: 'flex' }} className="pageHeader">
-                            <div style={{ flex: 6 }}>
+                            <div style={{ flex: 6 }} className="">
                                 <strong className="pl-2">Vật phẩm trong giỏ hàng (2 vật phẩm)</strong>
                             </div>
                             <div style={{ flex: 2 }}>
@@ -68,8 +72,61 @@ const Basket = () => {
                         </div>
                     </div>
                     <BookProductPay />
-                    <div className="border-bottom"></div>
+                    <div className="custom-border-bottom"></div>
                     <BookProductPay />
+                </div>
+
+                <div className="coupon-code">
+                    <CouponCode />
+                </div>
+                
+                <div className="order-total">
+                    <div style={{ display: 'flex' }} className="pageHeader">
+                        <div style={{ flex: 6 }}>
+                            <Link to="/your-link-url">
+                                <img
+                                src="https://assets.prod.abebookscdn.com/cdn/com/images/servlets/ShoppingBasket/abebookshome.gif"
+                                alt="Home"
+                                className="your-img-class"
+                                />
+                            </Link>
+                            <br />
+                            <small><input type="button" value="E-mail me my basket" className="btn-secondary my-1"/></small>
+                        </div>
+                        <span className="text-danger font-weight-bold">Order Total:</span>
+                        <div style={{ flex: 2 }}>
+                            <div className="couponList text-danger font-weight-bold">
+                                <nobr>
+                                    <span className="price" tabindex="0" aria-label="Your order total is US$ 115.48">US$ 115.48</span>
+                                </nobr>
+                                <br />
+                            </div>
+                        </div>
+                        <div style={{ flex: 2 }}>
+                        <form
+                        method="post"
+                        action="/servlet/ShoppingBasket"
+                        name="proceedToCheckout"
+                        className="nopadding"
+                        onSubmit={handleSubmit}
+                        >
+                            <img
+                            src="https://assets.prod.abebookscdn.com/cdn/com/images/servlets/ShoppingBasket/proceedcheckout.gif"
+                            alt="Proceed to Checkout"
+                            className="checkout-button-img btn btn-primary btn-light"
+                            onClick={handleSubmit}
+                            />
+                        </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="save-for-later">
+                    <SaveForLater />
+                </div>
+
+                <div className="customers-who-bought-items">
+                    <ListBook title={ 'Khách hàng mua những sản phẩm này cũng đã mua' }/>
                 </div>
             </div>
         </>

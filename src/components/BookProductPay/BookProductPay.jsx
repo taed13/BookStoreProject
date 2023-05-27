@@ -55,7 +55,7 @@ const BookProductPay = () => {
                             <input type="submit" value="Save For Later" className="btn-secondary"/>
                         </form>
                         <form action="" name="remove">
-                            <input type="submit" name="" id="" className="btn-secondary"/>
+                            <input type="submit" name="" id="" className="btn-secondary" value="Remove"/>
                         </form>
                     </small>   
                 </div>
@@ -89,6 +89,7 @@ const BookProductPay = () => {
             </div>
             <div style={{ flex: 2 }}></div>
         </div>
+        
         </>
     )
 }

@@ -4,3 +4,11 @@
     sans-serif;
   font-size: 150%;
 }
+
+.custom-border-bottom {
+  border-bottom: 1px solid #6c757d; /* Đường viền dưới dày 3px và màu đỏ */
+}
+
+.custom-border {
+  border: 2px solid #6c757d;
+}
