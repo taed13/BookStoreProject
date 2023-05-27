@@ -68,6 +68,8 @@ const Basket = () => {
                         </div>
                     </div>
                     <BookProductPay />
+                    <div className="border-bottom"></div>
+                    <BookProductPay />
                 </div>
             </div>
         </>

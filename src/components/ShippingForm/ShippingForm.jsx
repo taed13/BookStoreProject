@@ -29,7 +29,7 @@ const ShippingForm = () => {
         </form>
         <span
           id="order-total-top"
-          className="boldedPrice font-weight-bold"
+          className="boldedPrice font-weight-bold pr-2"
           style={{ position: 'absolute', top: 0, right: 0 }}
         >
           Order Total:
