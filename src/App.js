@@ -11,6 +11,9 @@ import BookDetail from './pages/BookDetail/BookDetail';
 import Basket from './pages/Basket/Basket';
 import MyAccount from './pages/MyAccount/MyAccount';
 import EmailList from './pages/EmailList/EmailList';
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
+import InformationUser from './pages/InformationUser/InformationUser';
+import EditName from './pages/InformationUser/EditName/EditName';
 
 
 export const AppContext = createContext({});
@@ -36,9 +39,25 @@ function App() {
             <Route path='my-account' element={<AppLayout />} >
               <Route path='detail' element={<MyAccount />} />
             </Route>
+            <Route path='my-account' element={<AppLayout />} >
+              <Route path='detail'>
+                <Route path='infor-user' element={<InformationUser />} />
+              </Route>
+            </Route>
+            <Route path='my-account' element={<AppLayout />} >
+              <Route path='detail'>
+                <Route path='infor-user' >
+                  <Route path='edit-name' element={<EditName />} />
+                </Route>
+              </Route>
+            </Route>
             <Route path='email-list' element={<AppLayout />} >
               <Route path='detail' element={<EmailList />} />
             </Route>
+
+
+
+            <Route path="/*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
 

@@ -41,7 +41,7 @@ const MyAccount = () => {
         <div className="col-sm-3">
           <h4>Thông tin cá nhân của tôi</h4>
           <div className="list-group">
-            <Link to="" className="list-group-item ">
+            <Link to="/my-account/detail/infor-user" className="list-group-item ">
               Tên, email và mật khẩu
               <span className="float-right">
                 <FontAwesomeIcon icon={faGreaterThan} />
@@ -89,7 +89,7 @@ const MyAccount = () => {
                 <FontAwesomeIcon icon={faGreaterThan} />
               </span>
             </Link>
-            <Link to="/servlet/WantReportDump" cla ssName="list-group-item">
+            <Link to="" className="list-group-item">
               Download My Wants Report
               <span className="float-right">
                 <FontAwesomeIcon icon={faGreaterThan} />

@@ -83,7 +83,7 @@ const Basket = () => {
                 <div className="order-total">
                     <div style={{ display: 'flex' }} className="pageHeader">
                         <div style={{ flex: 6 }}>
-                            <Link to="/your-link-url">
+                            <Link to="/">
                                 <img
                                 src="https://assets.prod.abebookscdn.com/cdn/com/images/servlets/ShoppingBasket/abebookshome.gif"
                                 alt="Home"

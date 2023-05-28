@@ -7,7 +7,7 @@ const Header = () => {
     const context = useContext(AppContext);
     return (
         <div className="header">
-            <header className="p-3 border-bottom" id="top-header">
+            <header className="p-1 pt-2 border-bottom" id="top-header">
                 <div className="container px-0">
                     <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                     <Link to="/" className="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
@@ -17,8 +17,8 @@ const Header = () => {
                         <span className="fs-4 fw-bold ml-2">Sách Việt</span>
                     </Link>
 
-                        <div className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                            <form className="d-flex ml-5">
+                        <div className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 pl-5 pr-0">
+                            <form className="d-flex">
                                 <input className="form-control" type="search"
                                     placeholder="Nhập từ khóa, tiêu đề, tác giả hoặc ISBN" aria-label="Search"
                                     style={ { width: '30rem' } } />
