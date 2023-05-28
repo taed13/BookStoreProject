@@ -14,6 +14,8 @@ import EmailList from './pages/EmailList/EmailList';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import InformationUser from './pages/InformationUser/InformationUser';
 import EditName from './pages/InformationUser/EditName/EditName';
+import EditEmail from './pages/InformationUser/EditEmail/EditEmail';
+import EditPassword from './pages/InformationUser/EditPassword/EditPassword';
 
 
 export const AppContext = createContext({});
@@ -46,11 +48,15 @@ function App() {
             </Route>
             <Route path='my-account' element={<AppLayout />} >
               <Route path='detail'>
-                <Route path='infor-user' >
+                <Route path='infor-user'>
                   <Route path='edit-name' element={<EditName />} />
+                  <Route path='edit-email' element={<EditEmail />} />
+                  <Route path='edit-password' element={<EditPassword />} />
                 </Route>
               </Route>
             </Route>
+
+
             <Route path='email-list' element={<AppLayout />} >
               <Route path='detail' element={<EmailList />} />
             </Route>
