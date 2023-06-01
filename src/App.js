@@ -16,6 +16,10 @@ import InformationUser from './pages/InformationUser/InformationUser';
 import EditName from './pages/InformationUser/EditName/EditName';
 import EditEmail from './pages/InformationUser/EditEmail/EditEmail';
 import EditPassword from './pages/InformationUser/EditPassword/EditPassword';
+import Payment from './pages/Payment/Payment';
+import ViewMyPurchases from './pages/ViewMyPurchases/ViewMyPurchases';
+import ViewMyAddress from './pages/ViewMyAddress/ViewMyAddress';
+import AddNewAddress from './pages/ViewMyAddress/AddNewAddress/AddNewAddress';
 
 
 export const AppContext = createContext({});
@@ -44,6 +48,8 @@ function App() {
             <Route path='my-account' element={<AppLayout />} >
               <Route path='detail'>
                 <Route path='infor-user' element={<InformationUser />} />
+                <Route path='my-purchases' element={<ViewMyPurchases />} />
+                <Route path='my-address' element={<ViewMyAddress />} />
               </Route>
             </Route>
             <Route path='my-account' element={<AppLayout />} >
@@ -55,12 +61,22 @@ function App() {
                 </Route>
               </Route>
             </Route>
+            <Route path='my-account' element={<AppLayout />} >
+              <Route path='detail'>
+                <Route path='my-address'>
+                  <Route path='add-new-address' element={<AddNewAddress />} />
+                </Route>
+              </Route>
+            </Route>
 
 
             <Route path='email-list' element={<AppLayout />} >
               <Route path='detail' element={<EmailList />} />
             </Route>
 
+            <Route path='payment' element={<AppLayout />} >
+              <Route path='' element={<Payment />} />
+            </Route>
 
 
             <Route path="/*" element={<NotFoundPage />} />

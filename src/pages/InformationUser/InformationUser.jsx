@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+
 const InformationUser = () => {
   return (
     <div className="container">
       <h1 className="mt-4">Login &amp; Security</h1>
       <div className="card mt-4 mx-auto" style={{ maxWidth: '400px' }}>
         <div className="card-body">
-          <form>
+           <form>
             <div className="form-group">
               <label className="font-weight-bold">Name:</label>
               <div className="d-flex align-items-center">

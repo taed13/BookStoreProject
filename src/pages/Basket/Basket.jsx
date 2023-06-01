@@ -6,11 +6,15 @@ import CouponCode from "../../components/CouponCode/CouponCode";
 import { Link } from "react-router-dom";
 import SaveForLater from "../../components/SaveForLater/SaveForLater";
 import ListBook from "../../components/ListBook/ListBook";
+import { useNavigate } from "react-router-dom";
+
 
 const Basket = () => {
+    const navigate = useNavigate();
     const handleSubmit = (event) => {
         event.preventDefault();
         // Xử lý logic khi người dùng nhấn nút "Proceed to Checkout"
+        navigate("/payment");
       };
     return (
         <>
@@ -31,20 +35,20 @@ const Basket = () => {
                         </div>
                     </div>
                     <div style={{ flex: 2 }}>
-                    <form
-                    method="post"
-                    action="/servlet/ShoppingBasket"
-                    name="proceedToCheckout"
-                    className="nopadding"
-                    onSubmit={handleSubmit}
-                    >
-                        <img
-                        src="https://assets.prod.abebookscdn.com/cdn/com/images/servlets/ShoppingBasket/proceedcheckout.gif"
-                        alt="Proceed to Checkout"
-                        className="checkout-button-img btn btn-primary btn-light"
-                        onClick={handleSubmit}
-                        />
-                    </form>
+                        <form
+                        method="post"
+                        action="/servlet/ShoppingBasket"
+                        name="proceedToCheckout"
+                        className="nopadding"
+                        onSubmit={handleSubmit}
+                        >
+                            <img
+                            src="https://assets.prod.abebookscdn.com/cdn/com/images/servlets/ShoppingBasket/proceedcheckout.gif"
+                            alt="Proceed to Checkout"
+                            className="checkout-button-img btn btn-primary btn-light"
+                            onClick={handleSubmit}
+                            />
+                        </form>
                     </div>
                 </div>
 

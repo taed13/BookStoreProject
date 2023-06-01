@@ -16,13 +16,13 @@ const HomePage = () => {
             <Nav />
             <div className="main text-left">
                 <CarouselAdverstisment />
-                <ListBook title={ 'Recommended items for you' } />
+                <ListBook title={ 'Sách đề xuất cho bạn' } />
                 <NewFeed />
                 <CardList />
-                <ListBook title={ 'Frequently viewed items' } />
+                <ListBook title={ 'Sách xem gần đây' } />
                 <CardBenefit />
-                <ListBook title={ 'Trending items' } />
-                <ListBook title={ 'Your recently viewed items' } />
+                <ListBook title={ 'Sách thịnh hành' } />
+                <ListBook title={ 'Sách xem gần đây' } />
                 <MoreToExplore />
             </div>
             <Footer />

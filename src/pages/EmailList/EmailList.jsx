@@ -24,9 +24,21 @@ const EmailList = () => {
                             
                         </div>
                     </div>
-                    <BookProductPay />
-                    <div className="custom-border-bottom"></div>
-                    <BookProductPay />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
                 </div>
             </div>
         </div>

@@ -11,7 +11,7 @@ const MyAccount = () => {
         <div className="col-sm-3">
           <h4>Thanh toán của tôi</h4>
           <div className="list-group">
-            <Link to="" className="list-group-item ">
+            <Link to="/my-account/detail/my-purchases" className="list-group-item ">
               Xem thanh toán của tôi
               <span className="float-right">
                 <FontAwesomeIcon icon={faGreaterThan} />
@@ -48,12 +48,12 @@ const MyAccount = () => {
               </span>
             </Link>
             <Link to="" className="list-group-item ">
-              Thong tin tài khoản của tôi
+              Thông tin tài khoản của tôi
               <span className="float-right">
                 <FontAwesomeIcon icon={faGreaterThan} />
               </span>
             </Link>
-            <Link to="" className="list-group-item ">
+            <Link to="/my-account/detail/my-address" className="list-group-item ">
               Địa chỉ của tôi
               <span className="float-right">
                 <FontAwesomeIcon icon={faGreaterThan} />
