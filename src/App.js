@@ -20,6 +20,7 @@ import Payment from './pages/Payment/Payment';
 import ViewMyPurchases from './pages/ViewMyPurchases/ViewMyPurchases';
 import ViewMyAddress from './pages/ViewMyAddress/ViewMyAddress';
 import AddNewAddress from './pages/ViewMyAddress/AddNewAddress/AddNewAddress';
+import DetailMyPurchase from './pages/ViewMyPurchases/DetailMyPurchase/DetailMyPurchase';
 
 
 export const AppContext = createContext({});
@@ -50,6 +51,13 @@ function App() {
                 <Route path='infor-user' element={<InformationUser />} />
                 <Route path='my-purchases' element={<ViewMyPurchases />} />
                 <Route path='my-address' element={<ViewMyAddress />} />
+              </Route>
+            </Route>
+            <Route path='my-account' element={<AppLayout />} >
+              <Route path='detail'>
+                <Route path='my-purchases' >
+                  <Route path='detail-my-purchase' element={<DetailMyPurchase />} />
+                </Route>
               </Route>
             </Route>
             <Route path='my-account' element={<AppLayout />} >

@@ -83,7 +83,7 @@ const ViewMyPurchases = () => {
                 <td>Jun 15, 2017</td>                        
                 <td><span className="status text-success">•</span> Delivered</td>
                 <td>$254</td>
-                <td><Link to="#" className="view" title="" data-toggle="tooltip" data-original-title="View"><i className="fa fa-eye"></i></Link></td>
+                <td><Link to="/my-account/detail/my-purchases/detail-my-purchase" className="view" title="" data-toggle="tooltip" data-original-title="View"><i className="fa fa-eye"></i></Link></td>
               </tr>
               <tr>
                 <td>2</td>
@@ -92,7 +92,7 @@ const ViewMyPurchases = () => {
                 <td>Jul 1, 2017</td>                        
                 <td><span className="status text-success">•</span> Delivered</td>
                 <td>$350</td>
-                <td><Link to="#" className="view" title="" data-toggle="tooltip" data-original-title="View"><i className="fa fa-eye"></i></Link></td>
+                <td><Link to="/my-account/detail/my-purchases/detail-my-purchase" className="view" title="" data-toggle="tooltip" data-original-title="View"><i className="fa fa-eye"></i></Link></td>
               </tr>
               {/* Add more table rows as needed */}
             </tbody>

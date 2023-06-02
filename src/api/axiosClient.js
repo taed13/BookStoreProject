@@ -1,27 +1,30 @@
-import axios from "axios";
-
+import axios from 'axios';
+// const apiURL = process.env.REACT_APP_API_URL;
 const axiosClient = axios.create({
-    baseURL: "http://localhost:8999/api/v1",
+    // baseURL: 'http://127.0.0.1:8000/api'
+    // baseURL: 'https://pbl5-production-3dec.up.railway.app',
+    baseURL: 'https://pbl5-production-dc9d.up.railway.app',
+
 });
 axiosClient.interceptors.request.use(
     (config) => {
-        const accessToken = localStorage.getItem("id");
+        const accessToken = localStorage.getItem("userID");
         if (accessToken != null) {
             return {
                 ...config,
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
-                    ...config.headers,
+                    ...config.headers
                 },
-                mode: "no-cors",
+                mode: 'no-cors',
             };
         }
 
         return {
             ...config,
             headers: {
-                ...config.headers,
-            },
+                ...config.headers
+            }
         };
     },
     async (error) => await Promise.reject(error)
