@@ -1,29 +1,27 @@
-import axios from 'axios';
+import axios from "axios";
 
 const axiosClient = axios.create({
-
-    baseURL: 'https://pbl-be-production.up.railway.app/api',
-
+    baseURL: "http://localhost:8999/api/v1",
 });
 axiosClient.interceptors.request.use(
     (config) => {
-        const accessToken = localStorage.getItem("userID");
+        const accessToken = localStorage.getItem("id");
         if (accessToken != null) {
             return {
                 ...config,
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
-                    ...config.headers
+                    ...config.headers,
                 },
-                mode: 'no-cors',
+                mode: "no-cors",
             };
         }
 
         return {
             ...config,
             headers: {
-                ...config.headers
-            }
+                ...config.headers,
+            },
         };
     },
     async (error) => await Promise.reject(error)

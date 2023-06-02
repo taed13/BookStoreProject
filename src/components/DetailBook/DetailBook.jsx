@@ -134,12 +134,12 @@ const DetailBook = () => {
                                     <li className="nav-item" role="presentation">
                                         <button className="nav-link active link-danger" id="home-tab" data-bs-toggle="tab"
                                             data-bs-target="#home" type="button" role="tab" aria-controls="home"
-                                            aria-selected="true">Synopsis</button>
+                                            aria-selected="true">Tóm tắt</button>
                                     </li>
                                     <li className="nav-item" role="presentation">
                                         <button className="nav-link link-danger" id="profile-tab" data-bs-toggle="tab"
                                             data-bs-target="#profile" type="button" role="tab" aria-controls="profile"
-                                            aria-selected="false">About this title</button>
+                                            aria-selected="false">Về tiêu đề</button>
                                     </li>
                                     <li className="nav-item" role="presentation">
                                         <button className="nav-link link-danger" id="contact-tab" data-bs-toggle="tab"

@@ -7,23 +7,35 @@ import { AppContext } from "../../App";
 const Login = () => {
 	const navigate = useNavigate();
 	const context = useContext(AppContext);
-	const [data, setData] = useState({ email: '', password: '' });
+	const [data, setData] = useState({
+		username: "",
+		password: "",
+	});
 	const handleChange = (e) => {
 		setData({ ...data, [e.target.name]: e.target.value });
 	};
 	const handleSubmit = async () => {
-		if (data.email && data.password) {
-			await AuthAPI.login(data)
-				.then((response) => {
-					console.log(response.data);
-					context.setUser(response.data.data);
-					localStorage.setItem('token', response.data.token);
-					navigate('/');
-				}).catch((error) => {
-					console.log(error);
-				});
+		if (data.username && data.password) {
+		await AuthAPI.login(data)
+			.then((response) => {
+			console.log(response.data);
+			context.setUser(response.data.data);
+			localStorage.setItem(
+				"token",
+				response.data.token
+			);
+			localStorage.setItem(
+				"user",
+				JSON.stringify(response.data)
+			);
+			navigate("/");
+			})
+			.catch((error) => {
+			console.log(error);
+			});
 		}
 	};
+
 	return (
 		<div className="bg-white border rounded-5">
 			<div className="row">
@@ -36,7 +48,7 @@ const Login = () => {
 									d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z">
 								</path>
 							</svg>
-							<span className="ml-2 h1 fw-bold display-6 link-dark">AbeBooks</span>
+							<span className="ml-2 h1 fw-bold display-6 link-dark">Sách Việt</span>
 						</Link>
 					</div>
 
@@ -45,7 +57,7 @@ const Login = () => {
 
 						<form style={ { width: '25rem' } } className="pt-5">
 
-							<h3 className="fw-normal mb-3 pb-3 fw-bolder" style={ { letterSpacing: '1px' } }>Log in</h3>
+							<h3 className="fw-normal mb-3 pb-3 fw-bolder" style={ { letterSpacing: '1px', textAlign: "left" } }>Đăng nhập</h3>
 
 							<div className="form-outline mb-4">
 								<input type="email" id="email-address" className="form-control form-control-lg" value={ data.email } onChange={ handleChange } name="email" />
@@ -77,15 +89,17 @@ const Login = () => {
 								<Link to='/forgot-password' className="text-muted">
 									Forgot password?</Link>
 							</p>
-							<p className="small">By signing-in, you agree to the AbeBooks.com <a href="#">Privacy Policy</a> and
-								<a href="#">Terms & Conditions</a>.
+							<p className="small" style={{ textAlign: "left" }}>
+							By signing-in, you agree to the AbeBooks.com{" "}
+							<a href="#">Privacy Policy</a> and <a href="#">Terms & Conditions</a>.
 							</p>
-							<div className="form-check">
+							<div className="form-check mt-2" style={{ textAlign: "left" }}>
 								<input className="form-check-input" type="checkbox" id="keep-signed-in" />
-								<label className="form-check-label" for="keep-signed-in">
+								<label className="form-check-label" htmlFor="keep-signed-in">
 									Keep me signed in
 								</label>
 							</div>
+
 
 							<p className="text-center pt-4">Don't have an account? <a href="/register"
 								className="link-info link-danger text-danger">Register
