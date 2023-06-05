@@ -15,8 +15,8 @@ const ViewMyAddress = () => {
   };
 
   return (
-    <div className="card p-3 py-3 mt-3 card-1 text-center body-my-address container">
-      <h4>Delivery Address</h4>
+    <div className="card p-3 py-3 mt-3 card-1 text-center body-my-address container rounded-2">
+      <h4>Địa Chỉ Giao Hàng</h4>
       <div className="p-3 card-2">
         <div className="p-3 card-child">
           <div className="d-flex flex-row align-items-center">
@@ -46,7 +46,7 @@ const ViewMyAddress = () => {
               <i className="fa fa-plus"></i>
             </span>
             <div className="d-flex flex-column ms-3 mt-1">
-              <h6 className="fw-bold text-primary">Add New Address</h6>
+              <h6 className="fw-bold" style={{ color: '#9A6B73'}}>Add New Address</h6>
             </div>
           </div>
         </div>

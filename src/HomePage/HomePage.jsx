@@ -13,7 +13,7 @@ const HomePage = () => {
     return (
         <>
             <Header />
-            <Nav />
+            <Nav/>
             <div className="main text-left">
                 <CarouselAdverstisment />
                 <ListBook title={ 'Sách đề xuất cho bạn' } />

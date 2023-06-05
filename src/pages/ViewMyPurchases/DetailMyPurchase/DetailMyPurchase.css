@@ -45,7 +45,7 @@
   position: relative;
 }
 .track .step.active:before {
-  background: #ff5722;
+  background: #934588;
 }
 .track .step::before {
   height: 7px;
@@ -56,7 +56,7 @@
   top: 18px;
 }
 .track .step.active .icon {
-  background: #ee5435;
+  background: #934588;
   color: #fff;
 }
 .track .icon {
@@ -113,13 +113,13 @@ p {
 }
 .btn-warning {
   color: #ffffff;
-  background-color: #ee5435;
-  border-color: #ee5435;
+  background-color: #934588;
+  border-color: #934588;
   border-radius: 1px;
 }
 .btn-warning:hover {
   color: #ffffff;
-  background-color: #ff2b00;
-  border-color: #ff2b00;
+  background-color: #5f4f89;
+  border-color: #5f4f89;
   border-radius: 1px;
 }

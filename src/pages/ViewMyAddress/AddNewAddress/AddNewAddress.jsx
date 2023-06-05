@@ -36,7 +36,7 @@ const AddNewAddress = ({ closeModal }) => {
                   <div className="form-outline">
                     <input type="text" id="form9Example1" className="form-control input-custom" />
                     <label className="form-label" htmlFor="form9Example1">
-                      First name
+                      First name  
                     </label>
                   </div>
                 </div>
@@ -88,8 +88,8 @@ const AddNewAddress = ({ closeModal }) => {
                 <div className="float-end">
                     <button
                     type="button"
-                    className="btn btn-primary btn-rounded"
-                    style={{ backgroundColor: '#0062CC' }}
+                    className="btn btn-danger btn-rounded"
+                    style={{ backgroundColor: '#B85391' }}
                     onClick={closeModal}
                     >
                     Place order

@@ -37,7 +37,7 @@ const Register = () => {
 				</div>
 				<div className="col-sm-6 text-black">
 
-					<div className="p-5 ms-xl-4 text-center">
+					<div className="p-5 ms-xl-4 text-center mt-3">
 						<Link to='/' className="text-decoration-none">
 							<svg xmlns="http://www.w3.org/2000/svg" width="10vw" height="10vw" fill="currentColor"
 								className="bi bi-book text-danger" viewBox="0 0 16 16">

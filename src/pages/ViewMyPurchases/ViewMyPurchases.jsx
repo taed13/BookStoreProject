@@ -4,13 +4,13 @@ import './ViewMyPurchases.css';
 
 const ViewMyPurchases = () => {
   return (
-    <div className="container-xl">
+    <div className="container-xl px-0">
       <div className="table-responsive">
         <div className="table-wrapper">
-          <div className="table-title">
+          <div className="table-title" style={{ backgroundColor: '#C13470'}}>
             <div className="row">
               <div className="col-sm-4">
-                <h2>Order <b>Details</b></h2>
+                <h2>Danh Sách <b>Hoá Đơn</b></h2>
               </div>
               <div className="col-sm-8">						
                 <Link to="#" className="btn btn-primary"><i className="fas fa-sync-alt"></i> <span>Refresh List</span></Link>
