@@ -2,8 +2,8 @@ import axios from 'axios';
 // const apiURL = process.env.REACT_APP_API_URL;
 const axiosClient = axios.create({
     // baseURL: 'http://127.0.0.1:8000/api'
-    // baseURL: 'https://pbl5-production-3dec.up.railway.app',
-    baseURL: 'https://pbl5-production-dc9d.up.railway.app',
+    baseURL: 'https://pbl5-production-3dec.up.railway.app',
+    // baseURL: 'https://jsonplaceholder.typicode.com/posts',
 
 });
 axiosClient.interceptors.request.use(

@@ -1,13 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
 
 const ForgotPassword = () => {
+	const [email, setEmail] = useState('');
+	const [message, setMessage] = useState(''); // Khởi tạo state "message" và hàm setter "setMessage"
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		axios.post('https://jsonplaceholder.typicode.com/comments', { email }) // Gửi yêu cầu POST đến API "/api/reset-password" với body chứa giá trị email
+			.then((response) => {
+				console.log(response.data);
+				// setMessage(response.data[0].email); // Xử lý thành công, hiển thị thông báo thành công từ phản hồi API
+			})
+			.catch((error) => {
+				setMessage(error.response.data.message); // Xử lý lỗi, hiển thị thông báo lỗi từ phản hồi API
+			});
+	};
 	return (
 		<div className="bg-white border rounded-5">
 			<div className="row">
 				<div className="col-sm-6 px-0 d-none d-sm-block">
 					<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img3.webp"
-						alt="Login image" className="w-100 vh-100 rounded-4" style={ { objectFit: 'cover', objectPosition: 'left' } } />
+						alt="Login image" className="w-100 vh-100 rounded-4" style={{ objectFit: 'cover', objectPosition: 'left' }} />
 				</div>
 				<div className="col-sm-6 text-black">
 
@@ -25,20 +41,20 @@ const ForgotPassword = () => {
 
 					<div className="d-flex align-items-center justify-content-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
 
-						<form style={ { width: '25rem' } }>
+						<form style={{ width: '25rem' }}>
 
-							<h3 className="fw-normal fw-bolder" style={ { letterSpacing: '1px' } }>Password assistance</h3>
-							<p className="fw-normal mb-3 pb-3" style={ { letterSpacing: '1px' } }>Enter the email address
+							<h3 className="fw-normal fw-bolder" style={{ letterSpacing: '1px' }}>Password assistance</h3>
+							<p className="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px' }}>Enter the email address
 								associated with your AbeBooks account, then click Continue.
 							</p>
 							<div className="form-outline mb-4">
-								<input type="email" id="form2Example18" className="form-control form-control-lg" />
-								<label className="form-label" for="form2Example18" style={ { marginLeft: '0px' } }>Email
+								<input type="email" id="form2Example18" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control form-control-lg" />
+								<label className="form-label" for="form2Example18" style={{ marginLeft: '0px' }}>Email
 									address</label>
 
 								<div className="form-notch">
-									<div className="form-notch-leading" style={ { width: '9px' } }></div>
-									<div className="form-notch-middle" style={ { width: '88.8px' } }></div>
+									<div className="form-notch-leading" style={{ width: '9px' }}></div>
+									<div className="form-notch-middle" style={{ width: '88.8px' }}></div>
 									<div className="form-notch-trailing"></div>
 								</div>
 							</div>
@@ -49,7 +65,7 @@ const ForgotPassword = () => {
 
 							<div className="pt-1 mb-4">
 								<button className="btn btn-info btn-lg btn-block bg-danger btn-danger"
-									type="button">Continue</button>
+									type="button" onClick={handleSubmit}>Continue</button>
 							</div>
 						</form>
 
