@@ -1,8 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "../../api/axiosClient";
 import './CarouselAdverstisment.css';
 
 const CarouselAdverstisment = () => {
+  const [author, setAuthor] = useState("");
+  const [title, setTitle] = useState("");
+  const [keyword, setKeyword] = useState("");
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    // Gửi dữ liệu tìm kiếm lên backend
+    axios.post('/posts', {
+      author,
+      title,
+      keyword
+    })
+      .then(response => {
+        // Xử lý kết quả từ backend (nếu cần)
+        console.log(response.data);
+      })
+      .catch(error => {
+        // Xử lý lỗi (nếu có)
+        console.error(error);
+      });
+  };
+
   return (
     <div className="page-lead">
       <div className="container-lg mt-4 px-0">
@@ -11,23 +35,45 @@ const CarouselAdverstisment = () => {
             <div className="p-3">
               <h1 className="display-6 fw-bold small pt-4 pb-2">TÌM KIẾM CÁC ĐẦU SÁCH MONG MUỐN</h1>
               <h3 className="text-dark pb-4 font-weight-normal">Tìm kiếm sách, sách giáo khoa, sách hiếm...</h3>
-              <form>
+              <form onSubmit={handleSearch}>
                 <div className="mb-3">
                   <label htmlFor="author" className="form-label mb-0"><span className="fw-bold">Tác giả</span></label>
-                  <input type="text" className="form-control" id="author" placeholder="Nhập tác giả" />
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="author"
+                    placeholder="Nhập tác giả"
+                    value={author}
+                    onChange={(e) => setAuthor(e.target.value)}
+                  />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="title" className="form-label mb-0"><span className="fw-bold">Tiêu đề</span></label>
-                  <input type="text" className="form-control" id="title" placeholder="Nhập tiêu đề" />
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="title"
+                    placeholder="Nhập tiêu đề"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="keyword" className="form-label mb-0"><span className="fw-bold">Từ khoá</span></label>
-                  <input type="text" className="form-control" id="keyword" placeholder="Nhập từ khoá của sách" />
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="keyword"
+                    placeholder="Nhập từ khoá của sách"
+                    value={keyword}
+                    onChange={(e) => setKeyword(e.target.value)}
+                  />
                 </div>
                 <button type="submit" className="btn btn-danger rounded-5 w-25">Tìm kiếm</button>
               </form>
             </div>
           </div>
+
 
           <div className="col-md-8 rounded-2 pl-3 position-relative">
             <div id="myCarousel" className="carousel slide">
