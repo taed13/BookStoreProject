@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import bookAPI from '../../api/bookAPI';
-import axios from "axios";
+import axios from "../../api/axiosClient";
 
 
 const InformationUser = () => {
@@ -14,7 +14,7 @@ const InformationUser = () => {
 
   const fetchUserData = async () => {
     try {
-      const response = await axios.get("https://jsonplaceholder.typicode.com/posts/1");
+      const response = await axios.get("/posts/1");
       setUserData(response.data);
     } catch (error) {
       console.error(error);

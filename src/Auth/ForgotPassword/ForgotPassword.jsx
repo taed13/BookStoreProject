@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { useState } from "react";
+import axios from "../../api/axiosClient"
 
 const ForgotPassword = () => {
 	const [email, setEmail] = useState('');
@@ -9,7 +9,7 @@ const ForgotPassword = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		axios.post('https://jsonplaceholder.typicode.com/comments', { email }) // Gửi yêu cầu POST đến API "/api/reset-password" với body chứa giá trị email
+		axios.post('/comments', { email }) // Gửi yêu cầu POST đến API "/api/reset-password" với body chứa giá trị email
 			.then((response) => {
 				console.log(response.data);
 				// setMessage(response.data[0].email); // Xử lý thành công, hiển thị thông báo thành công từ phản hồi API
