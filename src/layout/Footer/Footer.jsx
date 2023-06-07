@@ -1,7 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
   return (
     <div className="footer mt-5">
       <footer className="alert-danger text-center text-black">
@@ -12,15 +32,19 @@ const Footer = () => {
               width="16"
               height="16"
               fill="currentColor"
-              className="bi bi-arrow-up p-0 text-danger"
+              className={`bi bi-arrow-up p-0 text-danger ${
+                scrollY > 300 ? "visible" : "invisible" }`}
               viewBox="0 0 16 16"
+              onClick={handleScrollToTop}
             >
               <path
                 fillRule="evenodd"
                 d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"
               />
             </svg>
-            <a href="#top-header" className="texdan p-0 link-danger">Back to top</a>
+            <a href="#top-header" className="texdan p-0 link-danger">
+              Back to top
+            </a>
           </section>
 
           <section className="mb-4">
