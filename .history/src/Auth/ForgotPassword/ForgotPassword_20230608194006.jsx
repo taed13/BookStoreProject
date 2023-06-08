@@ -14,7 +14,7 @@ const ForgotPassword = () => {
       .post(`/users/forgotPassword/${email}`) // Gửi yêu cầu POST đến API "/api/reset-password" với body chứa giá trị email
       .then((response) => {
         console.log(response.data);
-        setMessage(response.data[0].username); // Xử lý thành công, hiển thị thông báo thành công từ phản hồi API
+        // setMessage(response.data[0].email); // Xử lý thành công, hiển thị thông báo thành công từ phản hồi API
       })
       .catch((error) => {
         setMessage(error.response.data.message); // Xử lý lỗi, hiển thị thông báo lỗi từ phản hồi API

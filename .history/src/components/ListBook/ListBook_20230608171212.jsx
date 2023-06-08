@@ -3,6 +3,7 @@ import BookItem from "../BookItem/BookItem";
 import "../../api/axiosClient";
 
 const ListBook = ({ title, bookList }) => {
+  console.log(bookList);
   if (bookList) {
     return (
       <div className='recommended-items px-0 border container my-3 rounded-2'>

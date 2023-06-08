@@ -3,6 +3,8 @@ import BookItem from "../BookItem/BookItem";
 import "../../api/axiosClient";
 
 const ListBook = ({ title, bookList }) => {
+  console.log("1234");
+  console.log(bookList);
   if (bookList) {
     return (
       <div className='recommended-items px-0 border container my-3 rounded-2'>
@@ -21,6 +23,7 @@ const ListBook = ({ title, bookList }) => {
                 key={book.id}
                 bookData={{
                   id: book.id,
+                  avatar: book.avatar,
                   title: book.name,
                   author: book.authorName,
                 }}

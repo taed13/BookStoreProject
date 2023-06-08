@@ -4,6 +4,7 @@ import "../../api/axiosClient";
 
 const ListBook = ({ title, bookList }) => {
   if (bookList) {
+    console.log(bookList);
     return (
       <div className='recommended-items px-0 border container my-3 rounded-2'>
         <div className='container p-0' id='featured-3'>

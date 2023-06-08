@@ -21,6 +21,7 @@ const ListBook = ({ title, bookList }) => {
                 key={book.id}
                 bookData={{
                   id: book.id,
+                  avatar: book.avatar,
                   title: book.name,
                   author: book.authorName,
                 }}

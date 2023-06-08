@@ -24,7 +24,9 @@ const ListBook = ({ title, bookList }) => {
                   title: book.name,
                   author: book.authorName,
                 }}
+                console.log(book.title);
               />
+            
             ))}
           </div>
         </div>
