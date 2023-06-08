@@ -2,7 +2,6 @@ import React from "react";
 import './Basket.css';
 import BookProductPay from "../../components/BookProductPay/BookProductPay";
 import ShippingForm from "../../components/ShippingForm/ShippingForm";
-import CouponCode from "../../components/CouponCode/CouponCode";
 import { Link } from "react-router-dom";
 import SaveForLater from "../../components/SaveForLater/SaveForLater";
 import ListBook from "../../components/ListBook/ListBook";
@@ -96,9 +95,6 @@ const Basket = () => {
                     <BookProductPay />
                 </div>
 
-                <div className="coupon-code">
-                    <CouponCode />
-                </div>
 
                 <div className="order-total">
                     <div style={{ display: 'flex' }} className="pageHeader">

@@ -24,6 +24,7 @@ import ProcessCheckout from './pages/ProcessCheckout/ProcessCheckout';
 import CouponCode from './pages/ProcessCheckout/CouponCode/CouponCode';
 import Payment from './pages/ProcessCheckout/Payment/Payment';
 import Complete from './pages/ProcessCheckout/Complete/Complete';
+import BookAfterSearch from './components/BookAfterSearch/BookAfterSearch';
 
 
 export const AppContext = createContext({});
@@ -85,6 +86,9 @@ function App() {
               <Route path='detail' element={<EmailList />} />
             </Route>
 
+            <Route path='search' element={<AppLayout />} >
+              <Route path='' element={<BookAfterSearch />} />
+            </Route>
 
 
             <Route path='process-checkout' element={<AppLayout />} >
