@@ -1,26 +1,9 @@
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import React, { useState } from "react";
 
-function CouponCode(props) {
-// Lấy dữ liệu từ Local Storage
-const dataJson = localStorage.getItem('userData');
-
-const data = JSON.parse(dataJson);
-
-  const [couponCode, setCouponCode] = useState("");
-  const [validationError, setValidationError] = useState(false);
-
-  const handleContinue = () => {
-    if (couponCode.trim() === "") {
-      setValidationError(true);
-    } else {
-      setValidationError(false);
-      navigate("/process-checkout/payment");
-    }
-  };
-console.log(data.fullName); // Truy cập thuộc tính fullName từ dữ liệu đã lưu trong Local Storage
+function CouponCode() {
   const navigate = useNavigate();
-  if(data){
+
   return (
     <div className="container p-0 mt-5" style={{ width: "40%" }}>
       <article className="card rounded-3">
@@ -85,11 +68,7 @@ console.log(data.fullName); // Truy cập thuộc tính fullName từ dữ liệ
                 type="text"
                 className="form-control border-left-0 mr-1"
                 placeholder="Mã giảm giá"
-                value={couponCode}
-                onChange={(e) => setCouponCode(e.target.value)}
               />
-              {validationError && <p className="text-danger">Please enter a valid coupon code</p>}
-
             </div>
             <button type="button" className="btn btn-danger mb-2">
               Áp dụng
@@ -101,18 +80,19 @@ console.log(data.fullName); // Truy cập thuộc tính fullName từ dữ liệ
             </h4>
 
             <p className="font-weight-bold">
-              <span className="font-weight-normal">Người Đặt:</span> {data.fullName}
+              <span className="font-weight-normal">Người Đặt:</span> Lê Tiến Đạt
             </p>
             <p className="font-weight-bold">
-              <span className="font-weight-normal">Số điện thoại:</span>
-              {data.phoneNumber}
+              <span className="font-weight-normal">Số điện thoại:</span>{" "}
+              0987654321
             </p>
             <p className="font-weight-bold">
-              <span className="font-weight-normal">Email:</span>
-              {data.email}
+              <span className="font-weight-normal">Email:</span>{" "}
+              tiendatpot@gmail.com
             </p>
             <p className="font-weight-bold">
-              <span className="font-weight-normal">Địa chỉ nhận hàng:</span> {data.address.apartment_number}, {data.address.wards}
+              <span className="font-weight-normal">Địa chỉ nhận hàng:</span> 123
+              Nguyễn Văn Cừ, Quận 5, TP.HCM
             </p>
             <p className="font-weight-bold">
               <span className="font-weight-normal">Tiền hàng:</span> 1.000.000đ
@@ -122,13 +102,12 @@ console.log(data.fullName); // Truy cập thuộc tính fullName từ dữ liệ
             type="button"
             className="btn btn-danger btn-block py-2 mt-2"
             value="Tiếp tục"
-            onClick={handleContinue}
+            onClick={() => navigate("/process-checkout/payment")}
           />
         </div>
       </article>
     </div>
   );
-}
 }
 
 export default CouponCode;
