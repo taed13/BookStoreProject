@@ -1,24 +1,12 @@
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import React, { useState } from "react";
 
 function CouponCode(props) {
 // Lấy dữ liệu từ Local Storage
 const dataJson = localStorage.getItem('userData');
 
 const data = JSON.parse(dataJson);
-
-  const [couponCode, setCouponCode] = useState("");
-  const [validationError, setValidationError] = useState(false);
-
-  const handleContinue = () => {
-    if (couponCode.trim() === "") {
-      setValidationError(true);
-    } else {
-      setValidationError(false);
-      navigate("/process-checkout/payment");
-    }
-  };
-console.log(data.fullName); // Truy cập thuộc tính fullName từ dữ liệu đã lưu trong Local Storage
+ // Truy cập thuộc tính fullName từ dữ liệu đã lưu trong Local Storage
   const navigate = useNavigate();
   if(data){
   return (
@@ -85,11 +73,7 @@ console.log(data.fullName); // Truy cập thuộc tính fullName từ dữ liệ
                 type="text"
                 className="form-control border-left-0 mr-1"
                 placeholder="Mã giảm giá"
-                value={couponCode}
-                onChange={(e) => setCouponCode(e.target.value)}
               />
-              {validationError && <p className="text-danger">Please enter a valid coupon code</p>}
-
             </div>
             <button type="button" className="btn btn-danger mb-2">
               Áp dụng
@@ -122,13 +106,14 @@ console.log(data.fullName); // Truy cập thuộc tính fullName từ dữ liệ
             type="button"
             className="btn btn-danger btn-block py-2 mt-2"
             value="Tiếp tục"
-            onClick={handleContinue}
+            onClick={() => navigate("/process-checkout/payment")}
           />
         </div>
       </article>
     </div>
   );
 }
+
 }
 
 export default CouponCode;

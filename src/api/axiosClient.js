@@ -1,10 +1,6 @@
 import axios from 'axios';
 
 const axiosClient = axios.create({
-
-    // baseURL: 'https://jsonplaceholder.typicode.com',
-
-    // baseURL: 'https://4463-58-186-67-47.ngrok-free.app/',
     baseURL: 'https://jsonplaceholder.typicode.com/',
     
 });

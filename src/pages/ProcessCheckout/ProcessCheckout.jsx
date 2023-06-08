@@ -14,7 +14,7 @@ import CouponCode from "./CouponCode/CouponCode";
 // Chuyển đổi đối tượng thành mảng
 
 function ProcessCheckout() {
-  
+
   const addressData = Object.values(addressArray);
   const [provinces, setProvinces] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState("");
@@ -90,51 +90,51 @@ function ProcessCheckout() {
       message.error("Please enter your full name.");
       return;
     }
-  
+
     if (phoneNumber.trim() === "") {
       message.error("Please enter your phone number.");
       return;
     }
-  
+
     // Validate phone number format (Vietnamese phone number: 10 digits, starts with 0)
     const phoneRegex = /^(0[0-9]{9})$/;
     if (!phoneRegex.test(phoneNumber)) {
       message.error("Please enter a valid Vietnamese phone number format (e.g., 0967496219).");
       return;
     }
-  
+
     if (email.trim() === "") {
       message.error("Please enter your email address.");
       return;
     }
-  
+
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       message.error("Please enter a valid email address.");
       return;
     }
-  
+
     if (selectedProvince === "") {
       message.error("Please select a province.");
       return;
     }
-  
+
     if (selectedDistrict === "") {
       message.error("Please select a district.");
       return;
     }
-  
+
     if (selectedWard === "") {
       message.error("Please select a ward.");
       return;
     }
-  
+
     if (address.trim() === "") {
       message.error("Please enter your address.");
       return;
     }
-  
+
     // All fields are valid, proceed with form submission
 
     const data = {
@@ -142,40 +142,31 @@ function ProcessCheckout() {
       phoneNumber: phoneNumber,
       email: email,
 
-      address: ` ${selectedWard}`,
-      note: note,
-    };
-  
-
       address: {
         apartment_number: address,
         wards: ` ${selectedWard}`,
       },
       note: note
     };
-
-
-
-
     axios
       .post("/posts", data)
       .then((response) => {
         // Xử lý kết quả từ backend (nếu cần)
         // Chuyển đổi đối tượng data thành chuỗi JSON
-const dataJson = JSON.stringify(data);
+        const dataJson = JSON.stringify(data);
 
-// Lưu chuỗi JSON vào Local Storage với khóa 'userData'
-localStorage.setItem('userData', dataJson);
+        // Lưu chuỗi JSON vào Local Storage với khóa 'userData'
+        localStorage.setItem('userData', dataJson);
         console.log(response.data);
       })
       .catch((error) => {
         // Xử lý lỗi (nếu có)
         console.error(error);
       });
-  
+
     navigate("/process-checkout/coupon-code");
   };
-  
+
   return (
     <div className="container p-0 mt-5" style={{ width: "40%" }}>
       <article className="card rounded-3">
@@ -300,7 +291,7 @@ localStorage.setItem('userData', dataJson);
           </div>
           <div className="row">
             <div className="col">
-              <select
+            <select
                 value={selectedWard.name}
                 onChange={handleWardChange}
                 className="form-control mb-2 w-100"
@@ -310,15 +301,7 @@ localStorage.setItem('userData', dataJson);
                   addressData[selectedProvince] &&
                   addressData[selectedProvince]["quan_huyen"] &&
                   selectedDistrict &&
-
-                  addressData[selectedProvince]["quan-huyen"][selectedDistrict][
-                    "xa_phuong"
-                  ] &&
-                  Object.entries(
-                    addressData[selectedProvince]["quan-huyen"][
-                      selectedDistrict
-                    ]["xa_phuong"]
-             addressData[selectedProvince]["quan_huyen"][selectedDistrict]["xa_phuong"] &&
+                  addressData[selectedProvince]["quan_huyen"][selectedDistrict]["xa_phuong"] &&
                   Object.entries(
                     addressData[selectedProvince]["quan_huyen"][selectedDistrict]["xa_phuong"]
                   ).map(([code, ward]) => (
@@ -327,6 +310,7 @@ localStorage.setItem('userData', dataJson);
                     </option>
                   ))}
               </select>
+
             </div>
             <div className="col">
               <input
@@ -355,7 +339,7 @@ localStorage.setItem('userData', dataJson);
         </div>
       </article>
     </div>
-    
+
   );
 
 }

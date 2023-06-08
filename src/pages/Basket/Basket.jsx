@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-
+let totalPrice = 0;
 const Basket = () => {
 
     const [books, setBooks] = useState([]);
@@ -47,7 +47,7 @@ const Basket = () => {
                     <div style={{ flex: 2 }}>
                         <div className="couponList text-danger font-weight-bold">
                             <nobr>
-                                <span className="price" tabindex="0" aria-label="Your order total is US$ 115.48">US$ 115.48</span>
+                                <span className="price" tabindex="0" aria-label="Your order total is US$ 115.48">US$ {totalPrice}</span>
                             </nobr>
                             <br />
                         </div>
@@ -94,20 +94,30 @@ const Basket = () => {
 
                         </div>
                     </div>
+                    
+                    {
 
-                    {books.map((book) => (
-                        <div key={book.id}>
-                            <BookProductPay
-                                bookData={{
-                                    id: book.id,
-                                    title: book.id,
-                                    author: book.body,
-                                    image: book.image
-                                }}
-                            />
-                            <div className="custom-border-bottom"></div>
-                        </div>
-                    ))}
+books.map((book) => (
+  <div key={book.id}>
+    {/*  chỗ ni Nghĩa làm cái đổ dữ liệu trong giỏ hàng */}
+  
+    <BookProductPay
+      bookData={{
+        id: book.id,
+        title: book.id,
+        author: book.body,
+        image: book.image,
+        price: book.price,
+      }}
+    />
+    <div className="custom-border-bottom"></div>
+
+    {totalPrice += book.price} {/* Cộng dồn giá của từng cuốn sách */}
+  </div>
+))};
+
+
+
 
 
                 </div>
@@ -130,7 +140,7 @@ const Basket = () => {
                         <div style={{ flex: 2 }}>
                             <div className="couponList text-danger font-weight-bold">
                                 <nobr>
-                                    <span className="price" tabindex="0" aria-label="Your order total is US$ 115.48">US$ 115.48</span>
+                    <span className="price" tabindex="0" aria-label="Your order total is US$ 115.48">US$ {totalPrice}</span>
                                 </nobr>
                                 <br />
                             </div>
