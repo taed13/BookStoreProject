@@ -1,15 +1,27 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import addressData from "./vietnam-address.json";
+import React, { useState, useEffect } from "react";
+import axios from "../../api/axiosClient";
+import addressArray from "./vietnam-address.json";
 import { Link, useNavigate } from "react-router-dom";
 import "./ProcessCheckout.css";
+// import addressData from './vietnam_address.json';
+
+// Chuyển đổi đối tượng thành mảng
+
 
 function ProcessCheckout() {
+  const addressData = Object.values(addressArray);
   const [provinces, setProvinces] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState("");
   const [districts, setDistricts] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [wards, setWards] = useState([]);
+  const [selectedWard, setSelectedWard] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [note, setNote] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Đọc dữ liệu từ tệp JSON và cập nhật state
@@ -19,24 +31,78 @@ function ProcessCheckout() {
   const handleProvinceChange = (e) => {
     const selectedProvince = e.target.value;
     setSelectedProvince(selectedProvince);
-    const selectedProvinceData = provinces.find(
+    const selectedProvinceData = Object.values(addressData).find(
       (province) => province.name === selectedProvince
     );
-    setDistricts(selectedProvinceData?.districts || []);
+    setDistricts(
+      selectedProvinceData?.["quan-huyen"]
+        ? Object.values(selectedProvinceData["quan-huyen"])
+        : []
+    );
     setSelectedDistrict("");
     setWards([]);
   };
-
+  
+  
   const handleDistrictChange = (e) => {
     const selectedDistrict = e.target.value;
     setSelectedDistrict(selectedDistrict);
-    const selectedDistrictData = districts.find(
-      (district) => district === selectedDistrict
+    const selectedProvinceData = addressData.find(
+      (province) => province.name === selectedProvince
     );
-    setWards(selectedDistrictData?.wards || []);
+    const selectedDistrictData = selectedProvinceData?.districts.find(
+      (district) => district.name === selectedDistrict
+    );
+    setWards(selectedDistrictData?.xa_phuong || []);
+  };
+  
+  const handleWardChange = (event) => {
+    setSelectedWard(event.target.value);
+  };
+  const handleFullNameChange = (e) => {
+    setFullName(e.target.value);
   };
 
-  const navigate = useNavigate();
+  const handlePhoneNumberChange = (e) => {
+    setPhoneNumber(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleAddressChange = (e) => {
+    setAddress(e.target.value);
+  };
+
+  const handleNoteChange = (e) => {
+    setNote(e.target.value);
+  };
+
+  const handleSubmit = () => {
+      const data = {
+        fullName: fullName,
+        phoneNumber: phoneNumber,
+        email: email,
+        address: ` ${selectedWard}`,
+        note: note
+      };
+    
+
+    
+    axios
+      .post("/posts", data)
+      .then((response) => {
+        // Xử lý kết quả từ backend (nếu cần)
+        console.log(response.data);
+      })
+      .catch((error) => {
+        // Xử lý lỗi (nếu có)
+        console.error(error);
+      });
+
+    navigate("/process-checkout/coupon-code");
+  };
 
   return (
     <div className="container p-0 mt-5" style={{ width: "40%" }}>
@@ -98,58 +164,79 @@ function ProcessCheckout() {
             type="text"
             className="form-control mb-2 w-100"
             placeholder="Họ và tên (bắt buộc)"
+            value={fullName}
+            onChange={handleFullNameChange}
           />
           <input
             type="text"
             className="form-control mb-2 w-100"
             placeholder="Số điện thoại (bắt buộc)"
+            value={phoneNumber}
+            onChange={handlePhoneNumberChange}
           />
           <input
             type="text"
             className="form-control mb-2 w-100"
             placeholder="Email (Vui lòng điền email để nhận hoá đơn VAT)"
+            value={email}
+            onChange={handleEmailChange}
           />
 
           <h5 className="font-weight-bold mb-2">Địa chỉ nhận hàng</h5>
           <div className="row">
             <div className="col">
-              <select
-                value={selectedProvince}
-                onChange={handleProvinceChange}
-                className="form-control mb-2 w-100"
-              >
-                <option value="">Chọn tỉnh</option>
-                {provinces.map((province, index) => (
-                  <option key={index} value={province.name}>
-                    {province.name}
-                  </option>
-                ))}
-              </select>
+            <select
+  value={selectedProvince.name}
+  onChange={handleProvinceChange}
+  className="form-control mb-2 w-100"
+>
+  <option value="">Chọn tỉnh</option>
+  {Object.entries(addressData).map(([code, province]) => (
+    <option key={code} value={code}>
+      {province.name}
+    </option>
+  ))}
+</select>
+
+
             </div>
             <div className="col">
               <select
-                value={selectedDistrict}
+                value={selectedDistrict.name}
                 onChange={handleDistrictChange}
                 className="form-control mb-2 w-100"
               >
                 <option value="">Chọn quận, huyện</option>
-                {districts.map((district, index) => (
-                  <option key={index} value={district}>
-                    {district}
+                {selectedProvince && addressData[selectedProvince]["quan-huyen"] && Object.entries(addressData[selectedProvince]["quan-huyen"]).map(([code, district]) => (
+                  <option key={code} value={code}>
+                    {district.name}
                   </option>
                 ))}
+
               </select>
+
             </div>
           </div>
           <div className="row">
             <div className="col">
-              <select className="form-control mb-2 w-100">
+              <select
+                value={selectedWard.name}
+                onChange={handleWardChange}
+                className="form-control mb-2 w-100"
+              >
                 <option value="">Chọn phường, xã</option>
-                {wards.map((ward, index) => (
-                  <option key={index} value={ward}>
-                    {ward}
-                  </option>
-                ))}
+                {selectedProvince &&
+                  addressData[selectedProvince] &&
+                  addressData[selectedProvince]["quan-huyen"] &&
+                  selectedDistrict &&
+                  addressData[selectedProvince]["quan-huyen"][selectedDistrict]["xa_phuong"] &&
+                  Object.entries(
+                    addressData[selectedProvince]["quan-huyen"][selectedDistrict]["xa_phuong"]
+                  ).map(([code, ward]) => (
+                    <option key={code} value={code}>
+                      {ward.name}
+                    </option>
+                  ))}
               </select>
             </div>
             <div className="col">
@@ -157,6 +244,8 @@ function ProcessCheckout() {
                 type="text"
                 className="form-control mb-2 w-100"
                 placeholder="Số nhà, tên đường"
+                value={address}
+                onChange={handleAddressChange}
               />
             </div>
           </div>
@@ -164,13 +253,15 @@ function ProcessCheckout() {
             className="form-control mb-2 w-100"
             placeholder="Ghi chú đơn hàng (không bắt buộc)"
             rows="3"
+            value={note}
+            onChange={handleNoteChange}
           ></textarea>
 
           <input
             type="button"
             className="btn btn-danger btn-block py-2"
             value="Tiếp tục"
-            onClick={() => navigate("/process-checkout/coupon-code")}
+            onClick={handleSubmit}
           />
         </div>
       </article>
