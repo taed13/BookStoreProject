@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import ListBook from "../ListBook/ListBook";
 
 const BookItem = ({ bookData }) => {
-  const { id, title, author, image } = bookData;
+  const { id, title, author } = bookData;
 
   return (
     <div className='feature col'>
@@ -32,7 +32,4 @@ const BookItem = ({ bookData }) => {
   );
 };
 
-
 export default BookItem;
-
-

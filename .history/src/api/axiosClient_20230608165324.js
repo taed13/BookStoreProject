@@ -1,10 +1,10 @@
-import axios from 'axios';
+import axios from "axios";
+// const apiURL = process.env.REACT_APP_API_URL;
 const axiosClient = axios.create({
-    // baseURL: 'http://127.0.0.1:8000/api'
-    baseURL: 'https://jsonplaceholder.typicode.com',
-
+  baseURL: "http://localhost:8999/api/v1",
+  // baseURL: 'https://pbl5-production-3dec.up.railway.app',
+  // baseURL: 'https://jsonplaceholder.typicode.com',
 });
-
 axiosClient.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem("userID");
@@ -28,12 +28,10 @@ axiosClient.interceptors.request.use(
   },
   async (error) => await Promise.reject(error)
 );
-
 axiosClient.interceptors.response.use(
-    async (response) => await Promise.resolve(response),
-    async (error) => {
-        return await Promise.reject(error);
-    }
+  async (response) => await Promise.resolve(response),
+  async (error) => {
+    return await Promise.reject(error);
+  }
 );
-
 export default axiosClient;

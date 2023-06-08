@@ -5,21 +5,7 @@ import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import BookItem from "../BookItem/BookItem";
 const addToCart = () => {
-  // Lấy ID sách từ local storage
-  const bookId = localStorage.getItem("bookId");
-
-  // Gửi yêu cầu POST đến API với ID sách
-  axios
-    .post("https://jsonplaceholder.typicode.com/posts", {
-      bookId,
-    })
-    .then((response) => {
-      // Xử lý kết quả từ API nếu cần
-      console.log("Đã thêm vào giỏ hàng:", response.data);
-    })
-    .catch((error) => {
-      console.error("Lỗi khi thêm vào giỏ hàng:", error);
-    });
+  console.log("addToCart");
 };
 const DetailBook = () => {
   const [BookDetail, setBookDetail] = useState(null);
@@ -27,7 +13,7 @@ const DetailBook = () => {
     const fetchBookDetail = async () => {
       try {
         const response = await axios.get(
-          "/posts/" +
+          "/posts/1" +
             JSON.parse(localStorage.getItem("IDbook"))
         );
 

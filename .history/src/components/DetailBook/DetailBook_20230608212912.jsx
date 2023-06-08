@@ -6,20 +6,16 @@ import { Link } from "react-router-dom";
 import BookItem from "../BookItem/BookItem";
 const addToCart = () => {
   // Lấy ID sách từ local storage
-  const bookId = localStorage.getItem("bookId");
 
   // Gửi yêu cầu POST đến API với ID sách
-  axios
-    .post("https://jsonplaceholder.typicode.com/posts", {
-      bookId,
-    })
-    .then((response) => {
-      // Xử lý kết quả từ API nếu cần
-      console.log("Đã thêm vào giỏ hàng:", response.data);
-    })
-    .catch((error) => {
-      console.error("Lỗi khi thêm vào giỏ hàng:", error);
-    });
+  try {
+    const response = axios.post(
+      "/posts/" + JSON.parse(localStorage.getItem("IDbook"))
+    );
+    console.log(JSON.parse(localStorage.getItem("IDbook")));
+  } catch (error) {
+    console.error(error);
+  }
 };
 const DetailBook = () => {
   const [BookDetail, setBookDetail] = useState(null);
@@ -27,7 +23,7 @@ const DetailBook = () => {
     const fetchBookDetail = async () => {
       try {
         const response = await axios.get(
-          "/posts/" +
+          "/product/" +
             JSON.parse(localStorage.getItem("IDbook"))
         );
 
@@ -367,7 +363,7 @@ const DetailBook = () => {
               </div>
               <div className='add-to-basket text-center mb-4 mx-2 mt-2'>
                 <button
-                  onClick={addToCart}
+                  onclick={addToCart}
                   className='text-light bg-danger rounded-2 d-block mx-auto text-decoration-none py-2 w-100'
                 >
                   <svg

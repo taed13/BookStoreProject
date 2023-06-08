@@ -9,7 +9,6 @@ import NewFeed from "../components/NewFeed/NewFeed";
 import CardList from "../components/CardList/CardList";
 import CardBenefit from "../components/CardBenefit/CardBenefit";
 import MoreToExplore from "../components/MoreToExplore/MoreToExplore";
-import { message } from 'antd';
 
 const HomePage = () => {
   const [recommendedBooks, setRecommendedBooks] = useState(
@@ -19,7 +18,6 @@ const HomePage = () => {
     useState([]);
   const [popularBooks, setPopularBooks] = useState([]);
   const [trendingBooks, setTrendingBooks] = useState([]);
-  const [loginSuccess, setLoginSuccess] = useState(false);
 
   useEffect(() => {
     // Gọi API để lấy sách đề xuất cho bạn
@@ -27,6 +25,7 @@ const HomePage = () => {
       .get("/product")
       .then((response) => {
         setRecommendedBooks(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error(
@@ -75,12 +74,6 @@ const HomePage = () => {
       });
   }, []);
 
-  useEffect(() => {
-    if (loginSuccess) {
-      message.success('Login successful');
-    }
-  }, [loginSuccess]);
-
   return (
     <>
       <Header />
@@ -114,4 +107,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
- 
