@@ -11,26 +11,29 @@ import { useEffect, useState } from "react";
 
 
 const Basket = () => {
-    const [basketData, setBasketData] = useState(null);
+
+    const [books, setBooks] = useState([]);
 
     useEffect(() => {
-        fetchBasketData();
+        const fetchBooks = async () => {
+            try {
+                const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+                setBooks(response.data);
+                console.log(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchBooks();
     }, []);
 
-    const fetchBasketData = async () => {
-        try {
-            const response = await axios.get("https://jsonplaceholder.typicode.com/posts/1");
-            setBasketData(response.data);
-        } catch (error) {
-            console.error(error);
-        }
-    };
     const navigate = useNavigate();
     const handleSubmit = (event) => {
         event.preventDefault();
         // Xử lý logic khi người dùng nhấn nút "Proceed to Checkout"
         navigate("/process-checkout/payment-infor");
-      };
+    };
     return (
         <>
             <div className="container p-0">
@@ -72,7 +75,8 @@ const Basket = () => {
 
                         <div style={{ display: 'flex' }} className="pageHeader">
                             <div style={{ flex: 6 }} className="">
-                                <strong className="pl-2">Vật phẩm trong giỏ hàng (2 vật phẩm)</strong>
+                                <strong className="pl-2">Vật phẩm trong giỏ hàng ({books.length} vật phẩm)</strong>
+
                             </div>
                             <div style={{ flex: 2 }}>
                                 <div className="row">
@@ -90,9 +94,22 @@ const Basket = () => {
 
                         </div>
                     </div>
-                    <BookProductPay />
-                    <div className="custom-border-bottom"></div>
-                    <BookProductPay />
+
+                    {books.map((book) => (
+                        <div key={book.id}>
+                            <BookProductPay
+                                bookData={{
+                                    id: book.id,
+                                    title: book.id,
+                                    author: book.body,
+                                    image: book.image
+                                }}
+                            />
+                            <div className="custom-border-bottom"></div>
+                        </div>
+                    ))}
+
+
                 </div>
 
 

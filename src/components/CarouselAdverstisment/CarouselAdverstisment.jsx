@@ -2,12 +2,28 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "../../api/axiosClient";
 import './CarouselAdverstisment.css';
-
+import { useEffect } from "react";
 const CarouselAdverstisment = () => {
   const [author, setAuthor] = useState("");
   const [title, setTitle] = useState("");
   const [keyword, setKeyword] = useState("");
+  const [imageUrls, setImageUrls] = useState([]);
 
+  useEffect(() => {
+    fetchImages();
+  }, []);
+
+  const fetchImages = () => {
+    axios.get('https://example.com/api/images')
+      .then(response => {
+        const imageData = response.data;
+        const urls = imageData.map(item => item.image_url).slice(0, 3);
+        setImageUrls(urls);
+      })
+      .catch(error => {
+        console.error('Lỗi khi lấy danh sách hình ảnh:', error);
+      });
+  }
   const handleSearch = (e) => {
     e.preventDefault();
 

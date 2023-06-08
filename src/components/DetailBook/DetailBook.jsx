@@ -21,7 +21,7 @@ const DetailBook = () => {
     }, []);
 
     if(BookDetail){
-       localStorage.removeItem("IDbook");
+       
     
    
         console.log("Book",BookDetail);
@@ -262,6 +262,7 @@ const DetailBook = () => {
             </div>
         </div>
         )
+        localStorage.removeItem("IDbook");
     }
     
     

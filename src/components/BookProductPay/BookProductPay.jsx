@@ -3,30 +3,19 @@ import './BookProductPay.css';
 import { Link } from "react-router-dom";
 import axios from "../../api/axiosClient"
 import { useEffect, useState } from "react";
-const BookProductPay = () => {
-    const [bookProductPay, setBookProductPay] = useState(null);
+const BookProductPay = ({bookData}) => {
 
-    useEffect(() => {
-        fetchBookProductPayData();
-    }, []);
-
-    const fetchBookProductPayData = async () => {
-        try {
-            const response = await axios.get("/posts/1");
-            setBookProductPay(response.data);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-    if (bookProductPay) {
+    const { id, title, author, image } = bookData;
+    
+    if (bookData) {
 
 
         return (
             <>
                 <div className="container pl-3 my-2">
                     <strong>Người bán: </strong>
-                    <a href="#">{bookProductPay.id}</a>
-                    <a href="#" className="d-block">{bookProductPay.title}</a>
+                    <a href="#">{bookData.id}</a>
+                    <a href="#" className="d-block">{bookData.title}</a>
                 </div>
                 <div style={{ display: 'flex' }} className="pageHeader border-bottom pb-2">
                     <div style={{ flex: 6 }} className="">

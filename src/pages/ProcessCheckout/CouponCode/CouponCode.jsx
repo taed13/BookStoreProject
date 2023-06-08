@@ -1,8 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 
-function CouponCode() {
-  const navigate = useNavigate();
+function CouponCode(props) {
+// Lấy dữ liệu từ Local Storage
+const dataJson = localStorage.getItem('userData');
+
+const data = JSON.parse(dataJson);
 
   const [couponCode, setCouponCode] = useState("");
   const [validationError, setValidationError] = useState(false);
@@ -15,7 +18,9 @@ function CouponCode() {
       navigate("/process-checkout/payment");
     }
   };
-
+console.log(data.fullName); // Truy cập thuộc tính fullName từ dữ liệu đã lưu trong Local Storage
+  const navigate = useNavigate();
+  if(data){
   return (
     <div className="container p-0 mt-5" style={{ width: "40%" }}>
       <article className="card rounded-3">
@@ -96,19 +101,18 @@ function CouponCode() {
             </h4>
 
             <p className="font-weight-bold">
-              <span className="font-weight-normal">Người Đặt:</span> Lê Tiến Đạt
+              <span className="font-weight-normal">Người Đặt:</span> {data.fullName}
             </p>
             <p className="font-weight-bold">
-              <span className="font-weight-normal">Số điện thoại:</span>{" "}
-              0987654321
+              <span className="font-weight-normal">Số điện thoại:</span>
+              {data.phoneNumber}
             </p>
             <p className="font-weight-bold">
-              <span className="font-weight-normal">Email:</span>{" "}
-              tiendatpot@gmail.com
+              <span className="font-weight-normal">Email:</span>
+              {data.email}
             </p>
             <p className="font-weight-bold">
-              <span className="font-weight-normal">Địa chỉ nhận hàng:</span> 123
-              Nguyễn Văn Cừ, Quận 5, TP.HCM
+              <span className="font-weight-normal">Địa chỉ nhận hàng:</span> {data.address.apartment_number}, {data.address.wards}
             </p>
             <p className="font-weight-bold">
               <span className="font-weight-normal">Tiền hàng:</span> 1.000.000đ
@@ -124,6 +128,7 @@ function CouponCode() {
       </article>
     </div>
   );
+}
 }
 
 export default CouponCode;
