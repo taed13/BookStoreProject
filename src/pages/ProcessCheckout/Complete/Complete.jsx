@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Complete.css";
 import ProductPayment from "../../../components/ProductPayment/ProductPayment";
@@ -7,14 +7,25 @@ import { faCheck, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 function Complete() {
   const navigate = useNavigate();
+  const [orderSuccess, setOrderSuccess] = useState(true); // Set initial value to true for successful order
   let paymentMethod = "";
 
   const handlePaymentMethodChange = (event) => {
     paymentMethod = event.target.value;
   };
 
+  // Function to handle order placement (You need to implement this logic)
+  const placeOrder = () => {
+    // Logic to place the order
+    // Set orderSuccess based on the result
+    setOrderSuccess(/* result of order placement process */);
+  };
+
   return (
-    <div className="container p-0 mt-5" style={{ width: "40%" }}>
+    <div
+      className={`container p-0 mt-5 ${orderSuccess ? "" : "order-failure"}`}
+      style={{ width: "40%" }}
+    >
       <article className="card rounded-3">
         <div className="card-body">
           <div className="track">
@@ -83,9 +94,15 @@ function Complete() {
                 </i>
               </p>
             </span>
-            <div className="border rounded-4 p-3 successful-order">
+            <div
+              className={`border rounded-4 p-3 ${
+                orderSuccess ? "successful-order" : "unsuccessful-order"
+              }`}
+            >
               <h4 className="font-weight-bold mb-4 text-center">
-                ĐẶT HÀNG THÀNH CÔNG
+                {orderSuccess
+                  ? "ĐẶT HÀNG THÀNH CÔNG"
+                  : "ĐẶT HÀNG KHÔNG THÀNH CÔNG"}
               </h4>
 
               <p className="font-weight-bold">

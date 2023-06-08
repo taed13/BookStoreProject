@@ -11,3 +11,18 @@
 .successful-order h4 {
   color: #155724;
 }
+
+/* complete.css */
+
+.unsuccessful-order {
+  background-color: #f9d7da;
+  color: #721c23;
+}
+
+.unsuccessful-order p {
+  color: #741e25;
+}
+
+.unsuccessful-order h4 {
+  color: #741e25;
+}
