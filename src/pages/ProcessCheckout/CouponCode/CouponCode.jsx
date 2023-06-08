@@ -1,8 +1,20 @@
-import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 
 function CouponCode() {
   const navigate = useNavigate();
+
+  const [couponCode, setCouponCode] = useState("");
+  const [validationError, setValidationError] = useState(false);
+
+  const handleContinue = () => {
+    if (couponCode.trim() === "") {
+      setValidationError(true);
+    } else {
+      setValidationError(false);
+      navigate("/process-checkout/payment");
+    }
+  };
 
   return (
     <div className="container p-0 mt-5" style={{ width: "40%" }}>
@@ -68,7 +80,11 @@ function CouponCode() {
                 type="text"
                 className="form-control border-left-0 mr-1"
                 placeholder="Mã giảm giá"
+                value={couponCode}
+                onChange={(e) => setCouponCode(e.target.value)}
               />
+              {validationError && <p className="text-danger">Please enter a valid coupon code</p>}
+
             </div>
             <button type="button" className="btn btn-danger mb-2">
               Áp dụng
@@ -102,7 +118,7 @@ function CouponCode() {
             type="button"
             className="btn btn-danger btn-block py-2 mt-2"
             value="Tiếp tục"
-            onClick={() => navigate("/process-checkout/payment")}
+            onClick={handleContinue}
           />
         </div>
       </article>
