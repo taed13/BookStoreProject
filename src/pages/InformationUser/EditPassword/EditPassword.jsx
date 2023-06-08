@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from "../../../api/axiosClient";
 import { Form, Button, Container } from 'react-bootstrap';
 
 const EditPassword = () => {
@@ -6,16 +7,36 @@ const EditPassword = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-    // Gửi biểu mẫu và xử lý thay đổi mật khẩu tại đây
-    // ...
+    // Kiểm tra mật khẩu mới và xác nhận mật khẩu mới
+    if (newPassword !== confirmNewPassword) {
+      alert("New password and confirm password don't match");
+      return;
+    }
 
-    // Reset trường nhập liệu
-    setCurrentPassword('');
-    setNewPassword('');
-    setConfirmNewPassword('');
+    // Tạo đối tượng dữ liệu từ dữ liệu form
+    const data = {
+      currentPassword: currentPassword,
+      newPassword: newPassword
+    };
+
+    try {
+      // Gửi yêu cầu POST đến API
+      const response = await axios.post('/posts', data);
+      console.log(response.data); // In phản hồi từ API nếu cần
+
+      // Xử lý phản hồi từ API theo yêu cầu của bạn (ví dụ: hiển thị thông báo thành công)
+      alert('Password updated successfully!');
+
+      // Reset trường nhập liệu
+      setCurrentPassword('');
+      setNewPassword('');
+      setConfirmNewPassword('');
+    } catch (error) {
+      console.error(error); // Xử lý lỗi nếu có
+    }
   };
 
   return (
@@ -25,8 +46,7 @@ const EditPassword = () => {
         <div className="auth-pagelet-container border p-4 rounded-3">
           <div className="mb-3" style={{ wordWrap: 'break-word' }}>
             <small>
-                <p>Để thay đổi mật khẩu của bạn, vui lòng nhập <br /> mật khẩu
-            hiện tại và mật khẩu mới.</p>
+              <p>Để thay đổi mật khẩu của bạn, vui lòng nhập <br /> mật khẩu hiện tại và mật khẩu mới.</p>
             </small>
           </div>
           <Form onSubmit={handleSubmit}>
