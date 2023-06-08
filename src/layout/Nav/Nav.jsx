@@ -24,11 +24,6 @@ const Nav = () => {
                   <path d="M1.5 1a1 1 0 0 0-.8 1.6l6.4 7.2a1 1 0 0 0 1.6 0l6.4-7.2A1 1 0 0 0 14.5 1h-13zm1 2.032L8 10.57l5-5.638V13H2V3.032zm9-.162L8 10.43 5.5 2.87h5zm-7-.178L8 2l1.5.692V9H4.5V2.654zM3 13v-2h10v2H3z" />
                 </svg> Sách hiếm
               </Link>
-              <Link to="/gio-hang" className="p-2 link-secondary text-decoration-none">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" className="bi bi-cart4 mr-2" viewBox="0 0 18 18">
-                  <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
-                </svg> Giỏ hàng
-              </Link>
               <Link to="/tai-khoan" className="p-2 link-secondary text-decoration-none">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" className="bi bi-person mr-2" viewBox="0 0 18 18">
                   <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 1a5 5 0 0 0-4.546 2.914.5.5 0 0 0 .952.306A4 4 0 1 1 8 14a4 4 0 0 1 0-8zm0 1a6 6 0 0 0-5.657 3.823.5.5 0 0 0 .894.448A5 5 0 1 1 8 13a5 5 0 0 1 0-10z" />

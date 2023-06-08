@@ -1,0 +1,21 @@
+{
+    "provinces": [
+      {
+        "name": "Tỉnh A",
+        "districts": [
+          "Huyện A",
+          "Huyện B",
+          "Huyện C"
+        ]
+      },
+      {
+        "name": "Tỉnh B",
+        "districts": [
+          "Huyện D",
+          "Huyện E",
+          "Huyện F"
+        ]
+      }
+    ]
+  }
+  

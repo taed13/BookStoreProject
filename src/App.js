@@ -16,11 +16,14 @@ import InformationUser from './pages/InformationUser/InformationUser';
 import EditName from './pages/InformationUser/EditName/EditName';
 import EditEmail from './pages/InformationUser/EditEmail/EditEmail';
 import EditPassword from './pages/InformationUser/EditPassword/EditPassword';
-import Payment from './pages/Payment/Payment';
 import ViewMyPurchases from './pages/ViewMyPurchases/ViewMyPurchases';
 import ViewMyAddress from './pages/ViewMyAddress/ViewMyAddress';
 import AddNewAddress from './pages/ViewMyAddress/AddNewAddress/AddNewAddress';
 import DetailMyPurchase from './pages/ViewMyPurchases/DetailMyPurchase/DetailMyPurchase';
+import ProcessCheckout from './pages/ProcessCheckout/ProcessCheckout';
+import CouponCode from './pages/ProcessCheckout/CouponCode/CouponCode';
+import Payment from './pages/ProcessCheckout/Payment/Payment';
+import Complete from './pages/ProcessCheckout/Complete/Complete';
 
 
 export const AppContext = createContext({});
@@ -82,8 +85,14 @@ function App() {
               <Route path='detail' element={<EmailList />} />
             </Route>
 
-            <Route path='payment' element={<AppLayout />} >
-              <Route path='' element={<Payment />} />
+
+
+            <Route path='process-checkout' element={<AppLayout />} >
+              <Route path='payment-infor' element={<ProcessCheckout />} />
+              <Route path='coupon-code' element={<CouponCode />} />
+              <Route path='payment' element={<Payment />} />
+              <Route path='complete' element={<Complete />} />
+
             </Route>
 
 

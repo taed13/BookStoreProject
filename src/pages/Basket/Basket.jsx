@@ -30,8 +30,8 @@ const Basket = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         // Xử lý logic khi người dùng nhấn nút "Proceed to Checkout"
-        navigate("/payment");
-    };
+        navigate("/process-checkout/payment-infor");
+      };
     return (
         <>
             <div className="container p-0">

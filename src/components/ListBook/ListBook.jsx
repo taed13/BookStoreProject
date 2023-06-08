@@ -1,22 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import BookItem from "../BookItem/BookItem";
-import axios from "../../api/axiosClient";
+import "../../api/axiosClient"
 
-const ListBook = ({ title }) => {
-  const [bookList, setBookList] = useState([]);
-
-  useEffect(() => {
-    // Gọi API để lấy danh sách sách
-    axios
-      .get("/posts")
-      .then((response) => {
-        setBookList(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching book list:", error);
-      });
-  }, []);
-
+const ListBook = ({ title, bookList }) => {
+  if (bookList)
+  {
   return (
     <div className="recommended-items px-0 border container my-3 rounded-2">
       <div className="container p-0" id="featured-3">
@@ -37,5 +25,6 @@ const ListBook = ({ title }) => {
     </div>
   );
 };
+}
 
 export default ListBook;
