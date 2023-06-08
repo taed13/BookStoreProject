@@ -3,6 +3,7 @@ import axios from "../../api/axiosClient";
 import addressArray from "./vietnam-address.json";
 import { Link, useNavigate } from "react-router-dom";
 import "./ProcessCheckout.css";
+import CouponCode from "./CouponCode/CouponCode";
 // import addressData from './vietnam_address.json';
 
 // Chuyển đổi đối tượng thành mảng
@@ -35,15 +36,15 @@ function ProcessCheckout() {
       (province) => province.name === selectedProvince
     );
     setDistricts(
-      selectedProvinceData?.["quan-huyen"]
-        ? Object.values(selectedProvinceData["quan-huyen"])
+      selectedProvinceData?.["quan_huyen"]
+        ? Object.values(selectedProvinceData["quan_huyen"])
         : []
     );
     setSelectedDistrict("");
     setWards([]);
   };
-  
-  
+
+
   const handleDistrictChange = (e) => {
     const selectedDistrict = e.target.value;
     setSelectedDistrict(selectedDistrict);
@@ -55,7 +56,7 @@ function ProcessCheckout() {
     );
     setWards(selectedDistrictData?.xa_phuong || []);
   };
-  
+
   const handleWardChange = (event) => {
     setSelectedWard(event.target.value);
   };
@@ -80,20 +81,28 @@ function ProcessCheckout() {
   };
 
   const handleSubmit = () => {
-      const data = {
-        fullName: fullName,
-        phoneNumber: phoneNumber,
-        email: email,
-        address: ` ${selectedWard}`,
-        note: note
-      };
-    
+    const data = {
+      fullName: fullName,
+      phoneNumber: phoneNumber,
+      email: email,
+      address: {
+        apartment_number: address,
+        wards: ` ${selectedWard}`,
+      },
+      note: note
+    };
 
-    
+
+
     axios
       .post("/posts", data)
       .then((response) => {
         // Xử lý kết quả từ backend (nếu cần)
+        // Chuyển đổi đối tượng data thành chuỗi JSON
+const dataJson = JSON.stringify(data);
+
+// Lưu chuỗi JSON vào Local Storage với khóa 'userData'
+localStorage.setItem('userData', dataJson);
         console.log(response.data);
       })
       .catch((error) => {
@@ -185,18 +194,18 @@ function ProcessCheckout() {
           <h5 className="font-weight-bold mb-2">Địa chỉ nhận hàng</h5>
           <div className="row">
             <div className="col">
-            <select
-  value={selectedProvince.name}
-  onChange={handleProvinceChange}
-  className="form-control mb-2 w-100"
->
-  <option value="">Chọn tỉnh</option>
-  {Object.entries(addressData).map(([code, province]) => (
-    <option key={code} value={code}>
-      {province.name}
-    </option>
-  ))}
-</select>
+              <select
+                value={selectedProvince.name}
+                onChange={handleProvinceChange}
+                className="form-control mb-2 w-100"
+              >
+                <option value="">Chọn tỉnh</option>
+                {Object.entries(addressData).map(([code, province]) => (
+                  <option key={code} value={code}>
+                    {province.name}
+                  </option>
+                ))}
+              </select>
 
 
             </div>
@@ -207,7 +216,7 @@ function ProcessCheckout() {
                 className="form-control mb-2 w-100"
               >
                 <option value="">Chọn quận, huyện</option>
-                {selectedProvince && addressData[selectedProvince]["quan-huyen"] && Object.entries(addressData[selectedProvince]["quan-huyen"]).map(([code, district]) => (
+                {selectedProvince && addressData[selectedProvince]["quan_huyen"] && Object.entries(addressData[selectedProvince]["quan_huyen"]).map(([code, district]) => (
                   <option key={code} value={code}>
                     {district.name}
                   </option>
@@ -227,13 +236,13 @@ function ProcessCheckout() {
                 <option value="">Chọn phường, xã</option>
                 {selectedProvince &&
                   addressData[selectedProvince] &&
-                  addressData[selectedProvince]["quan-huyen"] &&
+                  addressData[selectedProvince]["quan_huyen"] &&
                   selectedDistrict &&
-                  addressData[selectedProvince]["quan-huyen"][selectedDistrict]["xa_phuong"] &&
+                  addressData[selectedProvince]["quan_huyen"][selectedDistrict]["xa_phuong"] &&
                   Object.entries(
-                    addressData[selectedProvince]["quan-huyen"][selectedDistrict]["xa_phuong"]
+                    addressData[selectedProvince]["quan_huyen"][selectedDistrict]["xa_phuong"]
                   ).map(([code, ward]) => (
-                    <option key={code} value={code}>
+                    <option key={code} value={ward.path_with_type}>
                       {ward.name}
                     </option>
                   ))}
@@ -266,7 +275,9 @@ function ProcessCheckout() {
         </div>
       </article>
     </div>
+    
   );
+
 }
 
 export default ProcessCheckout;
