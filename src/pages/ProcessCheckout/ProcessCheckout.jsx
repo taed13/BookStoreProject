@@ -1,5 +1,5 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "../../api/axiosClient";
 import addressData from "./vietnam-address.json";
 import { Link, useNavigate } from "react-router-dom";
 import "./ProcessCheckout.css";
@@ -10,6 +10,13 @@ function ProcessCheckout() {
   const [districts, setDistricts] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [wards, setWards] = useState([]);
+  const [selectedWard, setSelectedWard] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [note, setNote] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Đọc dữ liệu từ tệp JSON và cập nhật state
@@ -19,31 +26,89 @@ function ProcessCheckout() {
   const handleProvinceChange = (e) => {
     const selectedProvince = e.target.value;
     setSelectedProvince(selectedProvince);
-    const selectedProvinceData = provinces.find(
+    const selectedProvinceData = addressData.provinces.find(
       (province) => province.name === selectedProvince
     );
     setDistricts(selectedProvinceData?.districts || []);
     setSelectedDistrict("");
     setWards([]);
   };
-
+  
   const handleDistrictChange = (e) => {
     const selectedDistrict = e.target.value;
     setSelectedDistrict(selectedDistrict);
-    const selectedDistrictData = districts.find(
-      (district) => district === selectedDistrict
+    const selectedProvinceData = addressData.provinces.find(
+      (province) => province.name === selectedProvince
+    );
+    const selectedDistrictData = selectedProvinceData?.districts.find(
+      (district) => district.name === selectedDistrict
     );
     setWards(selectedDistrictData?.wards || []);
   };
+  
+  const handleWardChange = (e) => {
+    const selectedWard = e.target.value;
+    setSelectedWard(selectedWard);
+  };
+  
+  const handleAddressChange = (e) => {
+    const address = e.target.value;
+    setAddress(address);
+  };
+  
+  
+  
+  const handleFullNameChange = (e) => {
+    setFullName(e.target.value);
+  };
 
-  const navigate = useNavigate();
+  const handlePhoneNumberChange = (e) => {
+    setPhoneNumber(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+
+  const handleNoteChange = (e) => {
+    setNote(e.target.value);
+  };
+
+  const handleSubmit = () => {
+    const data = {
+      fullName: fullName,
+      phoneNumber: phoneNumber,
+      email: email,
+      address: {
+        houseNumber: address,
+        ward: wards,
+        district: districts,
+        province: provinces
+      },
+      note: note
+    };
+
+    axios
+      .post("/posts", data)
+      .then((response) => {
+        // Xử lý kết quả từ backend (nếu cần)
+        console.log(response.data);
+      })
+      .catch((error) => {
+        // Xử lý lỗi (nếu có)
+        console.error(error);
+      });
+
+    navigate("/process-checkout/coupon-code");
+  };
 
   return (
     <div className="container p-0 mt-5" style={{ width: "40%" }}>
       <article className="card rounded-3">
         <div className="card-body">
           <div className="track">
-            <div className="step active">
+          <div className="step active">
               <span className="icon">
                 {" "}
                 <i className="fa fa-shopping-cart"></i>{" "}
@@ -98,16 +163,22 @@ function ProcessCheckout() {
             type="text"
             className="form-control mb-2 w-100"
             placeholder="Họ và tên (bắt buộc)"
+            value={fullName}
+            onChange={handleFullNameChange}
           />
           <input
             type="text"
             className="form-control mb-2 w-100"
             placeholder="Số điện thoại (bắt buộc)"
+            value={phoneNumber}
+            onChange={handlePhoneNumberChange}
           />
           <input
             type="text"
             className="form-control mb-2 w-100"
             placeholder="Email (Vui lòng điền email để nhận hoá đơn VAT)"
+            value={email}
+            onChange={handleEmailChange}
           />
 
           <h5 className="font-weight-bold mb-2">Địa chỉ nhận hàng</h5>
@@ -132,7 +203,7 @@ function ProcessCheckout() {
                 onChange={handleDistrictChange}
                 className="form-control mb-2 w-100"
               >
-                <option value="">Chọn quận, huyện</option>
+               <option value="">Chọn quận, huyện</option>
                 {districts.map((district, index) => (
                   <option key={index} value={district}>
                     {district}
@@ -144,7 +215,7 @@ function ProcessCheckout() {
           <div className="row">
             <div className="col">
               <select className="form-control mb-2 w-100">
-                <option value="">Chọn phường, xã</option>
+              <option value="">Chọn phường, xã</option>
                 {wards.map((ward, index) => (
                   <option key={index} value={ward}>
                     {ward}
@@ -157,6 +228,8 @@ function ProcessCheckout() {
                 type="text"
                 className="form-control mb-2 w-100"
                 placeholder="Số nhà, tên đường"
+                value={address}
+                onChange={handleAddressChange}
               />
             </div>
           </div>
@@ -164,13 +237,15 @@ function ProcessCheckout() {
             className="form-control mb-2 w-100"
             placeholder="Ghi chú đơn hàng (không bắt buộc)"
             rows="3"
+            value={note}
+            onChange={handleNoteChange}
           ></textarea>
 
           <input
             type="button"
             className="btn btn-danger btn-block py-2"
             value="Tiếp tục"
-            onClick={() => navigate("/process-checkout/coupon-code")}
+            onClick={handleSubmit}
           />
         </div>
       </article>
