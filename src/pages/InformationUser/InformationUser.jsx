@@ -27,12 +27,21 @@ const InformationUser = () => {
         <div className="card mt-4 mx-auto" style={{ maxWidth: '400px' }}>
           <div className="card-body">
             <form>
+              <div className='border p-2 rounded-2'>
               <div className="form-group">
-                <label className="font-weight-bold">Name:</label>
+                <label className="font-weight-bold">First name:</label>
                 <div className="d-flex align-items-center">
-                  <input type="text" className="form-control mr-2" value={userData.id} readOnly />
-                  <Link to="/my-account/detail/infor-user/edit-name" className="btn btn-danger">Edit</Link>
+                  <input type="text" className="form-control mr-2 w-100" value={userData.id} readOnly />
+                  
                 </div>
+              </div>
+              <div className="form-group">
+                <label className="font-weight-bold">Last name:</label>
+                <div className="d-flex align-items-center">
+                  <input type="text" className="form-control mr-2 w-100" value={userData.id} readOnly />
+                </div>
+              </div>
+              <div className='text-center'><Link to="/my-account/detail/infor-user/edit-name" className="btn btn-danger ">Edit</Link></div>
               </div>
               <div className="border-bottom"></div>
               <div className="form-group">

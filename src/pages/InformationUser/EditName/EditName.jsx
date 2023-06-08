@@ -1,24 +1,73 @@
-import React from 'react';
+import React, { useState } from "react";
+import axios from "../../../api/axiosClient";
 
 const EditName = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    // Tạo đối tượng dữ liệu từ dữ liệu form
+    const data = {
+      firstName: firstName,
+      lastName: lastName,
+    };
+
+    try {
+      // Gửi yêu cầu POST đến API
+      const response = await axios.post("/posts", data);
+      console.log(response.data); // In phản hồi từ API nếu cần
+
+      // Xử lý phản hồi từ API theo yêu cầu của bạn (ví dụ: hiển thị thông báo thành công)
+      alert("Name updated successfully!");
+    } catch (error) {
+      console.error(error); // Xử lý lỗi nếu có
+    }
+  };
+
   return (
     <div className="container">
       <h1 className="mt-4">Change your name</h1>
-      <div className="card mt-4 mx-auto" style={{ maxWidth: '400px' }}>
+      <div className="card mt-4 mx-auto" style={{ maxWidth: "400px" }}>
         <div className="card-body">
           <div className="mb-4">
             <p>
-              If you want to change the name associated with your AbeBooks customer account, you may do so below. Be sure to click the <b>Save Changes</b> button when you are done.
+              If you want to change the name associated with your AbeBooks
+              customer account, you may do so below. Be sure to click the{" "}
+              <b>Save Changes</b> button when you are done.
             </p>
           </div>
-          <form action="https://auth.www.abebooks.com/ap/cnep" method="post" noValidate>
+          <form onSubmit={handleSubmit} noValidate>
             <div className="form-group">
-              <label htmlFor="ap_customer_name">New name</label>
-              <input type="text" id="ap_customer_name" name="customerName" className="form-control" value="" tabIndex="1" />
+              <label htmlFor="ap_customer_name">First name</label>
+              <input
+                type="text"
+                id="ap_customer_name"
+                name="customerName"
+                className="form-control"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                tabIndex="1"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="ap_customer_name">Last name</label>
+              <input
+                type="text"
+                id="ap_customer_name"
+                name="customerName"
+                className="form-control"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                tabIndex="1"
+              />
             </div>
 
             <div className="text-center">
-              <button type="submit" className="btn btn-danger">Save Changes</button>
+              <button type="submit" className="btn btn-danger">
+                Save Changes
+              </button>
             </div>
           </form>
         </div>

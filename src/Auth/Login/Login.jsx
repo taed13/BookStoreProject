@@ -1,9 +1,6 @@
-import React, { useContext, useState } from "react";
-import "./Login.css";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import AuthAPI from "../../api/AuthAPI"; // Thêm dòng này
-
-import { AppContext } from "../../App";
+import AuthAPI from "../../api/AuthAPI";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,6 +8,8 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [error, setError] = useState("");
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
@@ -18,23 +17,42 @@ const Login = () => {
 
   const handleSubmit = async () => {
     try {
-      // Gửi yêu cầu đăng nhập sử dụng AuthAPI
+      // Validate email and password
+      if (!formData.email || !formData.password) {
+        setError("Please provide both email and password.");
+        return;
+      }
+
+      // Email format validation
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(formData.email)) {
+        setError("Please enter a valid email address.");
+        return;
+      }
+
+      // Send login request using AuthAPI
       const response = await AuthAPI.login(formData);
 
-      // Xử lý phản hồi từ server (response)
+      // Process the response from the server
       // ...
 
-	//   Lưu id và username vào Local Storage
-	  localStorage.setItem('userId', JSON.stringify(response.data.id));
-	  localStorage.setItem('username', JSON.stringify(response.data.id));
+      // Kiểm tra phản hồi từ máy chủ
+      if (response.success) {
+        // Xử lý phản hồi thành công
+        localStorage.setItem("userId", JSON.stringify(response.data.id));
+        localStorage.setItem("username", JSON.stringify(response.data.id));
 
-	  
+        navigate("/"); // Chuyển hướng đến trang chủ
+      } else {
+        // Xử lý phản hồi thất bại
+        setError("Invalid email or password.");
+      }
 
-      // Chuyển hướng sau khi đăng nhập thành công
+      // Redirect after successful login
       navigate("/");
     } catch (error) {
-      // Xử lý lỗi (error) nếu có
-      // ...
+      // Handle errors
+      setError("Invalid email or password.");
     }
   };
 
@@ -79,7 +97,7 @@ const Login = () => {
                   name="email"
                 />
 
-                <label className="form-label ml-0" for="email-address">
+                <label className="form-label ml-0" htmlFor="email-address">
                   Email address
                 </label>
                 <div className="form-notch">
@@ -104,7 +122,7 @@ const Login = () => {
                   onChange={handleChange}
                   name="password"
                 />
-                <label className="form-label ml-0" for="password">
+                <label className="form-label ml-0" htmlFor="password">
                   Password
                 </label>
                 <div className="form-notch">
@@ -130,13 +148,16 @@ const Login = () => {
                 </button>
               </div>
 
+              {/* Error message */}
+              {error && <p className="text-danger small mb-2">{error}</p>}
+
               <p className="small mb-2 pb-lg-2 text-end">
                 <Link to="/forgot-password" className="text-muted">
                   Forgot password?
                 </Link>
               </p>
               <p className="small" style={{ textAlign: "left" }}>
-                By signing-in, you agree to the AbeBooks.com{" "}
+                By signing in, you agree to the AbeBooks.com{" "}
                 <a href="#">Privacy Policy</a> and{" "}
                 <a href="#">Terms & Conditions</a>.
               </p>
@@ -144,25 +165,30 @@ const Login = () => {
                 <input
                   className="form-check-input"
                   type="checkbox"
-                  id="keep-signed-in"
+                  value=""
+                  id="rememberMe"
+                  checked
                 />
-                <label className="form-check-label" htmlFor="keep-signed-in">
-                  Keep me signed in
+                <label className="form-check-label" htmlFor="rememberMe">
+                  Remember me
                 </label>
               </div>
 
-              <p className="text-center pt-4">
-                Don't have an account?{" "}
-                <a
-                  href="/register"
-                  className="link-info link-danger text-danger"
-                >
-                  Register here
-                </a>
-              </p>
+              <hr className="my-4" />
+
+              <div className="mt-2">
+                <p>
+                  Don't have an account?{" "}
+                  <Link to="/register" className="link-danger">
+                    Register here
+                  </Link>
+                  .
+                </p>
+              </div>
             </form>
           </div>
         </div>
+
         <div className="col-sm-6 px-0 d-none d-sm-block">
           <img
             src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img3.webp"
@@ -175,4 +201,5 @@ const Login = () => {
     </div>
   );
 };
+
 export default Login;

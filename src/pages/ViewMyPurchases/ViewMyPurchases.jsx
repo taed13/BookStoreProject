@@ -7,7 +7,7 @@ const ViewMyPurchases = () => {
     <div className="container-xl px-0">
       <div className="table-responsive">
         <div className="table-wrapper">
-          <div className="table-title" style={{ backgroundColor: '#C13470'}}>
+          <div className="table-title">
             <div className="row">
               <div className="col-sm-4">
                 <h2>Danh Sách <b>Hoá Đơn</b></h2>

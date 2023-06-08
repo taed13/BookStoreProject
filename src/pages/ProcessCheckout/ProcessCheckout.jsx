@@ -3,13 +3,18 @@ import axios from "../../api/axiosClient";
 import addressArray from "./vietnam-address.json";
 import { Link, useNavigate } from "react-router-dom";
 import "./ProcessCheckout.css";
+
+import { message } from "antd";
+
+
 import CouponCode from "./CouponCode/CouponCode";
+
 // import addressData from './vietnam_address.json';
 
 // Chuyển đổi đối tượng thành mảng
 
-
 function ProcessCheckout() {
+  
   const addressData = Object.values(addressArray);
   const [provinces, setProvinces] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState("");
@@ -43,7 +48,6 @@ function ProcessCheckout() {
     setSelectedDistrict("");
     setWards([]);
   };
-
 
   const handleDistrictChange = (e) => {
     const selectedDistrict = e.target.value;
@@ -81,16 +85,75 @@ function ProcessCheckout() {
   };
 
   const handleSubmit = () => {
+    // Perform validations
+    if (fullName.trim() === "") {
+      message.error("Please enter your full name.");
+      return;
+    }
+  
+    if (phoneNumber.trim() === "") {
+      message.error("Please enter your phone number.");
+      return;
+    }
+  
+    // Validate phone number format (Vietnamese phone number: 10 digits, starts with 0)
+    const phoneRegex = /^(0[0-9]{9})$/;
+    if (!phoneRegex.test(phoneNumber)) {
+      message.error("Please enter a valid Vietnamese phone number format (e.g., 0967496219).");
+      return;
+    }
+  
+    if (email.trim() === "") {
+      message.error("Please enter your email address.");
+      return;
+    }
+  
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      message.error("Please enter a valid email address.");
+      return;
+    }
+  
+    if (selectedProvince === "") {
+      message.error("Please select a province.");
+      return;
+    }
+  
+    if (selectedDistrict === "") {
+      message.error("Please select a district.");
+      return;
+    }
+  
+    if (selectedWard === "") {
+      message.error("Please select a ward.");
+      return;
+    }
+  
+    if (address.trim() === "") {
+      message.error("Please enter your address.");
+      return;
+    }
+  
+    // All fields are valid, proceed with form submission
+
     const data = {
       fullName: fullName,
       phoneNumber: phoneNumber,
       email: email,
+
+      address: ` ${selectedWard}`,
+      note: note,
+    };
+  
+
       address: {
         apartment_number: address,
         wards: ` ${selectedWard}`,
       },
       note: note
     };
+
 
 
 
@@ -109,10 +172,10 @@ localStorage.setItem('userData', dataJson);
         // Xử lý lỗi (nếu có)
         console.error(error);
       });
-
+  
     navigate("/process-checkout/coupon-code");
   };
-
+  
   return (
     <div className="container p-0 mt-5" style={{ width: "40%" }}>
       <article className="card rounded-3">
@@ -206,8 +269,6 @@ localStorage.setItem('userData', dataJson);
                   </option>
                 ))}
               </select>
-
-
             </div>
             <div className="col">
               <select
@@ -216,14 +277,25 @@ localStorage.setItem('userData', dataJson);
                 className="form-control mb-2 w-100"
               >
                 <option value="">Chọn quận, huyện</option>
+
+                {selectedProvince &&
+                  addressData[selectedProvince]["quan-huyen"] &&
+                  Object.entries(
+                    addressData[selectedProvince]["quan-huyen"]
+                  ).map(([code, district]) => (
+                    <option key={code} value={code}>
+                      {district.name}
+                    </option>
+                  ))}
+
                 {selectedProvince && addressData[selectedProvince]["quan_huyen"] && Object.entries(addressData[selectedProvince]["quan_huyen"]).map(([code, district]) => (
                   <option key={code} value={code}>
                     {district.name}
                   </option>
                 ))}
 
-              </select>
 
+              </select>
             </div>
           </div>
           <div className="row">
@@ -238,7 +310,15 @@ localStorage.setItem('userData', dataJson);
                   addressData[selectedProvince] &&
                   addressData[selectedProvince]["quan_huyen"] &&
                   selectedDistrict &&
-                  addressData[selectedProvince]["quan_huyen"][selectedDistrict]["xa_phuong"] &&
+
+                  addressData[selectedProvince]["quan-huyen"][selectedDistrict][
+                    "xa_phuong"
+                  ] &&
+                  Object.entries(
+                    addressData[selectedProvince]["quan-huyen"][
+                      selectedDistrict
+                    ]["xa_phuong"]
+             addressData[selectedProvince]["quan_huyen"][selectedDistrict]["xa_phuong"] &&
                   Object.entries(
                     addressData[selectedProvince]["quan_huyen"][selectedDistrict]["xa_phuong"]
                   ).map(([code, ward]) => (
