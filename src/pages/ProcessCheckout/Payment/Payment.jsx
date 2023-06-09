@@ -1,15 +1,27 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import './Payment.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { message } from "antd";
+import "./Payment.css";
 
 function Payment() {
   const navigate = useNavigate();
-  let paymentMethod = "";
+  const [paymentMethod, setPaymentMethod] = useState("");
 
   const handlePaymentMethodChange = (event) => {
-    paymentMethod = event.target.value;
+    setPaymentMethod(event.target.value);
   };
   const dataJson = localStorage.getItem('userData');
+
+
+  const handleContinue = () => {
+    if (paymentMethod === "vnpay") {
+      navigate("/process-checkout/pay-via-vnpay");
+    } else if (paymentMethod === "cashOnDelivery") {
+      navigate("/process-checkout/complete");
+    } else {
+      message.error("Vui lòng chọn hình thức thanh toán!");
+    }
+  };
 
   const data = JSON.parse(dataJson);
 
@@ -117,22 +129,6 @@ function Payment() {
                   </label>
                 </div>
                 <div className="payment-item border rounded-3 p-2 text-center">
-                  <label htmlFor="bankTransfer">
-                    <span>Thanh toán chuyển khoản</span>
-                    <img
-                      src="https://cellphones.com.vn/cart/_nuxt/img/transfer.3133aad.png"
-                      alt="bank-transfer-img"
-                    />
-                    <input
-                      type="radio"
-                      id="bankTransfer"
-                      name="paymentMethod"
-                      value="bankTransfer"
-                      onChange={handlePaymentMethodChange}
-                    />
-                  </label>
-                </div>
-                <div className="payment-item border rounded-3 p-2 text-center">
                   <label htmlFor="vnpay">
                     <span>Thanh toán qua VNPay</span>
                     <img
@@ -148,54 +144,6 @@ function Payment() {
                     />
                   </label>
                 </div>
-                <div className="payment-item border rounded-3 p-2 text-center">
-                  <label htmlFor="moca">
-                    <span>Thanh toán qua Moca</span>
-                    <img
-                      src="https://cellphones.com.vn/cart/_nuxt/img/moca.f4be0b9.png"
-                      alt="moca-img"
-                    />
-                    <input
-                      type="radio"
-                      id="moca"
-                      name="paymentMethod"
-                      value="moca"
-                      onChange={handlePaymentMethodChange}
-                    />
-                  </label>
-                </div>
-                <div className="payment-item border rounded-3 p-2 text-center">
-                  <label htmlFor="zalopay">
-                    <span>Thanh toán qua ZaloPay</span>
-                    <img
-                      src="https://cellphones.com.vn/cart/_nuxt/img/zalopay.08ce522.png"
-                      alt="zalopay-img"
-                    />
-                    <input
-                      type="radio"
-                      id="zalopay"
-                      name="paymentMethod"
-                      value="zalopay"
-                      onChange={handlePaymentMethodChange}
-                    />
-                  </label>
-                </div>
-                <div className="payment-item border rounded-3 p-2 text-center">
-                  <label htmlFor="shopeepay">
-                    <span>Thanh toán qua ShopeePay</span>
-                    <img
-                      src="https://cellphones.com.vn/cart/_nuxt/img/ShopeePay-New-Logo.0d32640.png"
-                      alt="shopeepay-img"
-                    />
-                    <input
-                      type="radio"
-                      id="shopeepay"
-                      name="paymentMethod"
-                      value="shopeepay"
-                      onChange={handlePaymentMethodChange}
-                    />
-                  </label>
-                </div>
               </div>
             </div>
           </div>
@@ -203,8 +151,7 @@ function Payment() {
             type="button"
             className="btn btn-danger btn-block py-2 mt-2"
             value="Tiếp tục"
-            onClick={() => navigate("/process-checkout/complete")}
-
+            onClick={handleContinue}
           />
         </div>
       </article>

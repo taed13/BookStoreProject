@@ -25,6 +25,7 @@ import CouponCode from './pages/ProcessCheckout/CouponCode/CouponCode';
 import Payment from './pages/ProcessCheckout/Payment/Payment';
 import Complete from './pages/ProcessCheckout/Complete/Complete';
 import SearchBook from './pages/SearchBook/SearchBook';
+import PayViaVnPay from './pages/ProcessCheckout/PayViaVnPay/PayViaVnPay';
 
 
 export const AppContext = createContext({});
@@ -95,6 +96,7 @@ function App() {
               <Route path='payment-infor' element={<ProcessCheckout />} />
               <Route path='coupon-code' element={<CouponCode />} />
               <Route path='payment' element={<Payment />} />
+              <Route path='pay-via-vnpay' element={<PayViaVnPay />} />
               <Route path='complete' element={<Complete />} />
 
             </Route>
