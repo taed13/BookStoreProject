@@ -1,10 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./DetailMyPurchase.css";
+import { useLocation } from "react-router-dom";
 
 const DetailMyPurchase = () => {
   const orderQuantity = 2; // Số lượng đặt hàng
   const orderStatus = "confirmed"; // Trạng thái đơn hàng ("confirmed", "processing", "packaging", "shipping", "delivered", "completed")
+  const location = useLocation();
+  const purchase = location.state?.purchase;
 
   const getStatusIcon = (status) => {
     switch (status) {

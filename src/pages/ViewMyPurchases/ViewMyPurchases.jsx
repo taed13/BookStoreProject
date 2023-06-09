@@ -10,6 +10,7 @@ const ViewMyPurchases = () => {
   const [selectedLocation, setSelectedLocation] = useState("Tất cả");
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedPurchase, setSelectedPurchase] = useState(null);
 
   useEffect(() => {
     // Generate fake data for purchases
@@ -114,6 +115,10 @@ const ViewMyPurchases = () => {
   // Calculate the indexes of the displayed purchases based on the current page and display count
   const startIndex = (currentPage - 1) * displayCount;
   const endIndex = startIndex + displayCount;
+
+  const handleViewDetail = (purchase) => {
+    setSelectedPurchase(purchase);
+  };
 
   return (
     <div className="container p-0">
@@ -250,7 +255,12 @@ const ViewMyPurchases = () => {
                     <td>{purchase.totalPrice}</td>
                     <td>
                       <Link
-                        to={`/my-account/detail/my-purchases/detail-my-purchase`}
+                        to={{
+                          pathname:
+                            "/my-account/detail/my-purchases/detail-my-purchase",
+                          state: { purchase: purchase },
+                        }}
+                        onClick={() => handleViewDetail(purchase)}
                       >
                         <i className="fa fa-eye"></i>
                       </Link>

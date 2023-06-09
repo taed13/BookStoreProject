@@ -96,11 +96,11 @@ function Complete() {
             </span>
             <div
               className={`border rounded-4 p-3 ${
-                orderSuccess ? "successful-order" : "unsuccessful-order"
+                !orderSuccess ? "successful-order" : "unsuccessful-order"
               }`}
             >
               <h4 className="font-weight-bold mb-4 text-center">
-                {orderSuccess
+                {!orderSuccess
                   ? "ĐẶT HÀNG THÀNH CÔNG"
                   : "ĐẶT HÀNG KHÔNG THÀNH CÔNG"}
               </h4>
