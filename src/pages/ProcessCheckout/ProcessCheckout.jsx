@@ -6,7 +6,6 @@ import "./ProcessCheckout.css";
 
 import { message } from "antd";
 
-
 import CouponCode from "./CouponCode/CouponCode";
 
 // import addressData from './vietnam_address.json';
@@ -14,7 +13,6 @@ import CouponCode from "./CouponCode/CouponCode";
 // Chuyển đổi đối tượng thành mảng
 
 function ProcessCheckout() {
-
   const addressData = Object.values(addressArray);
   const [provinces, setProvinces] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState("");
@@ -99,7 +97,9 @@ function ProcessCheckout() {
     // Validate phone number format (Vietnamese phone number: 10 digits, starts with 0)
     const phoneRegex = /^(0[0-9]{9})$/;
     if (!phoneRegex.test(phoneNumber)) {
-      message.error("Please enter a valid Vietnamese phone number format (e.g., 0967496219).");
+      message.error(
+        "Please enter a valid Vietnamese phone number format (e.g., 0967496219)."
+      );
       return;
     }
 
@@ -146,8 +146,9 @@ function ProcessCheckout() {
         apartment_number: address,
         wards: ` ${selectedWard}`,
       },
-      note: note
+      note: note,
     };
+
     axios
       .post("/posts", data)
       .then((response) => {
@@ -156,7 +157,9 @@ function ProcessCheckout() {
         const dataJson = JSON.stringify(data);
 
         // Lưu chuỗi JSON vào Local Storage với khóa 'userData'
+
         localStorage.setItem('userData', dataJson);
+
         console.log(response.data);
       })
       .catch((error) => {
@@ -279,13 +282,15 @@ function ProcessCheckout() {
                     </option>
                   ))}
 
-                {selectedProvince && addressData[selectedProvince]["quan_huyen"] && Object.entries(addressData[selectedProvince]["quan_huyen"]).map(([code, district]) => (
-                  <option key={code} value={code}>
-                    {district.name}
-                  </option>
-                ))}
-
-
+                {selectedProvince &&
+                  addressData[selectedProvince]["quan_huyen"] &&
+                  Object.entries(
+                    addressData[selectedProvince]["quan_huyen"]
+                  ).map(([code, district]) => (
+                    <option key={code} value={code}>
+                      {district.name}
+                    </option>
+                  ))}
               </select>
             </div>
           </div>
@@ -301,10 +306,16 @@ function ProcessCheckout() {
                   addressData[selectedProvince] &&
                   addressData[selectedProvince]["quan_huyen"] &&
                   selectedDistrict &&
-                  addressData[selectedProvince]["quan_huyen"][selectedDistrict]["xa_phuong"] &&
+
+                  addressData[selectedProvince]["quan_huyen"][selectedDistrict][
+                    "xa_phuong"
+                  ] &&
                   Object.entries(
-                    addressData[selectedProvince]["quan_huyen"][selectedDistrict]["xa_phuong"]
-                  ).map(([code, ward]) => (
+                    addressData[selectedProvince]["quan_huyen"][
+                      selectedDistrict
+                    ]["xa_phuong"]
+
+                 ).map(([code, ward]) => (
                     <option key={code} value={ward.path_with_type}>
                       {ward.name}
                     </option>
@@ -341,7 +352,6 @@ function ProcessCheckout() {
     </div>
 
   );
-
 }
 
 export default ProcessCheckout;
