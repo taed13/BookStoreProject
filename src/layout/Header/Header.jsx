@@ -3,6 +3,7 @@ import "./Header.css";
 import { Link } from "react-router-dom";
 import { AppContext } from "../../App";
 import axios from "../../api/axiosClient";
+import validator from "validator";
 
 const Header = ({ isLoggedIn, onLogout }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -10,7 +11,17 @@ const Header = ({ isLoggedIn, onLogout }) => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Gửi dữ liệu tìm kiếm lên backend
+    if (validator.isEmpty(searchTerm)) {
+      // Display an error message or perform appropriate action for empty search term
+      console.log("Please enter a search term");
+      return;
+    }
+    if (!validator.isLength(searchTerm, { min: 3 })) {
+      // Display an error message or perform appropriate action for search term length less than 3
+      console.log("Search term should be at least 3 characters long");
+      return;
+    }
+    // If the search term is valid, send the data to the backend
     sendSearchData(searchTerm);
   };
 
@@ -62,8 +73,14 @@ const Header = ({ isLoggedIn, onLogout }) => {
                   style={{ width: "30rem" }}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
+                  required // Add the required attribute for HTML5 form validation
                 />
-                <button className="btn btn-outline-danger" type="submit">
+                <button
+                  className="btn btn-outline-danger"
+                  type="submit"
+                  disabled={!searchTerm}
+                >
+                  {/* Disable the button when searchTerm is empty */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
