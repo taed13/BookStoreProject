@@ -11,7 +11,21 @@ import { useEffect, useState } from "react";
 
 const Basket = () => {
   const [books, setBooks] = useState([]);
+  const [saves, setSaves] = useState([]);
 
+  const removeBook = (id) => {
+    console.log("remove->", id);
+    const getSave = JSON.parse(localStorage.getItem("saveForLater"))
+      ? JSON.parse(localStorage.getItem("saveForLater"))
+      : [];
+    const temp = [...books];
+    const index = temp.findIndex((book) => book.id === id);
+    const itemSave = temp.splice(index, 1)[0];
+    getSave.push(itemSave);
+    setSaves([...saves, itemSave]);
+    setBooks(temp);
+    localStorage.setItem("saveForLater", JSON.stringify(getSave)); // t luu mang vao localStorage roi do
+  };
   useEffect(() => {
     const fetchBooks = async () => {
       try {
@@ -106,6 +120,7 @@ const Basket = () => {
           {books.map((book) => (
             <div key={book.id}>
               <BookProductPay
+                removeBook={removeBook}
                 bookData={{
                   id: book.id,
                   title: book.id,
@@ -172,7 +187,7 @@ const Basket = () => {
         </div>
 
         <div className="save-for-later">
-          <SaveForLater />
+          <SaveForLater saves={saves} />
         </div>
 
         <div className="customers-who-bought-items">

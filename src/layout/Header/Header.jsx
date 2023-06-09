@@ -41,7 +41,10 @@ const Header = ({ isLoggedIn, onLogout }) => {
 
   return (
     <div className="header">
-      <header className="p-1 pt-2 border-bottom sticky-header" id="top-header">
+      <header
+        className="p-1 pt-2 border-bottom sticky-header lowest-priority"
+        id="top-header"
+      >
         <div className="container px-0">
           <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <Link

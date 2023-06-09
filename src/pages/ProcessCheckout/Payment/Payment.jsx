@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { message } from "antd";
+import { message, Radio, Button } from "antd";
 import "./Payment.css";
 
 function Payment() {
@@ -22,7 +22,7 @@ function Payment() {
   };
 
   return (
-    <div className="container p-0 mt-5" style={{ width: "40%" }}>
+    <div className="container p-0 mt-3" style={{ width: "40%" }}>
       <article className="card rounded-3">
         <div className="card-body">
           <div className="track">
@@ -109,40 +109,59 @@ function Payment() {
 
             <div className="form-group mt-2">
               <label className="font-weight-bold">Hình thức thanh toán</label>
-              <div className="payment-option d-flex flex-wrap">
-                <div className="payment-item border rounded-3 p-2 text-center">
-                  <label htmlFor="cashOnDelivery">
-                    <span>Thanh toán khi nhận hàng</span>
-                    <img
-                      src="https://cellphones.com.vn/cart/_nuxt/img/COD.7245762.png"
-                      alt="cps-img"
-                    />
-                    <input
-                      type="radio"
-                      id="cashOnDelivery"
-                      name="paymentMethod"
-                      value="cashOnDelivery"
-                      onChange={handlePaymentMethodChange}
-                    />
-                  </label>
+              <Radio.Group
+                onChange={handlePaymentMethodChange}
+                value={paymentMethod}
+              >
+                <div className="d-flex align-items-center">
+                  <div className="radio-wrapper">
+                    <label htmlFor="cashOnDelivery">
+                      <div className="radio-image text-center">
+                        <Radio.Button
+                          id="cashOnDelivery"
+                          value="cashOnDelivery"
+                          className="radio-button h-100"
+                        >
+                          <span className="">
+                            <div className="d-flex align-items-center">
+                              <img
+                                src="https://cellphones.com.vn/cart/_nuxt/img/COD.7245762.png"
+                                alt="cash-on-delivery"
+                                style={{ height: "30px", marginRight: "8px" }}
+                                className=""
+                              />
+                              <span>Thanh toán khi nhận hàng</span>
+                            </div>
+                          </span>
+                        </Radio.Button>
+                      </div>
+                    </label>
+                  </div>
+                  <div className="radio-wrapper">
+                    <label htmlFor="vnpay">
+                      <div className="radio-image text-center">
+                        <Radio.Button
+                          id="vnpay"
+                          value="vnpay"
+                          className="radio-button h-100"
+                        >
+                          <span>
+                            <div className="d-flex align-items-center">
+                              <img
+                                src="https://cellphones.com.vn/cart/_nuxt/img/vnpay.c0bd59b.png"
+                                alt="vnpay"
+                                style={{ height: "30px", marginRight: "8px" }}
+                                className=""
+                              />
+                              <span>Thanh toán qua VNPay</span>
+                            </div>
+                          </span>
+                        </Radio.Button>
+                      </div>
+                    </label>
+                  </div>
                 </div>
-                <div className="payment-item border rounded-3 p-2 text-center">
-                  <label htmlFor="vnpay">
-                    <span>Thanh toán qua VNPay</span>
-                    <img
-                      src="https://cellphones.com.vn/cart/_nuxt/img/vnpay.c0bd59b.png"
-                      alt="vnpay-img"
-                    />
-                    <input
-                      type="radio"
-                      id="vnpay"
-                      name="paymentMethod"
-                      value="vnpay"
-                      onChange={handlePaymentMethodChange}
-                    />
-                  </label>
-                </div>
-              </div>
+              </Radio.Group>
             </div>
           </div>
           <input

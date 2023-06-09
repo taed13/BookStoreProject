@@ -3,7 +3,7 @@ import "./BookProductPay.css";
 import { Link } from "react-router-dom";
 import axios from "../../api/axiosClient";
 import { useEffect, useState } from "react";
-const BookProductPay = ({ bookData }) => {
+const BookProductPay = ({ bookData, removeBook }) => {
   const { id, title, author, image } = bookData;
 
   if (bookData) {
@@ -86,14 +86,7 @@ const BookProductPay = ({ bookData }) => {
           <div style={{ flex: 2, display: "flex", justifyContent: "flex-end" }}>
             <div className="flex-column pr-3">
               <small className="w-25">
-                <button>Save For Later</button>
-                <form className="mb-1" action="" name="saveForLater">
-                  <input
-                    type="button"
-                    value="Save For Later"
-                    className="btn-secondary"
-                  />
-                </form>
+                <button onClick={() => removeBook(id)}>Save For Later</button>
                 <form action="" name="remove">
                   <input
                     type="submit"

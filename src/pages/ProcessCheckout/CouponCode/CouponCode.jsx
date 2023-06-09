@@ -1,18 +1,76 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+import { Button, Input, Select, notification } from "antd";
+import axios from "axios";
+import "./CouponCode.css";
+
+const { Option } = Select;
 
 function CouponCode(props) {
-  // Lấy dữ liệu từ Local Storage
   const dataJson = localStorage.getItem("userData");
   const data = JSON.parse(dataJson);
 
   const [couponCode, setCouponCode] = useState("");
+  const [deliveryService, setDeliveryService] = useState("");
+  const [couponCodeInput, setCouponCodeInput] = useState("");
+  const [couponCodeSelect, setCouponCodeSelect] = useState("");
 
   const handleContinue = () => {
+    // if (!deliveryService) {
+    //   notification.error({
+    //     message: "Lỗi",
+    //     description: "Vui lòng chọn dịch vụ giao hàng",
+    //     className: "notification-container",
+    //   });
+    // } else {
     navigate("/process-checkout/payment");
+    // }
   };
 
-  console.log(data.fullName); // Truy cập thuộc tính fullName từ dữ liệu đã lưu trong Local Storage
+  const handleApplyCoupon = () => {
+    if (!couponCodeInput) {
+      notification.error({
+        message: "Lỗi",
+        description: "Vui lòng nhập mã giảm giá",
+        className: "notification-container",
+      });
+    } else {
+      // Perform the coupon code validation logic here
+      axios
+        .post("/api/coupons", { code: couponCodeInput })
+        .then((response) => {
+          // Handle the response data from the server (if any)
+          // Example: Display success notification, update state
+        })
+        .catch((error) => {
+          // Handle the error if any
+          // Example: Display error notification
+        });
+    }
+  };
+
+  const handleApplyDiscountCode = () => {
+    if (!couponCodeSelect) {
+      notification.error({
+        message: "Lỗi",
+        description: "Vui lòng nhập mã giảm giá khách hàng thân thiết",
+        className: "notification-container",
+      });
+    } else {
+      // Perform the discount code validation logic here
+      axios
+        .put("/api/discount-codes", { code: couponCodeSelect })
+        .then((response) => {
+          // Handle the response data from the server (if any)
+          // Example: Display success notification, update state
+        })
+        .catch((error) => {
+          // Handle the error if any
+          // Example: Display error notification
+        });
+    }
+  };
+
   const navigate = useNavigate();
 
   if (data) {
@@ -69,7 +127,7 @@ function CouponCode(props) {
             <hr />
 
             <div className="border rounded-3 p-2 mb-3 d-flex align-items-center">
-              <div className="input-group mb-2 flex-fill">
+              <div className="input-group mb-2 flex-fill d-flex align-items-center">
                 <span className="input-group-text bg-danger text-white border-right-0">
                   <i className="fa fa-tags"></i>
                 </span>
@@ -77,14 +135,42 @@ function CouponCode(props) {
                   type="text"
                   className="form-control border-left-0 mr-1"
                   placeholder="Mã giảm giá"
-                  value={couponCode}
-                  onChange={(e) => setCouponCode(e.target.value)}
+                  value={couponCodeInput}
+                  onChange={(e) => setCouponCodeInput(e.target.value)}
                 />
               </div>
-              <button type="button" className="btn btn-danger mb-2">
+              <button
+                type="button"
+                className="btn btn-danger mb-2"
+                onClick={handleApplyCoupon}
+              >
                 Áp dụng
               </button>
             </div>
+            <div className="border rounded-3 p-2 mb-3 d-flex align-items-center">
+              <div className="input-group mb-2 flex-fill d-flex align-items-center">
+                <span className="input-group-text bg-danger text-white border-right-0">
+                  <i className="fa fa-tags"></i>
+                </span>
+                <select
+                  className="form-control border mr-1 h-100 w-25"
+                  value={couponCodeSelect}
+                  onChange={(e) => setCouponCodeSelect(e.target.value)}
+                >
+                  <option value="">Giảm giá khách hàng thân thiết</option>
+                  <option value="15%">Giảm 15%</option>
+                  <option value="20%">Giảm 20%</option>
+                </select>
+              </div>
+              <button
+                type="button"
+                className="btn btn-danger mb-2"
+                onClick={handleApplyDiscountCode}
+              >
+                Áp dụng
+              </button>
+            </div>
+
             <div className="border rounded-2 p-3">
               <h4 className="font-weight-bold mb-2 text-center">
                 THÔNG TIN ĐẶT HÀNG
@@ -107,7 +193,10 @@ function CouponCode(props) {
                 {data.address.apartment_number}, {data.address.wards}
               </p>
               <p className="font-weight-bold">
-                <span className="font-weight-normal">Tiền hàng:</span>{" "}
+                <span className="font-weight-normal">Phí ship:</span> 1.000.000đ
+              </p>
+              <p className="font-weight-bold">
+                <span className="font-weight-normal">Tổng tiền hàng:</span>{" "}
                 1.000.000đ
               </p>
             </div>
