@@ -157,7 +157,9 @@ function ProcessCheckout() {
         const dataJson = JSON.stringify(data);
 
         // Lưu chuỗi JSON vào Local Storage với khóa 'userData'
-        localStorage.setItem("userData", dataJson);
+
+        localStorage.setItem('userData', dataJson);
+
         console.log(response.data);
       })
       .catch((error) => {
@@ -294,7 +296,7 @@ function ProcessCheckout() {
           </div>
           <div className="row">
             <div className="col">
-              <select
+            <select
                 value={selectedWard.name}
                 onChange={handleWardChange}
                 className="form-control mb-2 w-100"
@@ -304,6 +306,7 @@ function ProcessCheckout() {
                   addressData[selectedProvince] &&
                   addressData[selectedProvince]["quan_huyen"] &&
                   selectedDistrict &&
+
                   addressData[selectedProvince]["quan_huyen"][selectedDistrict][
                     "xa_phuong"
                   ] &&
@@ -311,12 +314,14 @@ function ProcessCheckout() {
                     addressData[selectedProvince]["quan_huyen"][
                       selectedDistrict
                     ]["xa_phuong"]
-                  ).map(([code, ward]) => (
+
+                 ).map(([code, ward]) => (
                     <option key={code} value={ward.path_with_type}>
                       {ward.name}
                     </option>
                   ))}
               </select>
+
             </div>
             <div className="col">
               <input
@@ -345,6 +350,7 @@ function ProcessCheckout() {
         </div>
       </article>
     </div>
+
   );
 }
 

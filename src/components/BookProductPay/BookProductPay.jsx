@@ -3,10 +3,43 @@ import './BookProductPay.css';
 import { Link } from "react-router-dom";
 import axios from "../../api/axiosClient"
 import { useEffect, useState } from "react";
-const BookProductPay = ({bookData}) => {
+
+
+const BookProductPay = ({ bookData }) => {
+    const [quantity, setQuantity] = useState(1);
+    const [shippingPrice, setShippingPrice] = useState(3.99);
+    const [subtotal, setSubtotal] = useState(0);
+
+    const pricePerBook = 8.96;
+
+    useEffect(() => {
+        const newSubtotal = pricePerBook * quantity + shippingPrice;
+        setSubtotal(newSubtotal);
+    }, [quantity, shippingPrice]);
+
+    const handleQuantityChange = (event) => {
+        setQuantity(parseInt(event.target.value));
+    };
+    const [count, setCount] = useState(1);
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const newCount = event.target.quantity.value;
+
+        axios.post('/posts', { count: newCount })
+            .then((response) => {
+                console.log(response.data);
+                // Xử lý phản hồi từ API
+            })
+            .catch((error) => {
+                console.error(error);
+                // Xử lý lỗi
+            });
+    };
 
     const { id, title, author, image } = bookData;
-    
+
     if (bookData) {
 
 
@@ -38,16 +71,26 @@ const BookProductPay = ({bookData}) => {
                     <div style={{ flex: 2 }}>
                         <div className="row">
                             <div className="col">
-                                <div className="price">US$ 8.96</div>
+                                <div className="price">US$ {pricePerBook}</div>
                                 <span>
                                     <small><a href="#" className="n">Convert Currency</a></small>
                                 </span>
                             </div>
                             <div className="col">
                                 <div className="quantity">
-                                    <form action="" name="updateQuantity">
+                                    <form name="updateQuantity" onSubmit={handleSubmit}>
                                         <small>
-                                            <input type="number" name="quantity" id="quantity" min="1" max="10" defaultValue="1" className="w-25" />(of <span>10</span>)
+                                            <input
+                                                type="number"
+                                                name="quantity"
+                                                id="quantity"
+                                                min="1"
+                                                max="10"
+                                                defaultValue={count}
+                                                className="w-25"
+                                                onChange={handleQuantityChange}
+                                            />
+                                            (of <span>10</span>)
                                             <input type="submit" value="Update" className="mt-1 btn-secondary" />
                                         </small>
                                     </form>
@@ -88,9 +131,9 @@ const BookProductPay = ({bookData}) => {
                     </div>
                     <div style={{ flex: 2 }}>
                         <div className="d-flex flex-column">
-                            <div className="mb-auto shipping">US$ 3.99</div>
+                            <div className="mb-auto shipping">US$ {shippingPrice}</div>
                             <div className="d-flex justify-content-between align-items-end">
-                                <div className="subtotal pt-5">US$ 12.95</div>
+                                <div className="subtotal pt-5">US$ {subtotal.toFixed(2)}</div>
                             </div>
                         </div>
                     </div>

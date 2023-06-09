@@ -1,7 +1,8 @@
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import React, { useState } from "react";
 
 function CouponCode(props) {
+
   // Lấy dữ liệu từ Local Storage
   const dataJson = localStorage.getItem("userData");
   const data = JSON.parse(dataJson);
@@ -13,7 +14,15 @@ function CouponCode(props) {
   };
 
   console.log(data.fullName); // Truy cập thuộc tính fullName từ dữ liệu đã lưu trong Local Storage
+
+// Lấy dữ liệu từ Local Storage
+const dataJson = localStorage.getItem('userData');
+
+const data = JSON.parse(dataJson);
+ // Truy cập thuộc tính fullName từ dữ liệu đã lưu trong Local Storage
+
   const navigate = useNavigate();
+
 
   if (data) {
     return (
@@ -84,6 +93,18 @@ function CouponCode(props) {
               <button type="button" className="btn btn-danger mb-2">
                 Áp dụng
               </button>
+
+          <div className="border rounded-3 p-2 mb-3 d-flex align-items-center">
+            <div className="input-group mb-2 flex-fill">
+              <span className="input-group-text bg-danger text-white border-right-0">
+                <i className="fa fa-tags"></i>
+              </span>
+              <input
+                type="text"
+                className="form-control border-left-0 mr-1"
+                placeholder="Mã giảm giá"
+              />
+
             </div>
             <div className="border rounded-2 p-3">
               <h4 className="font-weight-bold mb-2 text-center">
@@ -118,10 +139,25 @@ function CouponCode(props) {
               onClick={handleContinue}
             />
           </div>
+
         </article>
       </div>
     );
   }
+
+          <input
+            type="button"
+            className="btn btn-danger btn-block py-2 mt-2"
+            value="Tiếp tục"
+            onClick={() => navigate("/process-checkout/payment")}
+          />
+        </div>
+      </article>
+    </div>
+  );
+}
+
+
 }
 
 export default CouponCode;

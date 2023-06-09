@@ -1,32 +1,38 @@
 import axios from 'axios';
-
 const axiosClient = axios.create({
-    // baseURL: 'https://4463-58-186-67-47.ngrok-free.app/',
-    baseURL: 'https://jsonplaceholder.typicode.com/',
-    headers: {
-        'Content-Type': 'application/json',
-    },
+    // baseURL: 'http://127.0.0.1:8000/api'
+    baseURL: 'https://jsonplaceholder.typicode.com',
+
 });
 
 axiosClient.interceptors.request.use(
-    (config) => {
-        const accessToken = localStorage.getItem('userId'); // Sửa 'userID' thành 'userId' để phù hợp với tên khóa bạn đã lưu
-        if (accessToken) {
-            config.headers['Authorization'] = `Bearer ${accessToken}`;
-        }
-        return config;
-    },
-    (error) => {
-        return Promise.reject(error);
+  (config) => {
+    const accessToken = localStorage.getItem("userID");
+    if (accessToken != null) {
+      return {
+        ...config,
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          ...config.headers,
+        },
+        mode: "no-cors",
+      };
     }
+
+    return {
+      ...config,
+      headers: {
+        ...config.headers,
+      },
+    };
+  },
+  async (error) => await Promise.reject(error)
 );
 
 axiosClient.interceptors.response.use(
-    (response) => {
-        return response;
-    },
-    (error) => {
-        return Promise.reject(error);
+    async (response) => await Promise.resolve(response),
+    async (error) => {
+        return await Promise.reject(error);
     }
 );
 

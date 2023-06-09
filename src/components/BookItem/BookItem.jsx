@@ -6,16 +6,28 @@ const BookItem = ({ bookData }) => {
   const { id, title, author, image } = bookData;
 
   return (
-    <div className="feature col">
-      <img src={image} alt={id} className="img-thumbnail mx-auto d-block" />
+    <div className='feature col'>
+      <img
+        src='https://book-store-bay.vercel.app/assets/images/template/book1.jpg'
+        alt={id}
+        className='img-thumbnail mx-auto d-block'
+      />
       <Link
-        to={{ pathname: "/book/detail", state: { bookData } }}
-        className="icon-link mt-2 text-danger text-wrap"
-        onClick={() => { localStorage.setItem("IDbook", JSON.stringify(bookData.id)) }}
+        to={{
+          pathname: "/book/detail",
+          state: { bookData },
+        }}
+        className='icon-link mt-2 text-danger text-wrap'
+        onClick={() => {
+          localStorage.setItem(
+            "IDbook",
+            JSON.stringify(bookData.id)
+          );
+        }}
       >
         {title}
       </Link>
-      <p className="m-0">{author}</p>
+      <p className='m-0'>{author}</p>
     </div>
   );
 };

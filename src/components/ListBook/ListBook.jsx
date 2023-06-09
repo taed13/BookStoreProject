@@ -1,6 +1,6 @@
 import React from "react";
 import BookItem from "../BookItem/BookItem";
-import "../../api/axiosClient"
+import "../../api/axiosClient";
 
 const ListBook = ({ title, bookList }) => {
   if (bookList) {
@@ -18,9 +18,9 @@ const ListBook = ({ title, bookList }) => {
                 key={book.id}
                 bookData={{
                   id: book.id,
-                  title: book.id,
-                  author: book.body,
-                  image: book.image // Thêm trường image vào object bookData
+                  title: book.name,
+                  author: book.authorName,
+                  image: book.image, // Thêm trường image vào object bookData
                 }}
               />
             ))}
@@ -28,7 +28,9 @@ const ListBook = ({ title, bookList }) => {
         </div>
       </div>
     );
-  };
-}
+  } else {
+    return null; // Trả về null nếu không có danh sách sách
+  }
+};
 
 export default ListBook;

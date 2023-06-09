@@ -12,8 +12,11 @@ import MoreToExplore from "../components/MoreToExplore/MoreToExplore";
 import { message } from 'antd';
 
 const HomePage = () => {
-  const [recommendedBooks, setRecommendedBooks] = useState([]);
-  const [recentlyViewedBooks, setRecentlyViewedBooks] = useState([]);
+  const [recommendedBooks, setRecommendedBooks] = useState(
+    []
+  );
+  const [recentlyViewedBooks, setRecentlyViewedBooks] =
+    useState([]);
   const [popularBooks, setPopularBooks] = useState([]);
   const [trendingBooks, setTrendingBooks] = useState([]);
   const [loginSuccess, setLoginSuccess] = useState(false);
@@ -21,12 +24,15 @@ const HomePage = () => {
   useEffect(() => {
     // Gọi API để lấy sách đề xuất cho bạn
     axios
-      .get("/posts")
+      .get("/product")
       .then((response) => {
         setRecommendedBooks(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching recommended books:", error);
+        console.error(
+          "Error fetching recommended books:",
+          error
+        );
       });
 
     // Gọi API để lấy sách xem gần đây
@@ -36,7 +42,10 @@ const HomePage = () => {
         setRecentlyViewedBooks(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching recently viewed books:", error);
+        console.error(
+          "Error fetching recently viewed books:",
+          error
+        );
       });
 
     // Gọi API để lấy sách thịnh hành
@@ -46,7 +55,10 @@ const HomePage = () => {
         setPopularBooks(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching popular books:", error);
+        console.error(
+          "Error fetching popular books:",
+          error
+        );
       });
 
     // Gọi API để lấy sách đang thịnh hành
@@ -56,7 +68,10 @@ const HomePage = () => {
         setTrendingBooks(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching trending books:", error);
+        console.error(
+          "Error fetching trending books:",
+          error
+        );
       });
   }, []);
 
@@ -70,15 +85,27 @@ const HomePage = () => {
     <>
       <Header />
       <Nav />
-      <div className="main text-left">
+      <div className='main text-left'>
         <CarouselAdverstisment />
-        <ListBook title={"Sách đề xuất cho bạn"} bookList={recommendedBooks} />
+        <ListBook
+          title={"Sách đề xuất cho bạn"}
+          bookList={recommendedBooks}
+        />
         <NewFeed />
         <CardList />
-        <ListBook title={"Sách xem gần đây"} bookList={recentlyViewedBooks} />
+        <ListBook
+          title={"Sách xem gần đây"}
+          bookList={recentlyViewedBooks}
+        />
         <CardBenefit />
-        <ListBook title={"Sách thịnh hành"} bookList={popularBooks} />
-        <ListBook title={"Sách đang thịnh hành"} bookList={trendingBooks} />
+        <ListBook
+          title={"Sách thịnh hành"}
+          bookList={popularBooks}
+        />
+        <ListBook
+          title={"Sách đang thịnh hành"}
+          bookList={trendingBooks}
+        />
         <MoreToExplore />
       </div>
       <Footer />
