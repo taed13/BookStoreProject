@@ -4,24 +4,15 @@ import axios from "../../api/axiosClient";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import BookItem from "../BookItem/BookItem";
-
 const addToCart = () => {
-  // Lấy ID sách từ localStorage
-  const product_id = localStorage.getItem("IDbook");
+  // Lấy ID sách từ local storage
+  const bookId = localStorage.getItem("bookId");
 
-  // Lấy thông tin người dùng từ localStorage
-  const user = JSON.parse(localStorage.getItem("user"));
-  const user_id = user.id; // Lấy giá trị id từ đối tượng người dùng
-
-  // Tạo đối tượng JSON để truyền về backend
-  const data = {
-    product_id: product_id,
-    user_id: user_id,
-  };
-
-  // Gửi yêu cầu POST đến API với gói JSON
+  // Gửi yêu cầu POST đến API với ID sách
   axios
-    .post("/shoppingCart", data)
+    .post("/shoppingCart", {
+      bookId,
+    })
     .then((response) => {
       // Xử lý kết quả từ API nếu cần
       console.log("Đã thêm vào giỏ hàng:", response.data);
@@ -30,7 +21,6 @@ const addToCart = () => {
       console.error("Lỗi khi thêm vào giỏ hàng:", error);
     });
 };
-
 const DetailBook = () => {
   const [BookDetail, setBookDetail] = useState(null);
   useEffect(() => {
@@ -50,6 +40,7 @@ const DetailBook = () => {
   }, []);
 
   if (BookDetail) {
+    localStorage.removeItem("IDbook");
     console.log("Book", BookDetail);
     return (
       <div className='container'>

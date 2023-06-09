@@ -5,7 +5,7 @@ import AuthAPI from "../../api/AuthAPI";
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    username: "",
+    email: "",
     password: "",
   });
   const [error, setError] = useState("");
@@ -17,18 +17,16 @@ const Login = () => {
 
   const handleSubmit = async () => {
     try {
-      // Validate username and password
-      if (!formData.username || !formData.password) {
-        setError(
-          "Please provide both username and password."
-        );
+      // Validate email and password
+      if (!formData.email || !formData.password) {
+        setError("Please provide both email and password.");
         return;
       }
 
-      // username format validation
-      const usernamePattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!usernamePattern.test(formData.username)) {
-        setError("Please enter a valid username address.");
+      // Email format validation
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(formData.email)) {
+        setError("Please enter a valid email address.");
         return;
       }
       // Send login request using AuthAPI
@@ -52,14 +50,14 @@ const Login = () => {
         navigate("/"); // Chuyển hướng đến trang chủ
       } else {
         // Xử lý phản hồi thất bại
-        setError("Invalid username or password.");
+        setError("Invalid email or password.");
       }
 
       // Redirect after successful login
       navigate("/");
     } catch (error) {
       // Handle errors
-      setError("Invalid username or password.");
+      setError("Invalid email or password.");
     }
   };
 
@@ -102,19 +100,19 @@ const Login = () => {
 
               <div className='form-outline mb-4'>
                 <input
-                  type='username'
-                  id='username-address'
+                  type='email'
+                  id='email-address'
                   className='form-control form-control-lg'
-                  value={formData.username}
+                  value={formData.email}
                   onChange={handleChange}
-                  name='username'
+                  name='email'
                 />
 
                 <label
                   className='form-label ml-0'
-                  htmlFor='username-address'
+                  htmlFor='email-address'
                 >
-                  username address
+                  Email address
                 </label>
                 <div className='form-notch'>
                   <div

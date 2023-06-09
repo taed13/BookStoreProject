@@ -32,6 +32,7 @@ const Login = () => {
         return;
       }
       // Send login request using AuthAPI
+      console.log(formData);
       const response = await AuthAPI.login(formData);
 
       // Process the response from the server
