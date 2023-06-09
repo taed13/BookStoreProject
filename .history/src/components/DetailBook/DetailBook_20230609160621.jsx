@@ -17,7 +17,7 @@ const addToCart = () => {
 
   // Tạo đối tượng JSON để truyền về backend
   const data = {
-    productId: product,
+    productId: product_id,
     userId: user_id,
     quantity: 1,
   };
