@@ -145,7 +145,9 @@ function Complete() {
             <div className="p-2" style={{ flexBasis: "50%" }}>
               <button
                 className="btn btn-danger btn-block py-2 mt-2 d-flex flex-column align-items-center"
-                onClick={() => navigate("/process-checkout/complete")}
+                onClick={() =>
+                  navigate("/my-account/detail/my-purchases/detail-my-purchase")
+                }
               >
                 <div>Kiểm tra đơn hàng</div>
                 <div>
@@ -156,7 +158,7 @@ function Complete() {
             <div className="p-2" style={{ flexBasis: "50%" }}>
               <button
                 className="btn btn-danger btn-block py-2 mt-2 d-flex flex-column align-items-center"
-                onClick={() => navigate("/process-checkout/complete")}
+                onClick={() => navigate("/")}
               >
                 <div>Tiếp tục mua hàng</div>
                 <div>

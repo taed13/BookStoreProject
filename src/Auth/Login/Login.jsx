@@ -34,22 +34,19 @@ const Login = () => {
       const response = await AuthAPI.login(formData);
 
       // Process the response from the server
-      // ...
-
-      // Kiểm tra phản hồi từ máy chủ
-      if (response.success) {
+      if (response.data.success) {
         // Xử lý phản hồi thành công
         localStorage.setItem("userId", JSON.stringify(response.data.id));
-        localStorage.setItem("username", JSON.stringify(response.data.id));
+        localStorage.setItem(
+          "username",
+          JSON.stringify(response.data.username)
+        );
 
         navigate("/"); // Chuyển hướng đến trang chủ
       } else {
         // Xử lý phản hồi thất bại
         setError("Invalid email or password.");
       }
-
-      // Redirect after successful login
-      navigate("/");
     } catch (error) {
       // Handle errors
       setError("Invalid email or password.");

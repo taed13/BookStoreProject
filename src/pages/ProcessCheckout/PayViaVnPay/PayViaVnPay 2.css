@@ -1,0 +1,13 @@
+.countdown {
+  display: inline-block;
+}
+
+.countdown .ant-statistic-content {
+  background-color: black;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.countdown .ant-statistic-content > span {
+  color: white;
+}
