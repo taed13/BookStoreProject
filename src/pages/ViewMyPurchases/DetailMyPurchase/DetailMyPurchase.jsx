@@ -1,13 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import "./DetailMyPurchase.css";
-import { useLocation } from "react-router-dom";
+import { historyOrderAPI } from "../../../api/historyOrderAPI";
+import { useEffect } from "react";
 
 const DetailMyPurchase = () => {
   const orderQuantity = 2; // Số lượng đặt hàng
-  const orderStatus = "confirmed"; // Trạng thái đơn hàng ("confirmed", "processing", "packaging", "shipping", "delivered", "completed")
-  const location = useLocation();
-  const purchase = location.state?.purchase;
+  const orderStatus = "confirmed";
+  const [historyData, setHistoryData] = useState({});
+  const { id } = useParams();
 
   const getStatusIcon = (status) => {
     switch (status) {
@@ -47,12 +48,25 @@ const DetailMyPurchase = () => {
     }
   };
 
+  const getData = async () => {
+    const res = await historyOrderAPI.historyOrder();
+    if (res.status === 200) {
+      console.log(123, res.data[+id], id);
+      setHistoryData(res.data[+id]);
+    } else {
+      console.log("err");
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <div className="container p-0 mt-5">
       <article className="card">
         <header className="card-header"> Hoá Đơn Chi Tiết </header>
         <div className="card-body">
-          <h6>ID Hoá đơn: OD45345345435</h6>
+          <h6>ID Hoá đơn: {historyData?.id}</h6>
           <article className="card">
             <div className="card-body row">
               <div className="col">
@@ -113,69 +127,26 @@ const DetailMyPurchase = () => {
           </div>
           <hr />
           <ul className="row">
-            <li className="col-md-4">
-              <figure className="itemside mb-3">
-                <div className="aside">
-                  <img
-                    src="https://pictures.abebooks.com/isbn/9780385547345-us.jpg"
-                    className="img-sm border h-100 h-100"
-                    alt="Dell Laptop"
-                  />
-                </div>
-                <figcaption className="info align-self-center">
-                  <p className="title">
-                    Dell Laptop with 500GB HDD <br /> 8GB RAM
-                  </p>{" "}
-                  <span className="text-muted">1.000.000VND </span>
-                  <p className="text-muted">
-                    Số lượng: {orderQuantity === 1 ? "x1" : "x2"}
-                  </p>{" "}
-                  {/* Hiển thị số lượng */}
-                </figcaption>
-              </figure>
-            </li>
-            <li className="col-md-4">
-              <figure className="itemside mb-3">
-                <div className="aside">
-                  <img
-                    src="https://pictures.abebooks.com/isbn/9780385547345-us.jpg"
-                    className="img-sm border h-100"
-                    alt="HP Laptop"
-                  />
-                </div>
-                <figcaption className="info align-self-center">
-                  <p className="title">
-                    HP Laptop with 500GB HDD <br /> 8GB RAM
-                  </p>{" "}
-                  <span className="text-muted">1.000.000VND </span>
-                  <p className="text-muted">
-                    Số lượng: {orderQuantity === 1 ? "x1" : "x2"}
-                  </p>{" "}
-                  {/* Hiển thị số lượng */}
-                </figcaption>
-              </figure>
-            </li>
-            <li className="col-md-4">
-              <figure className="itemside mb-3">
-                <div className="aside">
-                  <img
-                    src="https://pictures.abebooks.com/isbn/9780385547345-us.jpg"
-                    className="img-sm border h-100"
-                    alt="ACER Laptop"
-                  />
-                </div>
-                <figcaption className="info align-self-center">
-                  <p className="title">
-                    ACER Laptop with 500GB HDD <br /> 8GB RAM
-                  </p>{" "}
-                  <span className="text-muted">1.000.000VND </span>
-                  <p className="text-muted">
-                    Số lượng: {orderQuantity === 1 ? "x1" : "x2"}
-                  </p>{" "}
-                  {/* Hiển thị số lượng */}
-                </figcaption>
-              </figure>
-            </li>
+            {historyData?.transactionResponseModels?.map((item, index) => {
+              return (
+                <li className="col-md-4">
+                  <figure className="itemside mb-3">
+                    <div className="aside">
+                      <img
+                        src={item?.avatar}
+                        className="img-sm border h-100 h-100"
+                        alt={item?.name}
+                      />
+                    </div>
+                    <figcaption className="info align-self-center">
+                      <p className="title">{item?.name}</p>
+                      <span className="text-muted">{item.price}</span>
+                      <p className="text-muted">Số lượng: x{item.quantity}</p>
+                    </figcaption>
+                  </figure>
+                </li>
+              );
+            })}
           </ul>
           <hr />
           <Link

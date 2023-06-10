@@ -68,7 +68,7 @@ function App() {
             <Route path='my-account' element={<AppLayout />} >
               <Route path='detail'>
                 <Route path='my-purchases' >
-                  <Route path='detail-my-purchase' element={<DetailMyPurchase />} />
+                  <Route path='detail-my-purchase/:id' element={<DetailMyPurchase />} />
                 </Route>
               </Route>
             </Route>

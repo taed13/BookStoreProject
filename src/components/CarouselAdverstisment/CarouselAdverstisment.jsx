@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button, message, Carousel } from "antd";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import axios from "../../api/axiosClient";
+import searchAPI from "../../api/searchAPI"; // Import searchAPI từ file searchAPI.js
 import "./CarouselAdverstisment.css";
 
 const CarouselAdverstisment = () => {
@@ -51,12 +52,8 @@ const CarouselAdverstisment = () => {
     }
 
     // Gửi dữ liệu tìm kiếm lên backend
-    axios
-      .post("/posts", {
-        author,
-        title,
-        keyword,
-      })
+    searchAPI
+      .getProductsByAuthor(author) // Gọi phương thức getProductsByAuthor với tên tác giả
       .then((response) => {
         // Xử lý kết quả từ backend (nếu cần)
         console.log(response.data);

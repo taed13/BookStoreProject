@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Pagination } from "antd";
 import "./ViewMyPurchases.css";
+import { historyOrderAPI } from "../../api/historyOrderAPI";
 
 const ViewMyPurchases = () => {
   const [purchases, setPurchases] = useState([]);
+  const [history, setHistory] = useState([]);
   const [displayCount, setDisplayCount] = useState(5);
   const [selectedStatus, setSelectedStatus] = useState("Tất cả");
   const [selectedLocation, setSelectedLocation] = useState("Tất cả");
@@ -119,6 +121,21 @@ const ViewMyPurchases = () => {
   const handleViewDetail = (purchase) => {
     setSelectedPurchase(purchase);
   };
+  const getBillData = async () => {
+    // await fetch(
+    //   "https://73fe-2402-800-629c-1974-5574-9900-6534-25e4.ngrok-free.app/api/v1/bill"
+    // ).then((res) => console.log("re", res));
+    const res = await historyOrderAPI.historyOrder();
+    if (res.status === 200) {
+      console.log("res->", res.data);
+      setHistory(res.data);
+    } else {
+      console.log("err->", res);
+    }
+  };
+  useEffect(() => {
+    getBillData();
+  }, []);
 
   return (
     <div className="container p-0">
@@ -127,7 +144,7 @@ const ViewMyPurchases = () => {
           <div className="table-title">
             <div className="row">
               <div className="col-sm-4">
-                <h2 className="ml-3">
+                <h2 className="ml-3" onClick={() => console.log(history)}>
                   Danh Sách <b>Hoá Đơn</b>
                 </h2>
               </div>
@@ -211,62 +228,26 @@ const ViewMyPurchases = () => {
               </tr>
             </thead>
             <tbody>
-              {purchases
-                .filter(
-                  (purchase) =>
-                    selectedLocation === "Tất cả" ||
-                    purchase.deliveryLocation.toLowerCase() ===
-                      selectedLocation.toLowerCase()
-                )
-                .filter(
-                  (purchase) =>
-                    selectedStatus === "Tất cả" ||
-                    purchase.status.toLowerCase() ===
-                      selectedStatus.toLowerCase()
-                )
-                .filter(
-                  (purchase) =>
-                    searchTerm === "" ||
-                    purchase.orderCode.toLowerCase().includes(searchTerm) ||
-                    purchase.deliveryLocation
-                      .toLowerCase()
-                      .includes(searchTerm) ||
-                    purchase.orderDate.toLowerCase().includes(searchTerm) ||
-                    purchase.status.toLowerCase().includes(searchTerm) ||
-                    purchase.totalPrice.toLowerCase().includes(searchTerm)
-                )
-                .slice(startIndex, endIndex)
-                .map((purchase) => (
-                  <tr key={purchase.id}>
-                    <td>{purchase.id}</td>
-                    <td>{purchase.orderCode}</td>
-                    <td>{purchase.deliveryLocation}</td>
-                    <td>{purchase.orderDate}</td>
-                    <td>
-                      <span
-                        className={`status ${getStatusClassName(
-                          purchase.status
-                        )}`}
-                      >
-                        •
-                      </span>{" "}
-                      {purchase.status}
-                    </td>
-                    <td>{purchase.totalPrice}</td>
-                    <td>
-                      <Link
-                        to={{
-                          pathname:
-                            "/my-account/detail/my-purchases/detail-my-purchase",
-                          state: { purchase: purchase },
-                        }}
-                        onClick={() => handleViewDetail(purchase)}
-                      >
-                        <i className="fa fa-eye"></i>
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
+              {history?.length > 0 &&
+                history?.map((item, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{item.id}</td>
+                      <td>{item.address}</td>
+                      <td>{item?.createAt}</td>
+                      <td>{item.status}</td>
+                      <td>{item.productCost}</td>
+                      <td>
+                        <Link
+                          to={`/my-account/detail/my-purchases/detail-my-purchase/${index}`}
+                        >
+                          <i className="fa fa-eye"></i>
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
           <Pagination
