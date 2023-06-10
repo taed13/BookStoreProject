@@ -28,6 +28,7 @@ import SearchBook from './pages/SearchBook/SearchBook';
 import PayViaVnPay from './pages/ProcessCheckout/PayViaVnPay/PayViaVnPay';
 import AdvancedSearch from './pages/AdvancedSearch/AdvancedSearch';
 import InformationMyAccount from './pages/InformationMyAccount/InformationMyAccount';
+import Billing from './pages/Billing/Billing';
 
 
 export const AppContext = createContext({});
@@ -57,6 +58,9 @@ function App() {
               <Route path='detail'>
                 <Route path='infor-user' element={<InformationUser />} />
                 <Route path='infor-my-account' element={<InformationMyAccount />} />
+                <Route path='infor-my-bank-card' element={<Billing />} />
+
+
                 <Route path='my-purchases' element={<ViewMyPurchases />} />
                 <Route path='my-address' element={<ViewMyAddress />} />
               </Route>

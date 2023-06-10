@@ -1,22 +1,50 @@
 import React, { useState } from "react";
-import { Rate, Form, Avatar, Typography, Input, Button } from "antd";
+import {
+  Rate,
+  Form,
+  Avatar,
+  Typography,
+  Input,
+  Button,
+  notification,
+} from "antd";
 
-const { Title, Paragraph, Text } = Typography;
+const { Title } = Typography;
 
 const SubmitRateNComment = () => {
   const [form] = Form.useForm();
   const [rating, setRating] = useState(0);
-  const [showDate, setShowDate] = useState(false); // Thêm trạng thái showDate
+  const [showDate, setShowDate] = useState(false);
 
   const handleRatingChange = (value) => {
     setRating(value);
   };
 
   const handleSubmit = (values) => {
-    console.log("Received form values:", values);
-    console.log("Rating:", rating);
-    setShowDate(true); // Cập nhật showDate thành true khi handleSubmit được gọi
-    // Add your logic to submit the rating and comment data
+    form
+      .validateFields()
+      .then(() => {
+        console.log("Received form values:", values);
+        console.log("Rating:", rating);
+        setShowDate(true);
+
+        // Add your logic to submit the rating and comment data
+
+        // Display success notification
+        notification.success({
+          message: "Success",
+          description: "Rating and comment submitted successfully.",
+        });
+      })
+      .catch((error) => {
+        console.log("Validation failed:", error);
+
+        // Display error notification
+        notification.error({
+          message: "Validation Error",
+          description: "Please fill in all the required fields.",
+        });
+      });
   };
 
   return (
@@ -33,35 +61,61 @@ const SubmitRateNComment = () => {
           size={48}
           src="https://creativeedtech.weebly.com/uploads/4/1/6/3/41634549/published/avatar.png?1487742111"
         />
-        {/* Thay thế 'url_to_avatar_image' bằng đường dẫn đến hình ảnh avatar */}
         <Title level={5} style={{ margin: "0 8px" }}>
           Username
         </Title>
-        {/* Thay 'Username' bằng tên người dùng */}
       </div>
       <Form form={form} onFinish={handleSubmit} gutter={16}>
         <div style={{ display: "flex" }}>
-          <Form.Item label="" style={{ marginBottom: 0 }}>
+          <Form.Item
+            label=""
+            style={{ marginBottom: 0 }}
+            name="rating"
+            rules={[
+              {
+                validator: (_, value) => {
+                  if (value === 0) {
+                    return Promise.reject("Please select a rating");
+                  }
+                  return Promise.resolve();
+                },
+              },
+            ]}
+          >
             <Rate onChange={handleRatingChange} value={rating} />
           </Form.Item>
-          <Form.Item label="" style={{ marginBottom: 0 }} className="ml-3">
+          <Form.Item
+            label=""
+            style={{ marginBottom: 0 }}
+            className="ml-3"
+            name="ratingDate"
+          >
             <Typography.Text type="secondary">
-              {showDate && "Ngày đánh giá: 10/06/2023"}{" "}
-              {/* Hiển thị ngày đánh giá khi showDate là true */}
+              {showDate && "Rating Date: 10/06/2023"}
             </Typography.Text>
           </Form.Item>
         </div>
-        <Form.Item label="" className="pt-3">
-          <Input.TextArea rows={4} placeholder="Nhập bình luận của bạn" />
+        <Form.Item
+          label=""
+          className="pt-3"
+          name="comment"
+          rules={[
+            {
+              required: true,
+              message: "Please enter your comment",
+            },
+          ]}
+        >
+          <Input.TextArea rows={4} placeholder="Enter your comment" />
         </Form.Item>
-        <div class="d-flex flex-row-reverse">
+        <div className="d-flex flex-row-reverse">
           <Form.Item>
             <Button
               type="primary"
               htmlType="submit"
               className="btn-danger bg-danger"
             >
-              Gửi bình luận
+              Submit Comment
             </Button>
           </Form.Item>
         </div>

@@ -71,7 +71,10 @@ const MyAccount = () => {
                 <FontAwesomeIcon icon={faGreaterThan} />
               </span>
             </Link>
-            <Link to="" className="list-group-item ">
+            <Link
+              to="/my-account/detail/infor-my-bank-card"
+              className="list-group-item "
+            >
               Quản lý thẻ ngân hàng của tôi
               <span className="float-right">
                 <FontAwesomeIcon icon={faGreaterThan} />
