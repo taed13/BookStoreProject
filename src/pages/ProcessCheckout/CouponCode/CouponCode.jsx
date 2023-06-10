@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Button, Input, Select, notification } from "antd";
 import axios from "axios";
 import "./CouponCode.css";
+import BackButton from "../../../components/BackButton/BackButton";
 
 const { Option } = Select;
 
@@ -76,6 +77,7 @@ function CouponCode(props) {
   if (data) {
     return (
       <div className="container p-0 mt-5" style={{ width: "40%" }}>
+        <BackButton />
         <article className="card rounded-3">
           <div className="card-body">
             <div className="track">

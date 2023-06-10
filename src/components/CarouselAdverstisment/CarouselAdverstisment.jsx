@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Button, message, Carousel } from "antd";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import axios from "../../api/axiosClient";
 import "./CarouselAdverstisment.css";
-import { message } from "antd";
 
 const CarouselAdverstisment = () => {
   const [author, setAuthor] = useState("");
@@ -273,35 +274,36 @@ const CarouselAdverstisment = () => {
                   </div>
                 </div>
               </div>
-
               <div
                 className="d-flex justify-content-end pb-5 mb-5"
                 style={{ position: "absolute", bottom: 0, right: 0 }}
               >
-                <button
-                  className="btn btn-secondary me-2 bg-danger carousel-button"
+                <Button
+                  className="me-2 bg-danger carousel-button round d-flex justify-content-center align-items-center"
                   type="button"
                   data-bs-target="#myCarousel"
                   data-bs-slide="prev"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                  }}
                 >
-                  <span
-                    className="carousel-control-prev-icon"
-                    aria-hidden="true"
-                  ></span>
+                  <BsChevronLeft size={20} />
                   <span className="visually-hidden">Previous</span>
-                </button>
-                <button
-                  className="btn btn-secondary bg-danger carousel-button"
+                </Button>
+                <Button
+                  className="bg-danger carousel-button round d-flex justify-content-center align-items-center"
                   type="button"
                   data-bs-target="#myCarousel"
                   data-bs-slide="next"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                  }}
                 >
-                  <span
-                    className="carousel-control-next-icon"
-                    aria-hidden="true"
-                  ></span>
+                  <BsChevronRight size={20} />
                   <span className="visually-hidden">Next</span>
-                </button>
+                </Button>
               </div>
             </div>
           </div>

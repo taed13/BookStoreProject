@@ -1,10 +1,42 @@
-import React from "react";
-import { Input, DatePicker, Radio, Select, Button } from "antd";
+import React, { useState } from "react";
+import { Input, DatePicker, Radio, Select, Button, notification } from "antd";
 
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 
 const AdvancedSearch = () => {
+  const [searchFields, setSearchFields] = useState({
+    author: "",
+    title: "",
+    keyword: "",
+    publisher: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setSearchFields((prevFields) => ({ ...prevFields, [name]: value }));
+  };
+
+  const handleSearch = () => {
+    const { author, title, keyword, publisher } = searchFields;
+    if (!author && !title && !keyword && !publisher) {
+      notification.error({
+        message: "Lỗi",
+        description: "Vui lòng nhập ít nhất một trường để tìm kiếm.",
+      });
+    } else {
+      // Perform search logic here
+      // ...
+      // Reset search fields
+      setSearchFields({
+        author: "",
+        title: "",
+        keyword: "",
+        publisher: "",
+      });
+    }
+  };
+
   return (
     <>
       <div className="container mt-2" style={{ padding: "0 11rem" }}>
@@ -12,11 +44,11 @@ const AdvancedSearch = () => {
           <h4>Tìm Kiếm Nâng Cao</h4>
         </div>
         <div className="px-2 mb-3">
-          <div class="alert alert-warning alert-dismissible d-flex align-items-center fade show p-1">
+          <div className="alert alert-warning alert-dismissible d-flex align-items-center fade show p-1">
             <small className="p-1">
-              <i class="fa-solid fa-triangle-exclamation"></i>
-              <strong class="mx-2">Cảnh báo!</strong>Quý khách vui lòng nhập ít
-              nhất một trường bất kỳ để tìm kiếm.
+              <i className="fa-solid fa-triangle-exclamation"></i>
+              <strong className="mx-2">Cảnh báo!</strong>Quý khách vui lòng nhập
+              ít nhất một trường bất kỳ để tìm kiếm.
             </small>
           </div>
         </div>
@@ -24,22 +56,42 @@ const AdvancedSearch = () => {
           <div className="row">
             <div className="col">
               <label>Tác giả</label>
-              <Input placeholder="Nhập tác giả" />
+              <Input
+                name="author"
+                value={searchFields.author}
+                onChange={handleInputChange}
+                placeholder="Nhập tác giả"
+              />
             </div>
             <div className="col">
               <label>Tiêu đề</label>
-              <Input placeholder="Nhập tiêu đề" />
+              <Input
+                name="title"
+                value={searchFields.title}
+                onChange={handleInputChange}
+                placeholder="Nhập tiêu đề"
+              />
             </div>
           </div>
 
           <div className="row mt-2">
             <div className="col">
               <label>Từ khoá</label>
-              <Input placeholder="Nhập từ khoá" />
+              <Input
+                name="keyword"
+                value={searchFields.keyword}
+                onChange={handleInputChange}
+                placeholder="Nhập từ khoá"
+              />
             </div>
             <div className="col">
               <label>Nhà xuất bản</label>
-              <Input placeholder="Nhập nhà xuất bản" />
+              <Input
+                name="publisher"
+                value={searchFields.publisher}
+                onChange={handleInputChange}
+                placeholder="Nhập nhà xuất bản"
+              />
             </div>
           </div>
 
@@ -127,7 +179,11 @@ const AdvancedSearch = () => {
           </div>
           <div className="row mt-3 justify-content-center">
             <div className="col-auto">
-              <Button type="primary" className="btn-danger">
+              <Button
+                type="primary"
+                className="btn-danger"
+                onClick={handleSearch}
+              >
                 Tìm kiếm
               </Button>
             </div>

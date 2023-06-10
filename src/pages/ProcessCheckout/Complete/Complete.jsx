@@ -4,6 +4,7 @@ import "./Complete.css";
 import ProductPayment from "../../../components/ProductPayment/ProductPayment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import BackButton from "../../../components/BackButton/BackButton";
 
 function Complete() {
   const navigate = useNavigate();
@@ -23,26 +24,25 @@ function Complete() {
 
   return (
     <div
-      className={`container p-0 mt-5 ${orderSuccess ? "" : "order-failure"}`}
+      className={`container p-0 mt-3 ${orderSuccess ? "" : "order-failure"}`}
       style={{ width: "40%" }}
     >
+      <BackButton />
       <article className="card rounded-3">
         <div className="card-body">
           <div className="track">
             <div className="step active">
               <span className="icon">
-                {" "}
-                <i className="fa fa-shopping-cart"></i>{" "}
-              </span>{" "}
+                <i className="fa fa-shopping-cart"></i>
+              </span>
               <span className="text">
                 <small style={{ fontSize: "0.71rem" }}>Chọn sản phẩm</small>
               </span>
             </div>
             <div className="step active">
               <span className="icon">
-                {" "}
-                <i className="fa fa-info-circle"></i>{" "}
-              </span>{" "}
+                <i className="fa fa-info-circle"></i>
+              </span>
               <span className="text">
                 <small style={{ fontSize: "0.71rem" }}>
                   Thông tin đặt hàng
@@ -51,27 +51,24 @@ function Complete() {
             </div>
             <div className="step active">
               <span className="icon">
-                {" "}
-                <i className="fa fa-tags"></i>{" "}
-              </span>{" "}
+                <i className="fa fa-tags"></i>
+              </span>
               <span className="text">
                 <small style={{ fontSize: "0.71rem" }}>Phiếu giảm giá</small>
               </span>
             </div>
             <div className="step active">
               <span className="icon">
-                {" "}
-                <i className="fa fa-credit-card"></i>{" "}
-              </span>{" "}
+                <i className="fa fa-credit-card"></i>
+              </span>
               <span className="text">
                 <small style={{ fontSize: "0.71rem" }}>Thanh toán</small>
               </span>
             </div>
             <div className="step active">
               <span className="icon">
-                {" "}
-                <i className="fa fa-check-circle"></i>{" "}
-              </span>{" "}
+                <i className="fa fa-check-circle"></i>
+              </span>
               <span className="text">
                 <small style={{ fontSize: "0.71rem" }}>Hoàn tất đặt hàng</small>
               </span>
@@ -96,11 +93,11 @@ function Complete() {
             </span>
             <div
               className={`border rounded-4 p-3 ${
-                !orderSuccess ? "successful-order" : "unsuccessful-order"
+                orderSuccess ? "successful-order" : "unsuccessful-order"
               }`}
             >
               <h4 className="font-weight-bold mb-4 text-center">
-                {!orderSuccess
+                {orderSuccess
                   ? "ĐẶT HÀNG THÀNH CÔNG"
                   : "ĐẶT HÀNG KHÔNG THÀNH CÔNG"}
               </h4>
@@ -146,12 +143,17 @@ function Complete() {
               <button
                 className="btn btn-danger btn-block py-2 mt-2 d-flex flex-column align-items-center"
                 onClick={() =>
-                  navigate("/my-account/detail/my-purchases/detail-my-purchase")
+                  navigate("/process-checkout/complete", {
+                    state: { orderSuccess: false },
+                  })
                 }
               >
-                <div>Kiểm tra đơn hàng</div>
+                <div>Huỷ thanh toán</div>
                 <div>
-                  <FontAwesomeIcon icon={faCheck} />
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    style={{ textDecoration: "line-through" }}
+                  />
                 </div>
               </button>
             </div>

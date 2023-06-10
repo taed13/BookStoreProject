@@ -187,7 +187,7 @@ const ViewMyPurchases = () => {
                   >
                     <option>Tất cả</option>
                     <option>Đã giao hàng</option>
-                    <option>Vận chuyển</option>
+                    <option>Đang Vận chuyển</option>
                     <option>Đang giải quyết</option>
                     <option>Huỷ đơn hàng</option>
                   </select>
