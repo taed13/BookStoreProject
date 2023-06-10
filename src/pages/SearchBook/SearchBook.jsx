@@ -1,12 +1,14 @@
-import React from 'react';
-import BookAfterSearch from '../../components/BookAfterSearch/BookAfterSearch';
+import React from "react";
+import BookAfterSearch from "../../components/BookAfterSearch/BookAfterSearch";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 const SearchBook = () => {
-    return (
-        <>
-        <BookAfterSearch />
-        </>
-    )
-}
+  return (
+    <>
+      <SearchBar />
+      <BookAfterSearch />
+    </>
+  );
+};
 
 export default SearchBook;

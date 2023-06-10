@@ -1,0 +1,33 @@
+.book-result-wrapper-link {
+  text-decoration: none;
+}
+.book-result-wrapper-link:hover {
+  text-decoration: none;
+}
+.book-result-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 500px;
+  color: rgb(0 0 0);
+  padding: 8px;
+  border-radius: 16px;
+}
+.book-result-wrapper:hover {
+  cursor: pointer;
+  background-color: rgb(148 163 184);
+}
+.book-img-result {
+  width: 40%;
+  border-radius: 16px;
+}
+.book-name-result {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  margin-left: 8px;
+  width: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

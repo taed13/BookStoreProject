@@ -6,7 +6,11 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 9999;
+  z-index: -9999;
   background-color: #fff; /* Thay đổi màu nền nếu cần */
   /* Các thuộc tính khác cho header của bạn */
+}
+
+.lowest-priority {
+  order: -9999; /* Đặt độ ưu tiên thấp nhất */
 }
