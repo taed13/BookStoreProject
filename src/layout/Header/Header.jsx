@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { AppContext } from "../../App";
 import axios from "../../api/axiosClient";
 import validator from "validator";
+import { ShoppingCartOutlined } from "@ant-design/icons";
 
 const Header = ({ isLoggedIn, onLogout }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -97,15 +98,16 @@ const Header = ({ isLoggedIn, onLogout }) => {
                 </button>
               </form>
             </div>
-
-            <ul className="nav nav-pills">
+            <ul className="nav nav-pills d-flex justify-content-between">
               {isLoggedIn && (
                 <li className="nav-item">
                   <Link
                     to="/my-account/detail"
-                    className="nav-link btn-outline-danger link-danger"
+                    className="nav-link btn-outline-danger link-danger d-flex align-items-center"
                   >
-                    Tài khoản của tôi
+                    <span style={{ display: "inline-block" }}>
+                      Tài khoản của tôi
+                    </span>
                   </Link>
                 </li>
               )}
@@ -113,40 +115,46 @@ const Header = ({ isLoggedIn, onLogout }) => {
                 <li className="nav-item">
                   <Link
                     to="/basket/detail"
-                    className="nav-link btn-outline-danger link-danger"
+                    className="nav-link btn-outline-danger link-danger d-flex align-items-center"
                   >
-                    Giỏ hàng
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      className="bi bi-cart4 ml-2 text-center"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.621l-1.5-6A.5.5 0 0 1 2.5 4H1a.5.5 0 0 1-.485-.621L1.521 2H0zm3.884 0h8.232l1.437 6H2.447l1.437-6z" />
-                      <path d="M6.5 14a1.5 1.5 0 0 0 1.493-1.356L8 10.5h4.5a1.5 1.5 0 0 0 0-3H8l-.354-1.144A1.5 1.5 0 1 0 5.5 7H10a.5.5 0 0 1 0 1H5.5a1.5 1.5 0 0 0 0 3h4.818l.354 1.144A1.5 1.5 0 0 0 6.5 14z" />
-                    </svg>
+                    <ShoppingCartOutlined
+                      style={{ fontSize: "15px" }}
+                      className="mr-2"
+                    />
+                    <span style={{ display: "inline-block" }}>Giỏ hàng</span>
                   </Link>
                 </li>
               )}
-              <li className="nav-item">
-                {isLoggedIn ? (
-                  <button
-                    className="nav-link btn-outline-danger link-danger"
-                    onClick={onLogout}
+              {!isLoggedIn && (
+                <li className="nav-item">
+                  <Link
+                    to="/register"
+                    className="nav-link btn-outline-danger link-danger d-flex align-items-center"
                   >
-                    Đăng xuất
-                  </button>
-                ) : (
+                    <span style={{ display: "inline-block" }}>Đăng ký</span>
+                  </Link>
+                </li>
+              )}
+              {!isLoggedIn && (
+                <li className="nav-item">
                   <Link
                     to="/login"
-                    className="nav-link btn-outline-danger link-danger"
+                    className="nav-link btn-outline-danger link-danger d-flex align-items-center"
                   >
-                    Đăng nhập
+                    <span style={{ display: "inline-block" }}>Đăng nhập</span>
                   </Link>
-                )}
-              </li>
+                </li>
+              )}
+              {isLoggedIn && (
+                <li className="nav-item">
+                  <button
+                    className="nav-link btn-outline-danger link-danger d-flex align-items-center"
+                    onClick={onLogout}
+                  >
+                    <span style={{ display: "inline-block" }}>Đăng xuất</span>
+                  </button>
+                </li>
+              )}
             </ul>
           </div>
         </div>

@@ -23,8 +23,8 @@ const Nav = () => {
                 icon={<SearchOutlined />}
                 className="nav-item"
               >
-                <Link to="/tim-kiem-nang-cao" className="text-decoration-none">
-                  Tìm kiếm
+                <Link to="/advanced-search" className="text-decoration-none">
+                  Tìm kiếm nâng cao
                 </Link>
               </Menu.Item>
               <Menu.Item

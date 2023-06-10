@@ -26,6 +26,7 @@ import Payment from './pages/ProcessCheckout/Payment/Payment';
 import Complete from './pages/ProcessCheckout/Complete/Complete';
 import SearchBook from './pages/SearchBook/SearchBook';
 import PayViaVnPay from './pages/ProcessCheckout/PayViaVnPay/PayViaVnPay';
+import AdvancedSearch from './pages/AdvancedSearch/AdvancedSearch';
 
 
 export const AppContext = createContext({});
@@ -89,6 +90,10 @@ function App() {
 
             <Route path='search' element={<AppLayout />} >
               <Route path='' element={<SearchBook />} />
+            </Route>
+
+            <Route path='advanced-search' element={<AppLayout />} >
+              <Route path='' element={<AdvancedSearch />} />
             </Route>
 
 
