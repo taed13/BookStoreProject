@@ -15,6 +15,7 @@
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "faker": "^6.6.6",
+    "formik": "^2.4.1",
     "mdbreact": "^5.2.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
@@ -25,7 +26,8 @@
     "react-scripts": "5.0.1",
     "uuid": "^9.0.0",
     "validator": "^13.9.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
