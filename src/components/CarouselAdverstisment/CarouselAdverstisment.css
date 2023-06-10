@@ -10,3 +10,22 @@
 .feature img {
   max-width: 100%;
 }
+.carousel-item .slide-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.carousel-item .slide-image {
+  width: 50%;
+}
+
+.carousel-item .slide-image img {
+  width: 100%;
+  height: auto;
+}
+
+.carousel-item .slide-description {
+  width: 50%;
+}

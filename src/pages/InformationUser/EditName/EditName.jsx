@@ -1,12 +1,22 @@
 import React, { useState } from "react";
 import axios from "../../../api/axiosClient";
+import { useNavigate } from "react-router-dom";
+import { message } from "antd";
 
 const EditName = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // Kiểm tra nếu các trường chưa được điền vào
+    if (!firstName || !lastName) {
+      message.error("Please fill in all fields.");
+      return;
+    }
 
     // Tạo đối tượng dữ liệu từ dữ liệu form
     const data = {
@@ -20,9 +30,13 @@ const EditName = () => {
       console.log(response.data); // In phản hồi từ API nếu cần
 
       // Xử lý phản hồi từ API theo yêu cầu của bạn (ví dụ: hiển thị thông báo thành công)
-      alert("Name updated successfully!");
+      message.success("Name updated successfully!");
+
+      // Navigate về trang trước
+      navigate(-1);
     } catch (error) {
       console.error(error); // Xử lý lỗi nếu có
+      message.error("An error occurred. Please try again.");
     }
   };
 

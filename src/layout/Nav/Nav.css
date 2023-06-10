@@ -1,5 +1,18 @@
 .navbar-link .container .nav-scroller > nav > a:hover,
 .navbar-link .container .nav-scroller > nav > a:focus {
-  color: var(--bs-danger);
   text-decoration: none;
+}
+.nav-menu {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.nav-item {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.ant-menu-item:hover {
+  color: #ff4d4f;
 }

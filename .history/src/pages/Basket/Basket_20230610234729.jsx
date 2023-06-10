@@ -11,7 +11,6 @@ import { useEffect, useState } from "react";
 
 const Basket = () => {
   const [books, setBooks] = useState([]);
-  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -28,13 +27,6 @@ const Basket = () => {
 
     fetchBooks();
   }, []);
-  const calculateTotal = () => {
-    let totalPrice = 0;
-    for (let i = 0; i < books.length; i++) {
-      totalPrice += books[i].totalPrice;
-    }
-    setTotal(totalPrice);
-  };
 
   const navigate = useNavigate();
   const handleSubmit = (event) => {

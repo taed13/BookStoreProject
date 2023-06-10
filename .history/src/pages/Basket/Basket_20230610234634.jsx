@@ -11,7 +11,6 @@ import { useEffect, useState } from "react";
 
 const Basket = () => {
   const [books, setBooks] = useState([]);
-  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -28,13 +27,6 @@ const Basket = () => {
 
     fetchBooks();
   }, []);
-  const calculateTotal = () => {
-    let totalPrice = 0;
-    for (let i = 0; i < books.length; i++) {
-      totalPrice += books[i].totalPrice;
-    }
-    setTotal(totalPrice);
-  };
 
   const navigate = useNavigate();
   const handleSubmit = (event) => {
@@ -63,7 +55,7 @@ const Basket = () => {
                   tabindex='0'
                   aria-label='Your order total is US$ 115.48'
                 >
-                  US$ {}
+                  US$ {totalPrice}
                 </span>
               </nobr>
               <br />
@@ -132,7 +124,7 @@ const Basket = () => {
                 }}
               />
               <div className='custom-border-bottom'></div>
-              {book.price}{" "}
+              {(totalPrice += book.price)}{" "}
               {/* Cộng dồn giá của từng cuốn sách */}
             </div>
           ))}

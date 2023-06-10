@@ -146,7 +146,7 @@ function Payment() {
                 <span className='font-weight-normal'>
                   Tiền hàng:
                 </span>{" "}
-                1.000
+                1.000.000đ
               </p>
             </div>
 
