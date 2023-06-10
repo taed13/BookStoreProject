@@ -42,53 +42,47 @@ const Basket = () => {
     fetchBooks();
   }, []);
 
-  const navigate = useNavigate();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Xử lý logic khi người dùng nhấn nút "Proceed to Checkout"
-    navigate("/process-checkout/payment-infor");
-  };
-  return (
-    <>
-      <div className="container p-0">
-        <div className="pageHeader mb-2">
-          <h1>Giỏ Hàng Của Tôi</h1>
-        </div>
-        <div style={{ display: "flex" }} className="pageHeader">
-          <div style={{ flex: 6 }}>
-            <ShippingForm />
-          </div>
-          <div style={{ flex: 2 }}>
-            <div className="couponList text-danger font-weight-bold">
-              <nobr>
-                <span
-                  className="price"
-                  tabindex="0"
-                  aria-label="Your order total is US$ 115.48"
-                >
-                  US$ 115.48
-                </span>
-              </nobr>
-              <br />
-            </div>
-          </div>
-          <div style={{ flex: 2 }}>
-            <form
-              method="post"
-              action="/servlet/ShoppingBasket"
-              name="proceedToCheckout"
-              className="nopadding"
-              onSubmit={handleSubmit}
-            >
-              <img
-                src="https://assets.prod.abebookscdn.com/cdn/com/images/servlets/ShoppingBasket/proceedcheckout.gif"
-                alt="Proceed to Checkout"
-                className="checkout-button-img btn btn-primary btn-light"
-                onClick={handleSubmit}
-              />
-            </form>
-          </div>
-        </div>
+    const navigate = useNavigate();
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        // Xử lý logic khi người dùng nhấn nút "Proceed to Checkout"
+        navigate("/process-checkout/payment-infor");
+    };
+    return (
+        <>
+            <div className="container p-0">
+                <div className="pageHeader mb-2">
+                    <h1>Giỏ Hàng Của Tôi</h1>
+                </div>
+                <div style={{ display: 'flex' }} className="pageHeader">
+                    <div style={{ flex: 6 }}>
+                        <ShippingForm />
+                    </div>
+                    <div style={{ flex: 2 }}>
+                        <div className="couponList text-danger font-weight-bold">
+                            <nobr>
+                                <span className="price" tabindex="0" aria-label="Your order total is US$ 115.48">US$ {totalPrice}</span>
+                            </nobr>
+                            <br />
+                        </div>
+                    </div>
+                    <div style={{ flex: 2 }}>
+                        <form
+                            method="post"
+                            action="/servlet/ShoppingBasket"
+                            name="proceedToCheckout"
+                            className="nopadding"
+                            onSubmit={handleSubmit}
+                        >
+                            <img
+                                src="https://assets.prod.abebookscdn.com/cdn/com/images/servlets/ShoppingBasket/proceedcheckout.gif"
+                                alt="Proceed to Checkout"
+                                className="checkout-button-img btn btn-primary btn-light"
+                                onClick={handleSubmit}
+                            />
+                        </form>
+                    </div>
+                </div>
 
         <div className="container p-0 custom-border rounded-3 my-3">
           <div
@@ -133,58 +127,47 @@ const Basket = () => {
           ))}
         </div>
 
-        <div className="order-total">
-          <div style={{ display: "flex" }} className="pageHeader">
-            <div style={{ flex: 6 }}>
-              <Link to="/">
-                <img
-                  src="https://assets.prod.abebookscdn.com/cdn/com/images/servlets/ShoppingBasket/abebookshome.gif"
-                  alt="Home"
-                  className="your-img-class"
-                />
-              </Link>
-              <br />
-              <small>
-                <input
-                  type="button"
-                  value="E-mail me my basket"
-                  className="btn-secondary my-1"
-                />
-              </small>
-            </div>
-            <span className="text-danger font-weight-bold">Order Total:</span>
-            <div style={{ flex: 2 }}>
-              <div className="couponList text-danger font-weight-bold">
-                <nobr>
-                  <span
-                    className="price"
-                    tabindex="0"
-                    aria-label="Your order total is US$ 115.48"
-                  >
-                    US$ 115.48
-                  </span>
-                </nobr>
-                <br />
-              </div>
-            </div>
-            <div style={{ flex: 2 }}>
-              <form
-                method="post"
-                action="/servlet/ShoppingBasket"
-                name="proceedToCheckout"
-                className="nopadding"
-                onSubmit={handleSubmit}
-              >
-                <img
-                  src="https://assets.prod.abebookscdn.com/cdn/com/images/servlets/ShoppingBasket/proceedcheckout.gif"
-                  alt="Proceed to Checkout"
-                  className="checkout-button-img btn btn-primary btn-light"
-                  onClick={handleSubmit}
-                />
-              </form>
-            </div>
-          </div>
-        </div>
+
+                <div className="order-total">
+                    <div style={{ display: 'flex' }} className="pageHeader">
+                        <div style={{ flex: 6 }}>
+                            <Link to="/">
+                                <img
+                                    src="https://assets.prod.abebookscdn.com/cdn/com/images/servlets/ShoppingBasket/abebookshome.gif"
+                                    alt="Home"
+                                    className="your-img-class"
+                                />
+                            </Link>
+                            <br />
+                            <small><input type="button" value="E-mail me my basket" className="btn-secondary my-1" /></small>
+                        </div>
+                        <span className="text-danger font-weight-bold">Order Total:</span>
+                        <div style={{ flex: 2 }}>
+                            <div className="couponList text-danger font-weight-bold">
+                                <nobr>
+                    <span className="price" tabindex="0" aria-label="Your order total is US$ 115.48">US$ {totalPrice}</span>
+                                </nobr>
+                                <br />
+                            </div>
+                        </div>
+                        <div style={{ flex: 2 }}>
+                            <form
+                                method="post"
+                                action="/servlet/ShoppingBasket"
+                                name="proceedToCheckout"
+                                className="nopadding"
+                                onSubmit={handleSubmit}
+                            >
+                                <img
+                                    src="https://assets.prod.abebookscdn.com/cdn/com/images/servlets/ShoppingBasket/proceedcheckout.gif"
+                                    alt="Proceed to Checkout"
+                                    className="checkout-button-img btn btn-primary btn-light"
+                                    onClick={handleSubmit}
+                                />
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
         <div className="save-for-later">
           <SaveForLater saves={saves} />
