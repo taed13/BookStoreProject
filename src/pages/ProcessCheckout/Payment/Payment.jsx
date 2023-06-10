@@ -12,7 +12,7 @@ function Payment() {
   };
   const dataJson = localStorage.getItem('userData');
 
-
+  const data = JSON.parse(dataJson);
   const handleContinue = () => {
     if (paymentMethod === "vnpay") {
       navigate("/process-checkout/pay-via-vnpay");
@@ -23,7 +23,7 @@ function Payment() {
     }
   };
 
-  const data = JSON.parse(dataJson);
+
 
   return (
     <div className="container p-0 mt-5" style={{ width: "40%" }}>

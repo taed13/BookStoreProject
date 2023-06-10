@@ -4,6 +4,8 @@ import addressArray from "./vietnam-address.json";
 import { Link, useNavigate } from "react-router-dom";
 import "./ProcessCheckout.css";
 
+
+
 import { message } from "antd";
 
 import CouponCode from "./CouponCode/CouponCode";
@@ -11,8 +13,25 @@ import CouponCode from "./CouponCode/CouponCode";
 // import addressData from './vietnam_address.json';
 
 // Chuyển đổi đối tượng thành mảng
+const showWaitingForm = () => {
+  // Tạo một div chứa form waiting
+  const waitingFormDiv = document.createElement('div');
+  waitingFormDiv.className = 'waiting-form';
+
+  // Tạo nội dung cho form waiting
+  const waitingText = document.createElement('p');
+  waitingText.textContent = 'Please wait...';
+
+  // Thêm nội dung vào div chứa form waiting
+  waitingFormDiv.appendChild(waitingText);
+
+  // Thêm div chứa form waiting vào body của trang
+  document.body.appendChild(waitingFormDiv);
+};
 
 function ProcessCheckout() {
+  localStorage.clear();
+
   const addressData = Object.values(addressArray);
   const [provinces, setProvinces] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState("");
@@ -166,8 +185,13 @@ function ProcessCheckout() {
         // Xử lý lỗi (nếu có)
         console.error(error);
       });
-
-    navigate("/process-checkout/coupon-code");
+      showWaitingForm();
+      const checkDataInterval = setInterval(() => {
+        if (localStorage.getItem('userData')) {
+          clearInterval(checkDataInterval); // Dừng kiểm tra định kỳ
+          navigate('/process-checkout/coupon-code'); // Chuyển đến trang coupon-code nếu dữ liệu đã tồn tại
+        }
+      }, 500);
   };
 
   return (

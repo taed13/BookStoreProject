@@ -6,11 +6,11 @@ import { Link } from "react-router-dom";
 import BookItem from "../BookItem/BookItem";
 const addToCart = () => {
   // Lấy ID sách từ local storage
-  const bookId = localStorage.getItem("bookId");
+  const bookId = localStorage.getItem("IDbook");
 
   // Gửi yêu cầu POST đến API với ID sách
   axios
-    .post("https://jsonplaceholder.typicode.com/posts", {
+    .post("/posts", {
       bookId,
     })
     .then((response) => {
@@ -40,7 +40,6 @@ const DetailBook = () => {
   }, []);
 
   if (BookDetail) {
-    localStorage.removeItem("IDbook");
     console.log("Book", BookDetail);
     return (
       <div className='container'>
