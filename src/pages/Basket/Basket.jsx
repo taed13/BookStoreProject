@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 const Basket = () => {
   const [books, setBooks] = useState([]);
   const [saves, setSaves] = useState([]);
-
+  let totalPrice = 0;
   const removeBook = (id) => {
     console.log("remove->", id);
     const getSave = JSON.parse(localStorage.getItem("saveForLater"))

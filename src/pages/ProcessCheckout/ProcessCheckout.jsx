@@ -218,6 +218,21 @@ function ProcessCheckout() {
         }
       }, 500);
   };
+  const handleButtonDelivery = () => {
+    if (!deliveryService) {
+      notification.error({
+        message: "Lỗi",
+        description: "Vui lòng chọn dịch vụ giao hàng",
+        className: "notification-container",
+      });
+    } else {
+      notification.success({
+        message: "Thành công",
+        description: `Dịch vụ giao hàng: ${deliveryService}`,
+        className: "notification-container",
+      });
+    }
+  };
 
   return (
     <div className="container p-0 mt-5" style={{ width: "40%" }}>
