@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { Button, Input, Select, notification } from "antd";
 import axios from "axios";
+import "./CouponCode.css";
+import BackButton from "../../../components/BackButton/BackButton";
 
 const { Option } = Select;
 
@@ -72,61 +74,60 @@ function CouponCode(props) {
   };
 
   const navigate = useNavigate();
-  if(data){
-  return (
-    <div className="container p-0 mt-5" style={{ width: "40%" }}>
-      <article className="card rounded-3">
-        <div className="card-body">
-          <div className="track">
-            <div className="step active">
-              <span className="icon">
-                {" "}
-                <i className="fa fa-shopping-cart"></i>{" "}
-              </span>{" "}
-              <span className="text">
-                <small style={{ fontSize: "0.71rem" }}>Chọn sản phẩm</small>
-              </span>
+
+  if (data) {
+    return (
+      <div className="container p-0 mt-5" style={{ width: "40%" }}>
+        <BackButton />
+        <article className="card rounded-3">
+          <div className="card-body">
+            <div className="track">
+              <div className="step active">
+                <span className="icon">
+                  <i className="fa fa-shopping-cart"></i>
+                </span>
+                <span className="text">
+                  <small style={{ fontSize: "0.71rem" }}>Chọn sản phẩm</small>
+                </span>
+              </div>
+              <div className="step active">
+                <span className="icon">
+                  <i className="fa fa-info-circle"></i>
+                </span>
+                <span className="text">
+                  <small style={{ fontSize: "0.71rem" }}>
+                    Thông tin đặt hàng
+                  </small>
+                </span>
+              </div>
+              <div className="step active">
+                <span className="icon">
+                  <i className="fa fa-tags"></i>
+                </span>
+                <span className="text">
+                  <small style={{ fontSize: "0.71rem" }}>Phiếu giảm giá</small>
+                </span>
+              </div>
+              <div className="step">
+                <span className="icon">
+                  <i className="fa fa-credit-card"></i>
+                </span>
+                <span className="text">
+                  <small style={{ fontSize: "0.71rem" }}>Thanh toán</small>
+                </span>
+              </div>
+              <div className="step">
+                <span className="icon">
+                  <i className="fa fa-check-circle"></i>
+                </span>
+                <span className="text">
+                  <small style={{ fontSize: "0.71rem" }}>
+                    Hoàn tất đặt hàng
+                  </small>
+                </span>
+              </div>
             </div>
-            <div className="step active">
-              <span className="icon">
-                {" "}
-                <i className="fa fa-info-circle"></i>{" "}
-              </span>{" "}
-              <span className="text">
-                <small style={{ fontSize: "0.71rem" }}>
-                  Thông tin đặt hàng
-                </small>
-              </span>
-            </div>
-            <div className="step active">
-              <span className="icon">
-                {" "}
-                <i className="fa fa-tags"></i>{" "}
-              </span>{" "}
-              <span className="text">
-                <small style={{ fontSize: "0.71rem" }}>Phiếu giảm giá</small>
-              </span>
-            </div>
-            <div className="step">
-              <span className="icon">
-                {" "}
-                <i className="fa fa-credit-card"></i>{" "}
-              </span>{" "}
-              <span className="text">
-                <small style={{ fontSize: "0.71rem" }}>Thanh toán</small>
-              </span>
-            </div>
-            <div className="step">
-              <span className="icon">
-                {" "}
-                <i className="fa fa-check-circle"></i>{" "}
-              </span>{" "}
-              <span className="text">
-                <small style={{ fontSize: "0.71rem" }}>Hoàn tất đặt hàng</small>
-              </span>
-            </div>
-          </div>
-          <hr />
+            <hr />
 
             <div className="border rounded-3 p-2 mb-3 d-flex align-items-center">
               <div className="input-group mb-2 flex-fill d-flex align-items-center">
