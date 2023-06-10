@@ -8,12 +8,12 @@ const MyAccount = () => {
     <div id="main" className="container p-0 mt-2">
       <div className="mb-5">Tài khoản của tôi</div>
       <div className="row m-0">
-        <div className="col-sm-3">
+        <div className="col-sm-6">
           <h4>Thanh toán của tôi</h4>
           <div className="list-group">
             <Link
               to="/my-account/detail/my-purchases"
-              className="list-group-item "
+              className="list-group-item"
             >
               Xem thanh toán của tôi
               <span className="float-right">
@@ -41,7 +41,7 @@ const MyAccount = () => {
           </div>
         </div>
 
-        <div className="col-sm-3">
+        <div className="col-sm-6">
           <h4>Thông tin cá nhân của tôi</h4>
           <div className="list-group">
             <Link
@@ -76,60 +76,6 @@ const MyAccount = () => {
               className="list-group-item "
             >
               Quản lý thẻ ngân hàng của tôi
-              <span className="float-right">
-                <FontAwesomeIcon icon={faGreaterThan} />
-              </span>
-            </Link>
-          </div>
-        </div>
-
-        <div className="col-sm-3">
-          <h4>Tôi muốn</h4>
-          <div className="list-group">
-            <Link to="" className="list-group-item ">
-              List and Maintain My Wants
-              <span className="float-right">
-                <FontAwesomeIcon icon={faGreaterThan} />
-              </span>
-            </Link>
-            <Link to="" className="list-group-item ">
-              My Recently Matched Wants
-              <span className="float-right">
-                <FontAwesomeIcon icon={faGreaterThan} />
-              </span>
-            </Link>
-            <Link to="" className="list-group-item ">
-              Learn More About Wants
-              <span className="float-right">
-                <FontAwesomeIcon icon={faGreaterThan} />
-              </span>
-            </Link>
-            <Link to="" className="list-group-item">
-              Download My Wants Report
-              <span className="float-right">
-                <FontAwesomeIcon icon={faGreaterThan} />
-              </span>
-            </Link>
-          </div>
-        </div>
-
-        <div className="col-sm-3">
-          <h4>Help</h4>
-          <div className="list-group">
-            <Link to="" className="list-group-item ">
-              AbeBooks Help
-              <span className="float-right">
-                <FontAwesomeIcon icon={faGreaterThan} />
-              </span>
-            </Link>
-            <Link to="" className="list-group-item ">
-              Contact Customer Support
-              <span className="float-right">
-                <FontAwesomeIcon icon={faGreaterThan} />
-              </span>
-            </Link>
-            <Link to="" className="list-group-item ">
-              Community Forums
               <span className="float-right">
                 <FontAwesomeIcon icon={faGreaterThan} />
               </span>

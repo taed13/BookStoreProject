@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import validator from "validator";
 import "./Register.css";
 import AuthAPI from "../../api/AuthAPI";
+import { notification } from "antd";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -12,63 +12,30 @@ const Register = () => {
     password: "",
   });
 
-  const [formErrors, setFormErrors] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  });
-
-  const validate = () => {
-    let errors = {};
-    let isValid = true;
-
-    // Validate first name
-    if (validator.isEmpty(formData.firstName)) {
-      errors.firstName = "First name is required";
-      isValid = false;
-    }
-
-    // Validate last name
-    if (validator.isEmpty(formData.lastName)) {
-      errors.lastName = "Last name is required";
-      isValid = false;
-    }
-
-    // Validate email
-    if (validator.isEmpty(formData.email)) {
-      errors.email = "Email address is required";
-      isValid = false;
-    } else if (!validator.isEmail(formData.email)) {
-      errors.email = "Invalid email address";
-      isValid = false;
-    }
-
-    // Validate password
-    if (validator.isEmpty(formData.password)) {
-      errors.password = "Password is required";
-      isValid = false;
-    }
-
-    setFormErrors(errors);
-    return isValid;
-  };
-
   const handleSignUp = async () => {
-    if (validate()) {
-      try {
-        const response = await AuthAPI.register(formData);
-        // Xử lý response từ server sau khi đăng ký thành công
+    try {
+      const response = await AuthAPI.register(formData);
+      // Xử lý response từ server sau khi đăng ký thành công
 
-        console.log(response.data); // In thông tin trả về từ server (nếu có)
-        console.log("Registration successful"); // Hoặc thông báo đăng ký thành công
-      } catch (error) {
-        console.error("Error registering:", error);
-        // Xử lý lỗi khi đăng ký không thành công
-      }
+      console.log(response.data); // In thông tin trả về từ server (nếu có)
+      console.log("Đăng Ký Thành Công"); // Hoặc thông báo đăng ký thành công
+
+      // Hiển thị thông báo thành công
+      notification.success({
+        message: "Đăng Ký Thành Công",
+        description: "Bạn đã đăng ký thành công.",
+      });
+    } catch (error) {
+      console.error("Lỗi đăng ký:", error);
+      // Xử lý lỗi khi đăng ký không thành công
+
+      // Hiển thị thông báo lỗi
+      notification.error({
+        message: "Đăng Ký Thất Bại",
+        description: "Đã xảy ra lỗi khi đăng ký. Vui lòng thử lại.",
+      });
     }
   };
-  
 
   return (
     <div className="bg-white border rounded-5">
@@ -113,9 +80,7 @@ const Register = () => {
                     <input
                       type="text"
                       id="form3Example1"
-                      className={`form-control ${
-                        formErrors.firstName ? "is-invalid" : ""
-                      }`}
+                      className="form-control"
                       value={formData.firstName}
                       onChange={(e) =>
                         setFormData({ ...formData, firstName: e.target.value })
@@ -124,13 +89,11 @@ const Register = () => {
                     <label className="form-label ml-0" htmlFor="form3Example1">
                       First name
                     </label>
-                    {formErrors.firstName && (
-                      <div className="invalid-feedback">
-                        {formErrors.firstName}
-                      </div>
-                    )}
                     <div className="form-notch">
-                      <div className="form-notch-leading" style={{ width: "9px" }}></div>
+                      <div
+                        className="form-notch-leading"
+                        style={{ width: "9px" }}
+                      ></div>
                       <div
                         className="form-notch-middle"
                         style={{ width: "68.8px" }}
@@ -144,9 +107,7 @@ const Register = () => {
                     <input
                       type="text"
                       id="form3Example2"
-                      className={`form-control ${
-                        formErrors.lastName ? "is-invalid" : ""
-                      }`}
+                      className="form-control"
                       value={formData.lastName}
                       onChange={(e) =>
                         setFormData({ ...formData, lastName: e.target.value })
@@ -155,13 +116,11 @@ const Register = () => {
                     <label className="form-label ml-0" htmlFor="form3Example2">
                       Last name
                     </label>
-                    {formErrors.lastName && (
-                      <div className="invalid-feedback">
-                        {formErrors.lastName}
-                      </div>
-                    )}
                     <div className="form-notch">
-                      <div className="form-notch-leading" style={{ width: "9px" }}></div>
+                      <div
+                        className="form-notch-leading"
+                        style={{ width: "9px" }}
+                      ></div>
                       <div
                         className="form-notch-middle"
                         style={{ width: "68px" }}
@@ -175,9 +134,7 @@ const Register = () => {
                 <input
                   type="email"
                   id="form2Example18"
-                  className={`form-control form-control-lg ${
-                    formErrors.email ? "is-invalid" : ""
-                  }`}
+                  className="form-control form-control-lg"
                   value={formData.email}
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
@@ -186,11 +143,11 @@ const Register = () => {
                 <label className="form-label ml-0" htmlFor="form2Example18">
                   Email address
                 </label>
-                {formErrors.email && (
-                  <div className="invalid-feedback">{formErrors.email}</div>
-                )}
                 <div className="form-notch">
-                  <div className="form-notch-leading" style={{ width: "9px" }}></div>
+                  <div
+                    className="form-notch-leading"
+                    style={{ width: "9px" }}
+                  ></div>
                   <div
                     className="form-notch-middle"
                     style={{ width: "88.8px" }}
@@ -203,9 +160,7 @@ const Register = () => {
                 <input
                   type="password"
                   id="form2Example28"
-                  className={`form-control form-control-lg ${
-                    formErrors.password ? "is-invalid" : ""
-                  }`}
+                  className="form-control form-control-lg"
                   value={formData.password}
                   onChange={(e) =>
                     setFormData({ ...formData, password: e.target.value })
@@ -214,11 +169,11 @@ const Register = () => {
                 <label className="form-label ml-0" htmlFor="form2Example28">
                   Password
                 </label>
-                {formErrors.password && (
-                  <div className="invalid-feedback">{formErrors.password}</div>
-                )}
                 <div className="form-notch">
-                  <div className="form-notch-leading" style={{ width: "9px" }}></div>
+                  <div
+                    className="form-notch-leading"
+                    style={{ width: "9px" }}
+                  ></div>
                   <div
                     className="form-notch-middle"
                     style={{ width: "64.8px" }}

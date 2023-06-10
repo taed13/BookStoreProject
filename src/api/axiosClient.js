@@ -1,6 +1,6 @@
 import axios from "axios";
 const axiosClient = axios.create({
-  baseURL: "http://localhost:8999/api/v1",
+  baseURL: "https://bedd-2402-800-629c-1974-cc6f-3e4a-9e55-295d.ngrok-free.app/",
   // baseURL: 'https://jsonplaceholder.typicode.com/',
   headers: {
     "Content-Type": "application/json",

@@ -11,6 +11,8 @@ import {
 } from "@ant-design/icons";
 import "./Nav.css";
 
+const { SubMenu } = Menu;
+
 const Nav = () => {
   return (
     <div className="main-navigation" style={{ marginTop: "5rem" }}>
@@ -22,66 +24,48 @@ const Nav = () => {
                 key="search"
                 icon={<SearchOutlined />}
                 className="nav-item"
+                style={{ width: "33.33%" }}
               >
                 <Link to="/advanced-search" className="text-decoration-none">
                   Tìm kiếm nâng cao
                 </Link>
               </Menu.Item>
-              <Menu.Item
-                key="textbook"
-                icon={<BookOutlined />}
-                className="nav-item"
-              >
-                <Link to="/sach-giao-khoa" className="text-decoration-none">
-                  Sách giáo khoa
-                </Link>
-              </Menu.Item>
-              <Menu.Item
-                key="rare"
-                icon={<GiftOutlined />}
-                className="nav-item"
-              >
-                <Link to="/sach-hiem" className="text-decoration-none">
-                  Sách hiếm
-                </Link>
-              </Menu.Item>
-              <Menu.Item
-                key="account"
-                icon={<UserOutlined />}
-                className="nav-item"
-              >
-                <Link to="/tai-khoan" className="text-decoration-none">
-                  Tài khoản
-                </Link>
-              </Menu.Item>
-              <Menu.Item
+              <SubMenu
                 key="category"
                 icon={<AppstoreOutlined />}
+                title="Thể loại"
                 className="nav-item"
+                style={{ width: "33.33%" }}
               >
-                <Link to="/the-loai" className="text-decoration-none">
-                  Thể loại
-                </Link>
-              </Menu.Item>
+                <Menu.Item key="category-1">
+                  <Link
+                    to="/the-loai/categoy-1"
+                    className="text-decoration-none nav-item"
+                  >
+                    Thể loại 1
+                  </Link>
+                </Menu.Item>
+                <Menu.Item key="category-2">
+                  <Link
+                    to="/the-loai/categoy-2"
+                    className="text-decoration-none nav-item"
+                  >
+                    Thể loại 2
+                  </Link>
+                </Menu.Item>
+                {/* Add more Menu.Item for other categories */}
+              </SubMenu>
+
               <Menu.Item
                 key="list"
                 icon={<BarsOutlined />}
                 className="nav-item"
+                style={{ width: "33.33%" }}
               >
                 <Link to="/danh-muc" className="text-decoration-none">
                   Danh mục
                 </Link>
               </Menu.Item>
-              <Menu.Item
-                key="promotion"
-                icon={<GiftOutlined />}
-                className="nav-item mr-5"
-              >
-                <Link to="/khuyen-mai" className="text-decoration-none">
-                  Khuyến mãi
-                </Link>
-              </Menu.Item>
-              {/* Add additional Menu.Item for other pages */}
             </Menu>
           </div>
         </div>

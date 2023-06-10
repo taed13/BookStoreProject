@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Input, DatePicker, Radio, Select, Button, notification } from "antd";
+import {
+  Input,
+  DatePicker,
+  Radio,
+  Select,
+  Button,
+  notification,
+  InputNumber,
+} from "antd";
 
 const { RangePicker } = DatePicker;
 const { Option } = Select;
@@ -10,16 +18,25 @@ const AdvancedSearch = () => {
     title: "",
     keyword: "",
     publisher: "",
+    minPrice: undefined,
+    maxPrice: undefined,
   });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleInputChange = (name, value) => {
     setSearchFields((prevFields) => ({ ...prevFields, [name]: value }));
   };
 
   const handleSearch = () => {
-    const { author, title, keyword, publisher } = searchFields;
-    if (!author && !title && !keyword && !publisher) {
+    const { author, title, keyword, publisher, minPrice, maxPrice } =
+      searchFields;
+    if (
+      !author &&
+      !title &&
+      !keyword &&
+      !publisher &&
+      minPrice === undefined &&
+      maxPrice === undefined
+    ) {
       notification.error({
         message: "Lỗi",
         description: "Vui lòng nhập ít nhất một trường để tìm kiếm.",
@@ -33,6 +50,8 @@ const AdvancedSearch = () => {
         title: "",
         keyword: "",
         publisher: "",
+        minPrice: undefined,
+        maxPrice: undefined,
       });
     }
   };
@@ -104,8 +123,27 @@ const AdvancedSearch = () => {
 
           <div className="row mt-2">
             <div className="col">
-              <label>Giá</label>
-              <RangePicker style={{ width: "100%" }} />
+              <label>Giá tiền</label>
+              <div className="row">
+                <div className="col">
+                  <InputNumber
+                    name="minPrice"
+                    value={searchFields.minPrice}
+                    onChange={(value) => handleInputChange("minPrice", value)}
+                    placeholder="Từ"
+                    style={{ width: "100%" }}
+                  />
+                </div>
+                <div className="col">
+                  <InputNumber
+                    name="maxPrice"
+                    value={searchFields.maxPrice}
+                    onChange={(value) => handleInputChange("maxPrice", value)}
+                    placeholder="Đến"
+                    style={{ width: "100%" }}
+                  />
+                </div>
+              </div>
             </div>
           </div>
 

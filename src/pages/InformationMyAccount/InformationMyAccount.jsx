@@ -1,30 +1,24 @@
 import React from "react";
 import { Field, Form, Formik } from "formik";
-import { notification } from "antd";
-import { Input, Avatar, Upload, Button, Select, Switch } from "antd";
 import {
-  FileOutlined,
+  Input,
+  Avatar,
+  Upload,
+  Button,
+  Select,
+  Switch,
+  notification,
+} from "antd";
+import {
+  CreditCardOutlined,
+  LockOutlined,
   UserOutlined,
-  MailOutlined,
-  GlobalOutlined,
+  EnvironmentOutlined,
+  CalendarOutlined,
 } from "@ant-design/icons";
-import * as Yup from "yup";
 import axios from "axios";
 
 const { Option } = Select;
-
-const validationSchema = Yup.object().shape({
-  cardNumber: Yup.string().required("Card Number Required"),
-  expirationDate: Yup.string().required("Expiration Date Required"),
-  cvv: Yup.string().required("CVV Required"),
-  cardholderName: Yup.string().required("Cardholder Name Required"),
-  billingAddress: Yup.string().required("Billing Address Required"),
-  email: Yup.string().email("Invalid email").required("Email Required"),
-  avatar: Yup.string(),
-  lang: Yup.string(),
-  timeZone: Yup.string(),
-  syncData: Yup.bool(),
-});
 
 const langOptions = [
   { value: "en", label: "English (US)", imgPath: "/img/countries/us.png" },
@@ -39,12 +33,55 @@ const InformationMyAccount = ({ data }) => {
   };
 
   const onFormSubmit = (values, setSubmitting) => {
-    console.log("val", values);
-    notification.success({
-      message: "Profile updated",
-      placement: "topCenter",
-    });
+    const errors = validateForm(values);
+    if (errors.length === 0) {
+      try {
+        axios.post("/api/updateProfile", values);
+        notification.success({
+          message: "Profile cá nhân đã cập nhật",
+          placement: "topCenter",
+        });
+      } catch (error) {
+        console.error("Lỗi cập nhật:", error);
+      }
+    } else {
+      notification.error({
+        message: "Lỗi xác nhận",
+        description: errors.join(", "),
+        placement: "topCenter",
+      });
+    }
     setSubmitting(false);
+  };
+
+  const validateForm = (values) => {
+    const errors = [];
+    if (!values.cardNumber) {
+      errors.push("Số thẻ là bắt buộc");
+    }
+    if (!values.expirationDate) {
+      errors.push("Ngày hết hạn là bắt buộc");
+    }
+    if (!values.cvv) {
+      errors.push("CVV là bắt buộc");
+    }
+    if (!values.cardholderName) {
+      errors.push("Tên chủ thẻ là bắt buộc");
+    }
+    if (!values.billingAddress) {
+      errors.push("Địa chỉ thanh toán là bắt buộc");
+    }
+    if (!values.email) {
+      errors.push("Email là bắt buộc");
+    } else if (!isValidEmail(values.email)) {
+      errors.push("Email không hợp lệ");
+    }
+    return errors;
+  };
+
+  const isValidEmail = (email) => {
+    // Add your email validation logic here
+    return true;
   };
 
   const initialValues = {
@@ -65,26 +102,12 @@ const InformationMyAccount = ({ data }) => {
     <Formik
       initialValues={initialValues}
       enableReinitialize
-      validationSchema={validationSchema}
       onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true);
-        try {
-          await axios.post("/api/updateProfile", values);
-          onFormSubmit(values, setSubmitting);
-        } catch (error) {
-          console.error("Update error:", error);
-        }
-        setSubmitting(false);
+        onFormSubmit(values, setSubmitting);
       }}
     >
-      {({
-        values,
-        touched,
-        errors,
-        isSubmitting,
-        resetForm,
-        setFieldValue,
-      }) => (
+      {({ values, isSubmitting, resetForm, setFieldValue }) => (
         <Form>
           <div className="container p-3 my-3 rounded-4 shadow-lg">
             <div className="row">
@@ -138,20 +161,11 @@ const InformationMyAccount = ({ data }) => {
                     name="cardNumber"
                     placeholder="Số Thẻ"
                     component={Input}
-                    prefix={<FileOutlined className="text-xl" />}
+                    prefix={<CreditCardOutlined className="text-xl" />}
                   />
                 </div>
-                <div className="form-group p-3 shadow rounded-4">
-                  <label htmlFor="expirationDate">Ngày Hết Hạn</label>
-                  <Field
-                    type="text"
-                    id="expirationDate"
-                    name="expirationDate"
-                    placeholder="Ngày Hết Hạn"
-                    component={Input}
-                    prefix={<FileOutlined className="text-xl" />}
-                  />
-                </div>
+              </div>
+              <div className="col-md-6 mt-2 pt-1">
                 <div className="form-group p-3 shadow rounded-4">
                   <label htmlFor="cvv">CVV</label>
                   <Field
@@ -160,7 +174,7 @@ const InformationMyAccount = ({ data }) => {
                     name="cvv"
                     placeholder="CVV"
                     component={Input}
-                    prefix={<FileOutlined className="text-xl" />}
+                    prefix={<LockOutlined className="text-xl" />}
                   />
                 </div>
                 <div className="form-group p-3 shadow rounded-4">
@@ -171,7 +185,7 @@ const InformationMyAccount = ({ data }) => {
                     name="cardholderName"
                     placeholder="Ghi hoa không dấu"
                     component={Input}
-                    prefix={<FileOutlined className="text-xl" />}
+                    prefix={<UserOutlined className="text-xl" />}
                   />
                 </div>
                 <div className="form-group p-3 shadow rounded-4">
@@ -182,73 +196,23 @@ const InformationMyAccount = ({ data }) => {
                     name="billingAddress"
                     placeholder="Địa Chỉ Thanh Toán"
                     component={Input}
-                    prefix={<FileOutlined className="text-xl" />}
+                    prefix={<EnvironmentOutlined className="text-xl" />}
                   />
                 </div>
-              </div>
-              <div className="col-md-6">
-                <div className="form-description">
-                  <h2>Preferences</h2>
-                  <p>Your personalized preference displayed in your account</p>
-                </div>
                 <div className="form-group p-3 shadow rounded-4">
-                  <label htmlFor="lang">Language</label>
-                  <Field name="lang">
-                    {({ field, form }) => (
-                      <Select
-                        {...field}
-                        id="lang"
-                        placeholder="Select language"
-                        value={values.lang}
-                        onChange={(value) =>
-                          form.setFieldValue(field.name, value)
-                        }
-                      >
-                        {langOptions.map((option) => (
-                          <Option key={option.value} value={option.value}>
-                            <img
-                              src={option.imgPath}
-                              alt={option.label}
-                              className="flag-icon"
-                            />
-                            {option.label}
-                          </Option>
-                        ))}
-                      </Select>
-                    )}
-                  </Field>
-                </div>
-                <div className="form-group p-3 shadow rounded-4">
-                  <label htmlFor="timeZone">Time Zone</label>
+                  <label htmlFor="expirationDate">Ngày Hết Hạn</label>
                   <Field
                     type="text"
-                    id="timeZone"
-                    name="timeZone"
-                    placeholder="Time Zone"
+                    id="expirationDate"
+                    name="expirationDate"
+                    placeholder="Ngày Hết Hạn"
                     component={Input}
-                    prefix={<GlobalOutlined className="text-xl" />}
-                  />
-                </div>
-                <div className="form-group p-3 shadow rounded-4">
-                  <label htmlFor="syncData">Sync Data</label>
-                  <Field
-                    type="checkbox"
-                    id="syncData"
-                    name="syncData"
-                    checked={values.syncData}
-                    component={Switch}
+                    prefix={<CalendarOutlined className="text-xl" />}
                   />
                 </div>
               </div>
             </div>
             <div className="form-buttons text-center p-3 d-flex justify-content-center">
-              <Button
-                type="button"
-                onClick={resetForm}
-                className="border rounded-3"
-              >
-                Reset
-              </Button>
               <Button
                 type="primary"
                 htmlType="submit"

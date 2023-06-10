@@ -1,48 +1,62 @@
-import React from 'react';
-import BookProductPay from '../../components/BookProductPay/BookProductPay';
+import React, { useState } from "react";
+import { Card, Typography, Button } from "antd";
 
-const EmailList = () => {
-    return (
-        <div className='container p-0 mt-2'>
-            <h4>E-mail của tôi</h4>
+const { Text } = Typography;
 
-            <div className="pl-2">
-                <small><p>Theo mặc định, các tin nhắn được hiển thị theo thứ tự từ mới nhất tới cũ nhất</p></small>
-                <div className="container p-0 custom-border rounded-3 my-3">
-                    <div style={{ backgroundColor: 'rgb(221, 221, 221)' }} className="py-2">
-                        <div style={{ display: 'flex' }} className="pageHeader">
-                            <div style={{ flex: 6 }} className="">
-                                <strong className="pl-2">Tên: </strong><span>datamin</span>
-                                <strong className="pl-2">Email: </strong><span>tiendatpot@gmail.com</span>
-                            </div>
-                            <div style={{ flex: 2 }}>
+const EmailDetail = () => {
+  const [email, setEmail] = useState({
+    sender: "nguoigui@example.com",
+    subject: "Chủ đề email",
+    content: "Nội dung email...",
+    date: "11/06/2023",
+  });
 
-                            </div>
-                            <div style={{ flex: 2 }}>
- 
-                            </div>
-                            
-                        </div>
-                    </div>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                </div>
-            </div>
+  const handleReply = () => {
+    // Xử lý hành động trả lời email
+  };
+
+  const handleForward = () => {
+    // Xử lý hành động chuyển tiếp email
+  };
+
+  const handleDelete = () => {
+    // Xử lý hành động xóa email
+  };
+
+  return (
+    <div className="container p-0 mt-2">
+      <h4>E-mail của tôi</h4>
+
+      <div className="pl-2">
+        <small>
+          <p>
+            Theo mặc định, các tin nhắn được hiển thị theo thứ tự từ mới nhất
+            tới cũ nhất
+          </p>
+        </small>
+        <div className="container p-3 custom-border rounded-3 my-3">
+          <Card title={email.subject} extra={<Text>{email.date}</Text>}>
+            <Text strong>Người gửi: </Text>
+            <Text>{email.sender}</Text>
+            <br />
+            <br />
+            <Text>{email.content}</Text>
+          </Card>
+          <div className="d-flex justify-content-end mt-3">
+            <Button type="primary" onClick={handleReply}>
+              Trả lời
+            </Button>
+            <Button className="ml-2" onClick={handleForward}>
+              Chuyển tiếp
+            </Button>
+            <Button className="ml-2" danger onClick={handleDelete}>
+              Xóa
+            </Button>
+          </div>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-export default EmailList;
+export default EmailDetail;
