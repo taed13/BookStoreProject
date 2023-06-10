@@ -43,7 +43,7 @@ import { UserOutlined } from "@ant-design/icons";
 //           </div>
 //
 //           <div className="d-flex align-items-center justify-content-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
-//             <For
+//             <Form
 //               form={form}
 //               name="forgot-password-form"
 //               onFinish={onFinish}
@@ -68,7 +68,7 @@ import { UserOutlined } from "@ant-design/icons";
 //                   Continue
 //                 </Button>
 //               </div>
-//             </For
+//             </Form>
 // =======
 
 const ForgotPassword = () => {
@@ -81,10 +81,11 @@ const ForgotPassword = () => {
     axios
       .post(`/users/forgotPassword/${email}`) // Gửi yêu cầu POST đến API "/api/reset-password" với body chứa giá trị email
       .then((response) => {
-        // Xử lý thành công, hiển thị thông báo thành công từ phản hồi API
+        console.log(response.data);
+        setMessage(response.data[0].username); // Xử lý thành công, hiển thị thông báo thành công từ phản hồi API
       })
       .catch((error) => {
-        // setMessage(error.response.data.message); // Xử lý lỗi, hiển thị thông báo lỗi từ phản hồi API
+        setMessage(error.response.data.message); // Xử lý lỗi, hiển thị thông báo lỗi từ phản hồi API
       });
   };
   return (

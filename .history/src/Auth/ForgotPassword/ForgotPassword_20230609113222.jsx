@@ -43,7 +43,7 @@ import { UserOutlined } from "@ant-design/icons";
 //           </div>
 //
 //           <div className="d-flex align-items-center justify-content-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
-//             <For
+//             <Form
 //               form={form}
 //               name="forgot-password-form"
 //               onFinish={onFinish}
@@ -68,7 +68,7 @@ import { UserOutlined } from "@ant-design/icons";
 //                   Continue
 //                 </Button>
 //               </div>
-//             </For
+//             </Form>
 // =======
 
 const ForgotPassword = () => {

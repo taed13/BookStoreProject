@@ -5,13 +5,9 @@ import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import BookItem from "../BookItem/BookItem";
 
-
-
 const addToCart = () => {
   // Lấy ID sách từ localStorage
-  const product = JSON.parse(
-    localStorage.getItem("IDbook")
-  );
+  const product_id = localStorage.getItem("IDbook");
 
   // Lấy thông tin người dùng từ localStorage
   const user = JSON.parse(localStorage.getItem("user"));
@@ -19,16 +15,14 @@ const addToCart = () => {
 
   // Tạo đối tượng JSON để truyền về backend
   const data = {
-    productId: product,
+    productId: product_id,
     userId: user_id,
     quantity: 1,
   };
 
   // Gửi yêu cầu POST đến API với gói JSON
   axios
-
     .post("/shoppingCart", data)
-
     .then((response) => {
       // Xử lý kết quả từ API nếu cần
       console.log("Đã thêm vào giỏ hàng:", response.data);
