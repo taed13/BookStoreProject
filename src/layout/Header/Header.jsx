@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import { AppContext } from "../../App";
 import axios from "../../api/axiosClient";
 import validator from "validator";
+import { Popover, Divider } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
+import BookResult from "./components/BookResult";
 
 const Header = ({ isLoggedIn, onLogout }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -68,35 +70,49 @@ const Header = ({ isLoggedIn, onLogout }) => {
             </Link>
 
             <div className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 pl-5 pr-0">
-              <form className="d-flex" onSubmit={handleSearch}>
-                <input
-                  className="form-control"
-                  type="search"
-                  placeholder="Nhập từ khóa, tiêu đề, tác giả hoặc ISBN"
-                  aria-label="Search"
-                  style={{ width: "30rem" }}
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  required // Add the required attribute for HTML5 form validation
-                />
-                <button
-                  className="btn btn-outline-danger"
-                  type="submit"
-                  disabled={!searchTerm}
-                >
-                  {/* Disable the button when searchTerm is empty */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    className="bi bi-search mx-auto"
-                    viewBox="0 0 16 16"
+              <Popover
+                placement="bottom"
+                popupVisible={searchTerm.length > 0}
+                content={
+                  <div>
+                    <Divider orientation="left" plain>
+                      Book
+                    </Divider>
+                    <BookResult />
+                  </div>
+                }
+                trigger="click"
+              >
+                <form className="d-flex" onSubmit={handleSearch}>
+                  <input
+                    className="form-control"
+                    type="search"
+                    placeholder="Nhập từ khóa, tiêu đề, tác giả hoặc ISBN"
+                    aria-label="Search"
+                    style={{ width: "30rem" }}
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    required // Add the required attribute for HTML5 form validation
+                  />
+                  <button
+                    className="btn btn-outline-danger"
+                    type="submit"
+                    disabled={!searchTerm}
                   >
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                  </svg>
-                </button>
-              </form>
+                    {/* Disable the button when searchTerm is empty */}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-search mx-auto"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg>
+                  </button>
+                </form>
+              </Popover>
             </div>
             <ul className="nav nav-pills d-flex justify-content-between">
               {isLoggedIn && (

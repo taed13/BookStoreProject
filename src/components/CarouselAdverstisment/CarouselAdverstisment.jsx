@@ -63,6 +63,15 @@ const CarouselAdverstisment = () => {
         console.error(error);
       });
   };
+  const handleClick = async () => {
+    console.log("data", author, title, keyword);
+    const res = await searchAPI.getProductsByAuthor(author);
+    if (res.status === 200) {
+      console.log("res ---> ", res);
+    } else {
+      console.log("error ---> ", res);
+    }
+  };
 
   return (
     <div className="page-lead">
@@ -116,7 +125,11 @@ const CarouselAdverstisment = () => {
                     onChange={(e) => setKeyword(e.target.value)}
                   />
                 </div>
-                <button type="submit" className="btn btn-danger rounded-5 w-25">
+                <button
+                  type="submit"
+                  className="btn btn-danger rounded-5 w-25"
+                  onClick={handleClick}
+                >
                   Tìm kiếm
                 </button>
               </form>

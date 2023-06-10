@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./DetailBook.css";
 // import axios from "../../api/axiosClient";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import BookItem from "../BookItem/BookItem";
 import { message } from "antd";
@@ -30,6 +30,7 @@ const addToCart = () => {
 };
 
 const DetailBook = () => {
+  const { id } = useParams();
   const [BookDetail, setBookDetail] = useState(null);
   useEffect(() => {
     const fetchBookDetail = async () => {
@@ -275,7 +276,7 @@ const DetailBook = () => {
             </div>
             <div className="border-top my-5">
               <RateNComment />
-              <SubmitRateNComment />
+              <SubmitRateNComment idProduct={id} />
             </div>
           </div>
         </div>

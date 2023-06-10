@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Rate,
   Form,
@@ -8,16 +8,29 @@ import {
   Button,
   notification,
 } from "antd";
+import { commentAPI } from "../../api/ commentAPI";
 
 const { Title } = Typography;
 
-const SubmitRateNComment = () => {
+const SubmitRateNComment = ({ idProduct }) => {
+  const context = useContext;
   const [form] = Form.useForm();
   const [rating, setRating] = useState(0);
   const [showDate, setShowDate] = useState(false);
 
   const handleRatingChange = (value) => {
     setRating(value);
+  };
+  const SubmitComment = async (productId, content, rating) => {
+    if (context?.user?.id) {
+      const res = await commentAPI.postComment({
+        userId: context.user.id,
+        productId: productId,
+        content: content,
+        like: rating,
+      });
+      console.log("121--", res);
+    }
   };
 
   const handleSubmit = (values) => {
@@ -28,9 +41,7 @@ const SubmitRateNComment = () => {
         console.log("Rating:", rating);
         setShowDate(true);
 
-        // Add your logic to submit the rating and comment data
-
-        // Display success notification
+        SubmitComment(idProduct, values.comment, values.rating);
         notification.success({
           message: "Success",
           description: "Rating and comment submitted successfully.",
@@ -57,12 +68,12 @@ const SubmitRateNComment = () => {
         }}
         className="mt-3 mb-0"
       >
-        <Avatar
-          size={48}
-          src="https://creativeedtech.weebly.com/uploads/4/1/6/3/41634549/published/avatar.png?1487742111"
-        />
+        {context?.user?.avatar && (
+          <Avatar size={48} src={context.user.avatar} />
+        )}
+
         <Title level={5} style={{ margin: "0 8px" }}>
-          Username
+          {context?.user?.userName}
         </Title>
       </div>
       <Form form={form} onFinish={handleSubmit} gutter={16}>

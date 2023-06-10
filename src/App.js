@@ -49,7 +49,7 @@ function App() {
               <Route path='detail' element={<Basket />} />
             </Route>
             <Route path='book' element={<AppLayout />} >
-              <Route path='detail' element={<BookDetail />} />
+              <Route path=':id' element={<BookDetail />} />
             </Route>
             <Route path='my-account' element={<AppLayout />} >
               <Route path='detail' element={<MyAccount />} />
