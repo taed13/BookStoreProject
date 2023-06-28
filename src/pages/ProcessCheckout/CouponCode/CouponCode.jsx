@@ -1,7 +1,124 @@
-import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Button, Input, Select, notification } from "antd";
+import axios from "../../../api/axiosClient";
+import "./CouponCode.css";
 
-function CouponCode() {
+const { Option } = Select;
+
+function CouponCode(props) {
+  const dataJson = localStorage.getItem("userData");
+  const data = JSON.parse(dataJson);
+
+  const [couponCode, setCouponCode] = useState("");
+  const [deliveryService, setDeliveryService] = useState("");
+  const [couponCodeInput, setCouponCodeInput] = useState("");
+  const [couponCodeSelect, setCouponCodeSelect] = useState("");
+
+  // const [orderInfo, setOrderInfo] = useState({});
+
+  //   useEffect(() => {
+  //     fetchOrderInfo();
+  //   }, []);
+  //
+  //   const fetchOrderInfo = () => {
+  //     axios
+  //       .get("/bill")
+  //       .then((response) => {
+  //         setOrderInfo(response.data);
+  //         const jsonData = JSON.stringify(response.data);
+  //         localStorage.setItem("billData", jsonData);
+  //       })
+  //       .catch((error) => {
+  //         console.error(
+  //           "Failed to fetch order information:",
+  //           error
+  //         );
+  //       });
+  //   };
+  const [orderInfo, setOrderInfo] = useState({});
+
+  useEffect(() => {
+    fetchOrderInfo();
+  }, []);
+
+  const fetchOrderInfo = () => {
+    axios
+      .get("/bill")
+      .then((response) => {
+        setOrderInfo(response.data[0]);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch order information:", error);
+      });
+  }; // Chuỗi JSON
+  // const final_price = orderInfo.totalMoney;
+  const handleContinue = () => {
+    // if (!deliveryService) {
+    //   notification.error({
+    //     message: "Lỗi",
+    //     description: "Vui lòng chọn dịch vụ giao hàng",
+    //     className: "notification-container",
+    //   });
+    // } else {
+    navigate("/process-checkout/payment");
+    // }
+  };
+
+  const data_db = {
+    promotionId: couponCodeInput,
+    billId: orderInfo.id,
+  };
+  console.log(couponCodeInput);
+
+  const handleApplyCoupon = (e) => {
+    if (!couponCodeInput) {
+      notification.error({
+        message: "Lỗi",
+        description: "Vui lòng nhập mã giảm giá",
+        className: "notification-container",
+      });
+    } else {
+      // Perform the coupon code validation logic here
+      console.log(data_db);
+      axios
+        .post("/billPromotion", data_db)
+        .then((response) => {
+          // Handle the response data from the server (if any)
+          // Example: Display success notification, update state
+        })
+        .catch((error) => {
+          // Handle the error if any
+          // Example: Display error notification
+        });
+      window.location.reload();
+    }
+    // window.location.reload();
+  };
+  const final_price = orderInfo.totalMoney;
+  const handleApplyDiscountCode = () => {
+    if (!couponCodeSelect) {
+      notification.error({
+        message: "Lỗi",
+        description: "Vui lòng nhập mã giảm giá khách hàng thân thiết",
+        className: "notification-container",
+      });
+    } else {
+      // Perform the discount code validation logic here
+      axios
+        .put("/api/discount-codes", {
+          code: couponCodeSelect,
+        })
+        .then((response) => {
+          // Handle the response data from the server (if any)
+          // Example: Display success notification, update state
+        })
+        .catch((error) => {
+          // Handle the error if any
+          // Example: Display error notification
+        });
+    }
+  };
   const navigate = useNavigate();
 
   return (
