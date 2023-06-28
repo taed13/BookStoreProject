@@ -4,13 +4,25 @@ import { useNavigate } from "react-router-dom";
 import "./PayViaVnPay.css";
 import { Input, DatePicker, Button } from "antd";
 import BackButton from "../../../components/BackButton/BackButton";
-
+import axios from "axios";
 const { Title } = Typography;
 const { Countdown } = Statistic;
 
 const { RangePicker } = DatePicker;
 
 const PayViaVnPay = () => {
+  const [orderData, setOrderData] = useState(null);
+
+  useEffect(() => {
+    // Lấy dữ liệu từ API
+    axios.get("https://jsonplaceholder.typicode.com/posts/1")
+      .then(response => {
+        setOrderData(response.data);
+      })
+      .catch(error => {
+        console.error("Lỗi khi lấy dữ liệu từ API:", error);
+      });
+  }, []);
   const deadline = Date.now() + 15 * 60 * 1000; // Thời gian kết thúc đếm ngược (15 phút)
 
   const navigate = useNavigate();
@@ -24,7 +36,28 @@ const PayViaVnPay = () => {
     const cvv = document.getElementById("cvv").value;
     const cardholderName = document.getElementById("cardholderName").value;
     const billingAddress = document.getElementById("billingAddress").value;
-
+        // Gửi yêu cầu POST đến API để thực hiện thanh toán
+        const paymentData = {
+          cardNumber,
+          expiryDate,
+          cvv,
+          cardholderName,
+          billingAddress,
+        };
+    
+        axios.post("https://api.example.com/payment", paymentData)
+          .then(response => {
+            // Xử lý phản hồi từ API
+            // ...
+            setOrderSuccess(true);
+            navigate("/process-checkout/complete", { state: { orderSuccess: true } });
+          })
+          .catch(error => {
+            console.error("Lỗi khi gửi yêu cầu thanh toán:", error);
+            setOrderSuccess(false);
+            navigate("/process-checkout/complete", { state: { orderSuccess: false } });
+          });
+      
     if (
       !cardNumber ||
       !expiryDate ||

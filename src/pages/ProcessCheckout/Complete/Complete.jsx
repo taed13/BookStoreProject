@@ -7,6 +7,9 @@ import { faCheck, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import BackButton from "../../../components/BackButton/BackButton";
 
 function Complete() {
+  const dataJson = localStorage.getItem('userData');
+
+  const data = JSON.parse(dataJson);
   const navigate = useNavigate();
   const [orderSuccess, setOrderSuccess] = useState(true); // Set initial value to true for successful order
   let paymentMethod = "";
@@ -107,20 +110,18 @@ function Complete() {
                 123456789
               </p>
               <p className="font-weight-bold">
-                <span className="font-weight-normal">Người Đặt:</span> Lê Tiến
-                Đạt
+                <span className="font-weight-normal">Người Đặt:</span> {data.fullName}
               </p>
               <p className="font-weight-bold">
-                <span className="font-weight-normal">Số điện thoại:</span>{" "}
-                0987654321
+                <span className="font-weight-normal">Số điện thoại:</span>{data.phoneNumber}
               </p>
               <p className="font-weight-bold">
                 <span className="font-weight-normal">Email:</span>{" "}
-                tiendatpot@gmail.com
+                {data.email}
               </p>
               <p className="font-weight-bold">
-                <span className="font-weight-normal">Địa chỉ nhận hàng:</span>{" "}
-                123 Nguyễn Văn Cừ, Quận 5, TP.HCM
+                <span className="font-weight-normal">Địa chỉ nhận hàng:</span>
+                {data.address.apartment_number}, {data.address.wards}
               </p>
               <p className="font-weight-bold">
                 <span className="font-weight-normal">

@@ -3,6 +3,7 @@ import "./DetailBook.css";
 import { cartAPI } from "../../api/cartAPI";
 import { AppContext } from "../../App";
 
+<<<<<<< HEAD
 const DetailBook = ({ data }) => {
   const context = useContext(AppContext);
   const addToCart = async () => {
@@ -18,6 +19,60 @@ const DetailBook = ({ data }) => {
       }
     }
   };
+=======
+
+
+
+const addToCart = () => {
+  // Lấy ID sách từ localStorage
+  const product = JSON.parse(
+    localStorage.getItem("IDbook")
+  );
+
+  // Lấy thông tin người dùng từ localStorage
+  const user = JSON.parse(localStorage.getItem("user"));
+  const user_id = user.id; // Lấy giá trị id từ đối tượng người dùng
+
+  // Tạo đối tượng JSON để truyền về backend
+  const data = {
+    productId: product,
+    userId: user_id,
+    quantity: 1,
+  };
+
+  // Gửi yêu cầu POST đến API với gói JSON
+  axios
+
+    .post("/shoppingCart", data)
+    .then((response) => {
+      // Xử lý kết quả từ API nếu cần
+      console.log("Đã thêm vào giỏ hàng:", response.data);
+      message.success("Thêm vào giỏ hàng thành công");
+    })
+    .catch((error) => {
+      console.error("Lỗi khi thêm vào giỏ hàng:", error);
+      message.error("Thêm vào giỏ hàng thất bại");
+    });
+};
+
+const DetailBook = () => {
+    const [BookDetail, setBookDetail] = useState(null);
+    useEffect(() => {
+        const fetchBookDetail = async () => {
+            try {
+                const response = await axios.get("/posts/"+JSON.parse(localStorage.getItem("IDbook")));
+                console.log(JSON.parse(localStorage.getItem("IDbook")));
+                setBookDetail(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchBookDetail();
+    }, []);
+    if(BookDetail){
+  localStorage.removeItem("IDbook");
+  console.log("Book", BookDetail);
+>>>>>>> 255bb4336c3d59d2b8db0ce8f05fd2d24b6404a9
   return (
     <div className='container'>
       <div className='row'>
@@ -395,5 +450,6 @@ const DetailBook = ({ data }) => {
     </div>
   );
 };
+}
 
 export default DetailBook;

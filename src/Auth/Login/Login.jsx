@@ -22,7 +22,13 @@ const Login = () => {
     try {
       // Validate username and password
       if (!formData.username || !formData.password) {
+<<<<<<< HEAD
         setError("Vui lòng cung cấp cả tên người dùng và mật khẩu.");
+=======
+        setError(
+          "Please provide both username and password."
+        );
+>>>>>>> 255bb4336c3d59d2b8db0ce8f05fd2d24b6404a9
         return;
       }
 
@@ -99,7 +105,11 @@ const Login = () => {
           <div className="d-flex align-items-center justify-content-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
             <form style={{ width: "25rem" }} className="pt-5">
               <h3
+<<<<<<< HEAD
                 className="fw-normal mb-3 pb-3 fw-bolder"
+=======
+                className='fw-normal mb-3 pb-3 fw-bolder'
+>>>>>>> 255bb4336c3d59d2b8db0ce8f05fd2d24b6404a9
                 style={{
                   letterSpacing: "1px",
                   textAlign: "left",
@@ -110,6 +120,7 @@ const Login = () => {
 
               <div className="form-outline mb-4">
                 <input
+<<<<<<< HEAD
                   type="username"
                   id="username-address"
                   className="form-control form-control-lg"
@@ -119,6 +130,20 @@ const Login = () => {
                 />
 
                 <label className="form-label ml-0" htmlFor="username-address">
+=======
+                  type='username'
+                  id='username-address'
+                  className='form-control form-control-lg'
+                  value={formData.username}
+                  onChange={handleChange}
+                  name='username'
+                />
+
+                <label
+                  className='form-label ml-0'
+                  htmlFor='username-address'
+                >
+>>>>>>> 255bb4336c3d59d2b8db0ce8f05fd2d24b6404a9
                   username address
                 </label>
                 <div className="form-notch">
@@ -200,7 +225,14 @@ const Login = () => {
               <div className="mt-2">
                 <p>
                   Don t have an account?{" "}
+<<<<<<< HEAD
                   <Link to="/register" className="link-danger">
+=======
+                  <Link
+                    to='/register'
+                    className='link-danger'
+                  >
+>>>>>>> 255bb4336c3d59d2b8db0ce8f05fd2d24b6404a9
                     Register here
                   </Link>
                   .
@@ -212,9 +244,15 @@ const Login = () => {
 
         <div className="col-sm-6 px-0 d-none d-sm-block">
           <img
+<<<<<<< HEAD
             src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img3.webp"
             alt="Login image"
             className="w-100 vh-100 rounded-4"
+=======
+            src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img3.webp'
+            alt='Login image'
+            className='w-100 vh-100 rounded-4'
+>>>>>>> 255bb4336c3d59d2b8db0ce8f05fd2d24b6404a9
             style={{
               objectFit: "cover",
               objectPosition: "left",

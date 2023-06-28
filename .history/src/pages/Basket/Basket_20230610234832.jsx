@@ -1,38 +1,16 @@
-import React, {
-  useEffect,
-  useState,
-  useContext,
-} from "react";
+import React from "react";
 import "./Basket.css";
 import BookProductPay from "../../components/BookProductPay/BookProductPay";
 import ShippingForm from "../../components/ShippingForm/ShippingForm";
-import { Link } from "react-router-dom";
+import { Link, json } from "react-router-dom";
 import SaveForLater from "../../components/SaveForLater/SaveForLater";
 import ListBook from "../../components/ListBook/ListBook";
 import { useNavigate } from "react-router-dom";
 import axios from "../../api/axiosClient";
-import { AppContext } from "../../App";
-import { cartAPI } from "../../api/cartAPI";
+import { useEffect, useState } from "react";
 
 const Basket = () => {
-  console.log(1);
   const [books, setBooks] = useState([]);
-<<<<<<< HEAD
-  const [total, setTotal] = useState("");
-  const [saves, setSaves] = useState([]);
-  const context = useContext(AppContext);
-
-  const fetchBooks = async () => {
-    if (context?.user?.id) {
-      const res = await cartAPI.getCart(context.user.id);
-      console.log("9-->>", res);
-      if (res.status === 200) {
-        setBooks(res.data);
-      }
-    }
-  };
-  useEffect(() => {
-=======
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
@@ -48,7 +26,6 @@ const Basket = () => {
       }
     };
 
->>>>>>> 255bb4336c3d59d2b8db0ce8f05fd2d24b6404a9
     fetchBooks();
   }, []);
   const calculateTotal = () => {
@@ -58,29 +35,7 @@ const Basket = () => {
     }
     setTotal(totalPrice);
   };
-<<<<<<< HEAD
-  const updateQuantity = (bookId, newQuantity) => {
-    console.log("..., ", bookId, newQuantity);
-    // setBooks((prevBooks) =>
-    //   prevBooks.map((book) => {
-    //     if (book.id === bookId) {
-    //       return {
-    //         ...book,
-    //         quantity: newQuantity,
-    //         totalPrice: book.price * newQuantity,
-    //       };
-    //     }
-    //     return book;
-    //   })
-    // );
-  };
-  // Gọi hàm calculateTotal khi books thay đổi
-  useEffect(() => {
-    calculateTotal();
-  }, [books]);
-=======
 
->>>>>>> 255bb4336c3d59d2b8db0ce8f05fd2d24b6404a9
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -108,11 +63,7 @@ const Basket = () => {
                   tabindex='0'
                   aria-label='Your order total is US$ 115.48'
                 >
-<<<<<<< HEAD
-                  {total}VND
-=======
                   US$ {}
->>>>>>> 255bb4336c3d59d2b8db0ce8f05fd2d24b6404a9
                 </span>
               </nobr>
               <br />
@@ -179,17 +130,10 @@ const Basket = () => {
                   image: book.image,
                   price: book.price,
                 }}
-<<<<<<< HEAD
-                onUpdateQuantity={updateQuantity}
-=======
->>>>>>> 255bb4336c3d59d2b8db0ce8f05fd2d24b6404a9
               />
               <div className='custom-border-bottom'></div>
-<<<<<<< HEAD
-=======
               {book.price}{" "}
               {/* Cộng dồn giá của từng cuốn sách */}
->>>>>>> 255bb4336c3d59d2b8db0ce8f05fd2d24b6404a9
             </div>
           ))}
           ;
@@ -253,13 +197,10 @@ const Basket = () => {
           </div>
         </div>
 
-<<<<<<< HEAD
-=======
         <div className='save-for-later'>
           <SaveForLater />
         </div>
 
->>>>>>> 255bb4336c3d59d2b8db0ce8f05fd2d24b6404a9
         <div className='customers-who-bought-items'>
           <ListBook
             title={

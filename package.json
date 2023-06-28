@@ -22,8 +22,14 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.9.0",
     "react-modal": "^3.16.1",
+<<<<<<< HEAD
     "react-router-dom": "^6.12.0",
     "react-scripts": "^5.0.1",
+=======
+    "react-router-dom": "^6.12.1",
+    "react-scripts": "5.0.1",
+    "uuid": "^9.0.0",
+>>>>>>> 255bb4336c3d59d2b8db0ce8f05fd2d24b6404a9
     "validator": "^13.9.0",
     "web-vitals": "^2.1.4",
     "yup": "^1.2.0"

@@ -4,14 +4,17 @@ import addressArray from "./vietnam-address.json";
 import { Link, useNavigate } from "react-router-dom";
 import "./ProcessCheckout.css";
 
+
+
 import { message } from "antd";
 import { Button, Input, Select, notification } from "antd";
 import CouponCode from "./CouponCode/CouponCode";
-import BackButton from "../../components/BackButton/BackButton";
 
 const { Option } = Select;
 
-// import addressData from './vietnam_address.json';
+// Chuyển đổi đối tượng thành mảng
+
+
 // Chuyển đổi đối tượng thành mảng
 const showWaitingForm = () => {
   // Tạo một div chứa form waiting
@@ -28,8 +31,6 @@ const showWaitingForm = () => {
   // Thêm div chứa form waiting vào body của trang
   document.body.appendChild(waitingFormDiv);
 };
-
-// Chuyển đổi đối tượng thành mảng
 
 function ProcessCheckout() {
   const [address_db, setAddress_db] = useState("");
@@ -92,12 +93,15 @@ function ProcessCheckout() {
     const selectedProvinceData = addressData.find(
       (province) => province.name === selectedProvince
     );
-    const selectedDistrictData = selectedProvinceData?.quan_huyen.find(
-      (district) => district.name === selectedDistrict
-    );
+    const selectedDistrictData =
+      selectedProvinceData?.quan_huyen.find(
+        (district) => district.name === selectedDistrict
+      );
     setWards(selectedDistrictData?.xa_phuong || []);
   };
 
+  const handleWardChange = (e) => {
+    setSelectedWard(e.target.value);
   const handleWardChange = (e) => {
     setSelectedWard(e.target.value);
   };
@@ -201,15 +205,6 @@ function ProcessCheckout() {
       return;
     }
 
-    if (!deliveryService) {
-      notification.error({
-        message: "Lỗi",
-        description: "Vui lòng chọn dịch vụ giao hàng",
-        className: "notification-container",
-      });
-      return;
-    }
-
     // All fields are valid, proceed with form submission
     const formattedAddress = formatAddress(address);
 
@@ -225,6 +220,7 @@ function ProcessCheckout() {
     showWaitingForm();
 
     axios
+      .post("/address", data)
       .post("/address", data)
       .then((response) => {
         const dataJson = JSON.stringify(data);
@@ -256,14 +252,6 @@ function ProcessCheckout() {
       .catch((error) => {
         console.error(error);
       });
-    showWaitingForm();
-
-    const checkDataInterval = setInterval(() => {
-      if (localStorage.getItem("userData")) {
-        clearInterval(checkDataInterval);
-        navigate("/process-checkout/coupon-code");
-      }
-    }, 500);
   };
 
   const handleButtonDelivery = () => {
@@ -283,13 +271,15 @@ function ProcessCheckout() {
   };
 
   return (
-    <div className="container p-0 mt-5" style={{ width: "40%" }}>
-      <BackButton />
-      <article className="card rounded-3">
-        <div className="card-body">
-          <div className="track">
-            <div className="step active">
-              <span className="icon">
+    <div
+      className='container p-0 mt-5'
+      style={{ width: "40%" }}
+    >
+      <article className='card rounded-3'>
+        <div className='card-body'>
+          <div className='track'>
+            <div className='step active'>
+              <span className='icon'>
                 {" "}
                 <i className='fa fa-shopping-cart'></i>{" "}
               </span>{" "}
