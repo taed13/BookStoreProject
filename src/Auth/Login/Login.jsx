@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { notification } from "antd";
 import AuthAPI from "../../api/AuthAPI";
+import { AppContext } from "../../App";
 
 const Login = () => {
   const navigate = useNavigate();
+  const context = useContext(AppContext);
   const [formData, setFormData] = useState({
-    email: "",
+    username: "",
     password: "",
   });
   const [error, setError] = useState("");
@@ -17,16 +20,16 @@ const Login = () => {
 
   const handleSubmit = async () => {
     try {
-      // Validate email and password
-      if (!formData.email || !formData.password) {
-        setError("Please provide both email and password.");
+      // Validate username and password
+      if (!formData.username || !formData.password) {
+        setError("Vui lòng cung cấp cả tên người dùng và mật khẩu.");
         return;
       }
 
-      // Email format validation
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(formData.email)) {
-        setError("Please enter a valid email address.");
+      // username format validation
+      const usernamePattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!usernamePattern.test(formData.username)) {
+        setError("Vui lòng nhập địa chỉ tên người dùng hợp lệ.");
         return;
       }
 
@@ -37,22 +40,37 @@ const Login = () => {
       // ...
 
       // Kiểm tra phản hồi từ máy chủ
-      if (response.success) {
+      if (Object.keys(response).length > 0) {
         // Xử lý phản hồi thành công
-        localStorage.setItem("userId", JSON.stringify(response.data.id));
-        localStorage.setItem("username", JSON.stringify(response.data.id));
-
+        localStorage.setItem("userId", JSON.stringify(response.id));
+        context?.setUser(response);
         navigate("/"); // Chuyển hướng đến trang chủ
+
+        // Hiển thị thông báo thành công
+        notification.success({
+          message: "Đăng Nhập Thành Công",
+          description: "Bạn đã đăng nhập thành công.",
+        });
       } else {
         // Xử lý phản hồi thất bại
-        setError("Invalid email or password.");
+
+        // Hiển thị thông báo lỗi
+        notification.error({
+          message: "Đăng nhập thất bại",
+          description: "Sai Gmail Hoặc Mật Khẩu.",
+        });
       }
 
       // Redirect after successful login
       navigate("/");
     } catch (error) {
       // Handle errors
-      setError("Invalid email or password.");
+
+      // Hiển thị thông báo lỗi
+      notification.error({
+        message: "Đăng Nhập Thất Bại",
+        description: "Sai Gmail Hoặc Mật Khẩu.",
+      });
     }
   };
 
@@ -82,23 +100,26 @@ const Login = () => {
             <form style={{ width: "25rem" }} className="pt-5">
               <h3
                 className="fw-normal mb-3 pb-3 fw-bolder"
-                style={{ letterSpacing: "1px", textAlign: "left" }}
+                style={{
+                  letterSpacing: "1px",
+                  textAlign: "left",
+                }}
               >
                 Đăng nhập
               </h3>
 
               <div className="form-outline mb-4">
                 <input
-                  type="email"
-                  id="email-address"
+                  type="username"
+                  id="username-address"
                   className="form-control form-control-lg"
-                  value={formData.email}
+                  value={formData.username}
                   onChange={handleChange}
-                  name="email"
+                  name="username"
                 />
 
-                <label className="form-label ml-0" htmlFor="email-address">
-                  Email address
+                <label className="form-label ml-0" htmlFor="username-address">
+                  username address
                 </label>
                 <div className="form-notch">
                   <div
@@ -178,7 +199,7 @@ const Login = () => {
 
               <div className="mt-2">
                 <p>
-                  Don't have an account?{" "}
+                  Don t have an account?{" "}
                   <Link to="/register" className="link-danger">
                     Register here
                   </Link>
@@ -194,7 +215,10 @@ const Login = () => {
             src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img3.webp"
             alt="Login image"
             className="w-100 vh-100 rounded-4"
-            style={{ objectFit: "cover", objectPosition: "left" }}
+            style={{
+              objectFit: "cover",
+              objectPosition: "left",
+            }}
           />
         </div>
       </div>

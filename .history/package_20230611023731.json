@@ -1,0 +1,64 @@
+{
+  "name": "book-store",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@ant-design/icons": "^5.1.4",
+    "@fortawesome/fontawesome-free": "^6.4.0",
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "antd": "^5.6.1",
+    "axios": "^1.4.0",
+    "bootstrap": "^5.2.3",
+    "faker": "^6.6.6",
+    "formik": "^2.4.1",
+    "mdbreact": "^5.2.0",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.7.4",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.9.0",
+    "react-modal": "^3.16.1",
+<<<<<<< HEAD
+    "react-router-dom": "^6.12.0",
+    "react-scripts": "^5.0.1",
+=======
+    "react-router-dom": "^6.12.1",
+    "react-scripts": "5.0.1",
+    "uuid": "^9.0.0",
+>>>>>>> fd7300f6e4cee5b17c999e1240145847a80f5aa5
+    "validator": "^13.9.0",
+    "web-vitals": "^2.1.4",
+    "yup": "^1.2.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.0.2"
+  }
+}

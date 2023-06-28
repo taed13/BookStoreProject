@@ -11,18 +11,16 @@ function CouponCode() {
           <div className="track">
             <div className="step active">
               <span className="icon">
-                {" "}
-                <i className="fa fa-shopping-cart"></i>{" "}
-              </span>{" "}
+                <i className="fa fa-shopping-cart"></i>
+              </span>
               <span className="text">
                 <small style={{ fontSize: "0.71rem" }}>Chọn sản phẩm</small>
               </span>
             </div>
             <div className="step active">
               <span className="icon">
-                {" "}
-                <i className="fa fa-info-circle"></i>{" "}
-              </span>{" "}
+                <i className="fa fa-info-circle"></i>
+              </span>
               <span className="text">
                 <small style={{ fontSize: "0.71rem" }}>
                   Thông tin đặt hàng
@@ -31,27 +29,24 @@ function CouponCode() {
             </div>
             <div className="step active">
               <span className="icon">
-                {" "}
-                <i className="fa fa-tags"></i>{" "}
-              </span>{" "}
+                <i className="fa fa-tags"></i>
+              </span>
               <span className="text">
                 <small style={{ fontSize: "0.71rem" }}>Phiếu giảm giá</small>
               </span>
             </div>
             <div className="step">
               <span className="icon">
-                {" "}
-                <i className="fa fa-credit-card"></i>{" "}
-              </span>{" "}
+                <i className="fa fa-credit-card"></i>
+              </span>
               <span className="text">
                 <small style={{ fontSize: "0.71rem" }}>Thanh toán</small>
               </span>
             </div>
             <div className="step">
               <span className="icon">
-                {" "}
-                <i className="fa fa-check-circle"></i>{" "}
-              </span>{" "}
+                <i className="fa fa-check-circle"></i>
+              </span>
               <span className="text">
                 <small style={{ fontSize: "0.71rem" }}>Hoàn tất đặt hàng</small>
               </span>
@@ -60,7 +55,7 @@ function CouponCode() {
           <hr />
 
           <div className="border rounded-3 p-2 mb-3 d-flex align-items-center">
-            <div className="input-group mb-2 flex-fill">
+            <div className="input-group mb-2 flex-fill d-flex align-items-center">
               <span className="input-group-text bg-danger text-white border-right-0">
                 <i className="fa fa-tags"></i>
               </span>
@@ -68,41 +63,77 @@ function CouponCode() {
                 type="text"
                 className="form-control border-left-0 mr-1"
                 placeholder="Mã giảm giá"
+                value={couponCodeInput}
+                onChange={(e) => setCouponCodeInput(e.target.value)}
               />
             </div>
-            <button type="button" className="btn btn-danger mb-2">
+            <button
+              type="button"
+              className="btn btn-danger mb-2"
+              onClick={handleApplyCoupon}
+            >
               Áp dụng
             </button>
           </div>
+          <div className="border rounded-3 p-2 mb-3 d-flex align-items-center">
+            <div className="input-group mb-2 flex-fill d-flex align-items-center">
+              <span className="input-group-text bg-danger text-white border-right-0">
+                <i className="fa fa-tags"></i>
+              </span>
+              <select
+                className="form-control border mr-1 h-100 w-25"
+                value={couponCodeSelect}
+                onChange={(e) => setCouponCodeSelect(e.target.value)}
+              >
+                <option value="">Giảm giá khách hàng thân thiết</option>
+                <option value="15%">Giảm 15%</option>
+                <option value="20%">Giảm 20%</option>
+              </select>
+            </div>
+            <button
+              type="button"
+              className="btn btn-danger mb-2"
+              onClick={handleApplyDiscountCode}
+            >
+              Áp dụng
+            </button>
+          </div>
+
           <div className="border rounded-2 p-3">
             <h4 className="font-weight-bold mb-2 text-center">
               THÔNG TIN ĐẶT HÀNG
             </h4>
 
             <p className="font-weight-bold">
-              <span className="font-weight-normal">Người Đặt:</span> Lê Tiến Đạt
+              <span className="font-weight-normal">Người Đặt:</span>{" "}
+              {orderInfo.name}
             </p>
             <p className="font-weight-bold">
-              <span className="font-weight-normal">Số điện thoại:</span>{" "}
-              0987654321
+              <span className="font-weight-normal">Số điện thoại:</span>
+              {orderInfo.phone}
             </p>
             <p className="font-weight-bold">
-              <span className="font-weight-normal">Email:</span>{" "}
-              tiendatpot@gmail.com
+              <span className="font-weight-normal">Email:</span>
+              {orderInfo.username}
             </p>
             <p className="font-weight-bold">
-              <span className="font-weight-normal">Địa chỉ nhận hàng:</span> 123
-              Nguyễn Văn Cừ, Quận 5, TP.HCM
+              <span className="font-weight-normal">Địa chỉ nhận hàng:</span>{" "}
+              {orderInfo.address}
             </p>
             <p className="font-weight-bold">
-              <span className="font-weight-normal">Tiền hàng:</span> 1.000.000đ
+              <span className="font-weight-normal">Phí ship:</span>{" "}
+              {orderInfo.shippingCost}
+            </p>
+            <p className="font-weight-bold">
+              <span className="font-weight-normal">Tổng tiền hàng:</span>
+              {final_price}
             </p>
           </div>
           <input
             type="button"
             className="btn btn-danger btn-block py-2 mt-2"
             value="Tiếp tục"
-            onClick={() => navigate("/process-checkout/payment")}
+            onClick={handleContinue}
           />
         </div>
       </article>

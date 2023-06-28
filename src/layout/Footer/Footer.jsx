@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { BackTop } from "antd";
+import { ArrowUpOutlined } from "@ant-design/icons";
 
 const Footer = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -22,236 +24,38 @@ const Footer = () => {
       behavior: "smooth",
     });
   };
+
   return (
     <div className="footer mt-5">
-      <footer className="alert-danger text-center text-black">
+      <footer className="alert-danger text-black">
         <div className="container p-4">
           <section className="d-flex flex-column mb-3 align-items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              className={`bi bi-arrow-up p-0 text-danger ${
-                scrollY > 300 ? "visible" : "invisible" }`}
-              viewBox="0 0 16 16"
-              onClick={handleScrollToTop}
-            >
-              <path
-                fillRule="evenodd"
-                d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"
-              />
-            </svg>
+            <BackTop visibilityHeight={300} onClick={handleScrollToTop}>
+              <div
+                className={`bi bi-arrow-up p-0 text-danger ${
+                  scrollY > 300 ? "visible" : "invisible"
+                }`}
+              >
+                <ArrowUpOutlined />
+              </div>
+            </BackTop>
             <a href="#top-header" className="texdan p-0 link-danger">
-              Back to top
+              Trở lại đầu trang
             </a>
           </section>
 
           <section className="mb-4">
-            <Link
-              to="#!"
-              className="btn btn-outline-light btn-floating m-1"
-              role="button"
-            >
-              <i className="fab fa-facebook-f"></i>
-            </Link>
-
-            <Link
-              to="#!"
-              className="btn btn-outline-light btn-floating m-1"
-              role="button"
-            >
-              <i className="fab fa-twitter"></i>
-            </Link>
-
-            <Link
-              to="#!"
-              className="btn btn-outline-light btn-floating m-1"
-              role="button"
-            >
-              <i className="fab fa-google"></i>
-            </Link>
-
-            <Link
-              to="#!"
-              className="btn btn-outline-light btn-floating m-1"
-              role="button"
-            >
-              <i className="fab fa-instagram"></i>
-            </Link>
-
-            <Link
-              to="#!"
-              className="btn btn-outline-light btn-floating m-1"
-              role="button"
-            >
-              <i className="fab fa-linkedin-in"></i>
-            </Link>
-
-            <Link
-              to="#!"
-              className="btn btn-outline-light btn-floating m-1"
-              role="button"
-            >
-              <i className="fab fa-github"></i>
-            </Link>
-          </section>
-
-          <section className="">
-            <form action="">
-              <div className="row d-flex justify-content-center">
-                <div className="col-auto">
-                  <p className="pt-2">
-                    <strong>Sign up for our newsletter</strong>
-                  </p>
-                </div>
-
-				<div className="col-md-5 col-12">
-					<div className="form-outline form-white mb-4">
-						<input
-						type="email"
-						id="form5Example21"
-						className="form-control bg-white text-danger"
-						placeholder="Email address"
-						/>
-					</div>
-				</div>
-
-                <div className="col-auto">
-                  <button type="submit" className="btn btn-outline-dark mb-4">
-                    Subscribe
-                  </button>
-                </div>
-              </div>
-            </form>
-          </section>
-
-          <section className="mb-4">
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
-              distinctio earum repellat quaerat voluptatibus placeat nam,
-              commodi optio pariatur est quia magnam eum harum corrupti dicta,
-              aliquam sequi voluptate quas.
+              Đây là một cửa hàng sách đa dạng với hàng ngàn tựa sách từ các thể
+              loại khác nhau. Chúng tôi cam kết cung cấp những cuốn sách chất
+              lượng, đáng đọc và mang lại sự hài lòng cho bạn.
             </p>
           </section>
-
-          <section className="">
-            <div className="row">
-              <div className="col-lg-3 col-md-6 mb-4 mb-md-0">
-                <Link to="#" className="link-danger text-decoration-none">
-                  <h5 className="text-uppercase">Shop With Us</h5>
-                </Link>
-
-                <ul className="list-unstyled mb-0">
-                  <li>
-                    <Link to="#" className="text-white">
-                      Advanced Search
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#" className="text-white">
-                      Browse Collections
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#" className="text-white">
-                      My Account
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#" className="text-white">
-                      My Orders
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#" className="text-white">
-                      View Basket
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="col-lg-3 col-md-6 mb-4 mb-md-0">
-                <h5 className="text-uppercase">Links</h5>
-
-                <ul className="list-unstyled mb-0">
-                  <li>
-                    <Link to="#" className="text-white">
-                      Link 1
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#" className="text-white">
-                      Link 2
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#" className="text-white">
-                      Link 3
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#" className="text-white">
-                      Link 4
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="col-lg-3 col-md-6 mb-4 mb-md-0">
-                <h5 className="text-uppercase">Links</h5>
-
-                <ul className="list-unstyled mb-0">
-                  <li>
-                    <Link to="#" className="text-white">
-                      Link 1
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#" className="text-white">
-                      Link 2
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#" className="text-white">
-                      Link 3
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#" className="text-white">
-                      Link 4
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="col-lg-3 col-md-6 mb-4 mb-md-0">
-                <h5 className="text-uppercase">Links</h5>
-
-                <ul className="list-unstyled mb-0">
-                  <li>
-                    <Link to="#" className="text-white">
-                      Link 1
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#" className="text-white">
-                      Link 2
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#" className="text-white">
-                      Link 3
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="#" className="text-white">
-                      Link 4
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
+          <section className="mb-4">
+            <p>
+              Bằng cách sử dụng trang Web, bạn xác nhận rằng bạn đã đọc, hiểu và
+              đồng ý bị ràng buộc bởi các Điều khoản và Điều kiện.
+            </p>
           </section>
         </div>
 
@@ -259,9 +63,9 @@ const Footer = () => {
           className="text-center p-3"
           style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
         >
-          © 2020 Copyright:
-          <Link className="text-white" to="https://mdbootstrap.com/">
-            MDBootstrap.com
+          Bản quyền © 2023:
+          <Link className="text-white ml-2" to="#">
+            BookStore
           </Link>
         </div>
       </footer>

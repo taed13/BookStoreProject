@@ -5,14 +5,35 @@ import { Link, useNavigate } from "react-router-dom";
 import "./ProcessCheckout.css";
 
 import { message } from "antd";
-
+import { Button, Input, Select, notification } from "antd";
 import CouponCode from "./CouponCode/CouponCode";
+import BackButton from "../../components/BackButton/BackButton";
+
+const { Option } = Select;
 
 // import addressData from './vietnam_address.json';
+// Chuyển đổi đối tượng thành mảng
+const showWaitingForm = () => {
+  // Tạo một div chứa form waiting
+  const waitingFormDiv = document.createElement("div");
+  waitingFormDiv.className = "waiting-form";
+
+  // Tạo nội dung cho form waiting
+  const waitingText = document.createElement("p");
+  waitingText.textContent = "Please wait...";
+
+  // Thêm nội dung vào div chứa form waiting
+  waitingFormDiv.appendChild(waitingText);
+
+  // Thêm div chứa form waiting vào body của trang
+  document.body.appendChild(waitingFormDiv);
+};
 
 // Chuyển đổi đối tượng thành mảng
 
 function ProcessCheckout() {
+  const [address_db, setAddress_db] = useState("");
+
   const addressData = Object.values(addressArray);
   const [provinces, setProvinces] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState("");
@@ -26,21 +47,36 @@ function ProcessCheckout() {
   const [address, setAddress] = useState("");
   const [note, setNote] = useState("");
   const navigate = useNavigate();
+  const [deliveryService, setDeliveryService] = useState("");
+  const [shippingData, setShippingData] = useState([]);
+  const [shippingId, setShippingId] = useState("");
 
   useEffect(() => {
-    // Đọc dữ liệu từ tệp JSON và cập nhật state
-    setProvinces(addressData.provinces);
+    setProvinces(addressData); // Set provinces from addressData
+  }, []);
+
+  useEffect(() => {
+    const fetchShippingData = async () => {
+      try {
+        const response = await axios.get("/shipping");
+        setShippingData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchShippingData();
   }, []);
 
   const handleProvinceChange = (e) => {
     const selectedProvince = e.target.value;
     setSelectedProvince(selectedProvince);
-    const selectedProvinceData = Object.values(addressData).find(
+    const selectedProvinceData = addressData.find(
       (province) => province.name === selectedProvince
     );
     setDistricts(
-      selectedProvinceData?.["quan_huyen"]
-        ? Object.values(selectedProvinceData["quan_huyen"])
+      selectedProvinceData?.quan_huyen
+        ? Object.values(selectedProvinceData.quan_huyen)
         : []
     );
     setSelectedDistrict("");
@@ -53,14 +89,14 @@ function ProcessCheckout() {
     const selectedProvinceData = addressData.find(
       (province) => province.name === selectedProvince
     );
-    const selectedDistrictData = selectedProvinceData?.districts.find(
+    const selectedDistrictData = selectedProvinceData?.quan_huyen.find(
       (district) => district.name === selectedDistrict
     );
     setWards(selectedDistrictData?.xa_phuong || []);
   };
 
-  const handleWardChange = (event) => {
-    setSelectedWard(event.target.value);
+  const handleWardChange = (e) => {
+    setSelectedWard(e.target.value);
   };
   const handleFullNameChange = (e) => {
     setFullName(e.target.value);
@@ -80,6 +116,20 @@ function ProcessCheckout() {
 
   const handleNoteChange = (e) => {
     setNote(e.target.value);
+  };
+  const formatAddress = (address) => {
+    // Tách các từ trong địa chỉ
+    const words = address.trim().split(" ");
+
+    // Chuyển đổi chữ cái đầu tiên của mỗi từ thành chữ in hoa
+    const formattedWords = words.map((word) => {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    });
+
+    // Ghép các từ lại thành định dạng địa chỉ
+    const formattedAddress = formattedWords.join(" ");
+
+    return formattedAddress;
   };
 
   const handleSubmit = () => {
@@ -134,42 +184,102 @@ function ProcessCheckout() {
       message.error("Please enter your address.");
       return;
     }
-
+    const user = JSON.parse(localStorage.getItem("user"));
+    const userId = user.id; //
+    // Hàm xóa một sản phẩm khỏi giỏ hàng
     // All fields are valid, proceed with form submission
 
+    if (!deliveryService) {
+      notification.error({
+        message: "Lỗi",
+        description: "Vui lòng chọn dịch vụ giao hàng",
+        className: "notification-container",
+      });
+      return;
+    }
+
+    if (!deliveryService) {
+      notification.error({
+        message: "Lỗi",
+        description: "Vui lòng chọn dịch vụ giao hàng",
+        className: "notification-container",
+      });
+      return;
+    }
+
+    // All fields are valid, proceed with form submission
+    const formattedAddress = formatAddress(address);
+
     const data = {
+      userId: userId,
       fullName: fullName,
       phoneNumber: phoneNumber,
       email: email,
-
-      address: {
-        apartment_number: address,
-        wards: ` ${selectedWard}`,
-      },
+      addressLine1: `${formattedAddress}, ${selectedWard}`,
       note: note,
     };
 
-    axios
-      .post("/posts", data)
-      .then((response) => {
-        // Xử lý kết quả từ backend (nếu cần)
-        // Chuyển đổi đối tượng data thành chuỗi JSON
-        const dataJson = JSON.stringify(data);
+    showWaitingForm();
 
-        // Lưu chuỗi JSON vào Local Storage với khóa 'userData'
+    axios
+      .post("/address", data)
+      .then((response) => {
+        const dataJson = JSON.stringify(data);
         localStorage.setItem("userData", dataJson);
-        console.log(response.data);
+
+        const user = JSON.parse(localStorage.getItem("userData"));
+        const userId = user.userId;
+
+        const billData = {
+          userId: userId,
+          shippingId: shippingId,
+        };
+
+        console.log(billData);
+
+        axios
+          .post("/bill", billData)
+          .then((response) => {
+            const billDataJson = JSON.stringify(billData);
+            localStorage.setItem("billData", billDataJson);
+            navigate("/process-checkout/coupon-code");
+          })
+          .catch((error) => {
+            console.error(error);
+          });
       })
       .catch((error) => {
-        // Xử lý lỗi (nếu có)
         console.error(error);
       });
+    showWaitingForm();
 
-    navigate("/process-checkout/coupon-code");
+    const checkDataInterval = setInterval(() => {
+      if (localStorage.getItem("userData")) {
+        clearInterval(checkDataInterval);
+        navigate("/process-checkout/coupon-code");
+      }
+    }, 500);
+  };
+
+  const handleButtonDelivery = () => {
+    if (!deliveryService) {
+      notification.error({
+        message: "Lỗi",
+        description: "Vui lòng chọn dịch vụ giao hàng",
+        className: "notification-container",
+      });
+    } else {
+      notification.success({
+        message: "Thành công",
+        description: `Dịch vụ giao hàng: ${deliveryService}`,
+        className: "notification-container",
+      });
+    }
   };
 
   return (
     <div className="container p-0 mt-5" style={{ width: "40%" }}>
+      <BackButton />
       <article className="card rounded-3">
         <div className="card-body">
           <div className="track">
@@ -222,6 +332,36 @@ function ProcessCheckout() {
             </div>
           </div>
           <hr />
+          <div className="border rounded-3 p-2 mb-3 d-flex align-items-center flex-fill">
+            <div className="input-group mb-2 d-flex align-items-center flex-fill">
+              <span className="input-group-text bg-danger text-white border-right-0">
+                <i className="fa fa-tags"></i>
+              </span>
+              <Select
+                className="mx-1 h-100 flex-fill"
+                value={deliveryService}
+                onChange={(value) => {
+                  setDeliveryService(value);
+                  setShippingId(value); // Lưu trữ giá trị shippingId
+                }}
+                placeholder="Dịch vụ giao hàng"
+              >
+                <Option value="">Dịch vụ giao hàng</Option>
+                {shippingData.map((shipping) => (
+                  <Option key={shipping.id} value={shipping.id}>
+                    {shipping.shippingMethod}
+                  </Option>
+                ))}
+              </Select>
+            </div>
+            <button
+              type="button"
+              className="btn btn-danger mb-2"
+              onClick={handleButtonDelivery}
+            >
+              Áp dụng
+            </button>
+          </div>
           <h5 className="font-weight-bold mb-2">Thông tin khách hàng</h5>
 
           <input
